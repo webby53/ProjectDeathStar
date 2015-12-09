@@ -1,8 +1,7 @@
 package testClass;
 
 //trying out graphics and animation
-//this class now has the purpose of posting tasks
-//objectives and group communication
+//this class has no purpose as yet
 public class TryingGraphics {
 
 }
