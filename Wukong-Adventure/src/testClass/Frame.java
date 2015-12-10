@@ -12,7 +12,7 @@ public class Frame extends TryingGraphics {
 		
 	frame.add(new Board());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(1200,300);  //this value should be the size of the background
+		frame.setSize(1024,273);  //this value should be the size of the background
 					             //THIS IS FOR YOU SIMON	
 		frame.setVisible(true);
 		
