@@ -1,9 +1,10 @@
 package testClass;
 
-import java.awt.*;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 
-import javax.swing.*;
+import javax.swing.ImageIcon;
+
 
 //this class is for the main character of game
 //for all intents and purposes he will be refereed to as Wukong
@@ -15,7 +16,7 @@ public class Character {
 
 	//this 
 	public Character(){
-		ImageIcon i = new ImageIcon("testcharacter.png");
+		ImageIcon i = new ImageIcon(this.getClass().getResource("testcharacter.png"));
 		wu = i.getImage();
 
 		//these are Wukong's starting coordinates
@@ -28,7 +29,7 @@ public class Character {
 		x += dx;
 	}
 
-	//these return the x and y coordinates since variables are static
+	//these return the x and y coordinates since variables are static like my mixtape
 	public int getX(){
 		return x;
 	}
@@ -40,7 +41,22 @@ public class Character {
 		return wu;
 	}
 
+	//increase the change in dx
 	public void keyPressed(KeyEvent e){
 		int key = e.getKeyCode();
+		
+		if(key == KeyEvent.VK_LEFT)
+			dx = -1;
+		if(key == KeyEvent.VK_RIGHT)
+			dx = 1;
+	}
+	//sets dx back to 0
+	public void keyReleased(KeyEvent e){
+		int key = e.getKeyCode();
+		
+		if(key == KeyEvent.VK_LEFT)
+			dx = 0;
+		if(key == KeyEvent.VK_RIGHT)
+			dx = 0;
 	}
 }//Character
