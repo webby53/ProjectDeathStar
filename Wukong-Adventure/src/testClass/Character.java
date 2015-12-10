@@ -58,5 +58,6 @@ public class Character {
 			dx = 0;
 		if(key == KeyEvent.VK_RIGHT)
 			dx = 0;
+		
 	}
 }//Character
