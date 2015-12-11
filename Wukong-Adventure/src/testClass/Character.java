@@ -10,7 +10,7 @@ import javax.swing.ImageIcon;
 //for all intents and purposes he will be refereed to as Wukong
 public class Character {
 
-	int x, dx, y; //this is the x coordinate('x')
+	int x, nx2, dx, y; //this is the x coordinate('x')
 	//and change in x('dx') and y coordinate('y')
 	Image wu;
 
@@ -20,8 +20,8 @@ public class Character {
 		wu = i.getImage();
 
 		//these are Wukong's starting coordinates
-		x = 15;
-		y = 20;
+		x = 472;
+		y = 273-120;
 	}//Constructor
 
 	//moves the character horizontally
