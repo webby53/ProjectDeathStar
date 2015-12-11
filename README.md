@@ -20,15 +20,16 @@ Level Design
     Coding
       Map
         Map background
+          Backround Scrolling / movement
         Tile Mapping (what you stand on)
-        
+          Reading in the tile map
+          Intializing the tile map
+          Contructing and outputing the tiles into window
         
     Asthetics
       Timer
       Placing of objects
-      scrolling
-      item placement
-
+        Spawing entities
 
 Entities
   Charactrer entity
