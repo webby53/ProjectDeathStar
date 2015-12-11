@@ -36,7 +36,7 @@ Level Design
 Entities
   Charactrer entity
     Character movement
-    
+    Character Collisions
   Enemy entity
   items and placement / collection (mabye)
   
