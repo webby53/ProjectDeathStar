@@ -25,6 +25,8 @@ Level Design
           Reading in the tile map
           Intializing the tile map
           Contructing and outputing the tiles into window
+        Character
+          Inserting Character
         
     Asthetics
       Timer
@@ -33,6 +35,8 @@ Level Design
 
 Entities
   Charactrer entity
+    Character movement
+    
   Enemy entity
   items and placement / collection (mabye)
   
