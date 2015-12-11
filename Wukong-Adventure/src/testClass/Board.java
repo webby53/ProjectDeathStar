@@ -36,7 +36,7 @@ public class Board extends JPanel implements ActionListener{
 		super.paint(g);
 			Graphics2D g2d = (Graphics2D) g;
 			
-			g2d.drawImage(img, nx2, 0, null);
+			g2d.drawImage(img, 0, 0, null);
 			g2d.drawImage(wukong.getImage(), 472, wukong.getY(), null);
 	}
 	
