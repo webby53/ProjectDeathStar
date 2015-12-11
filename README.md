@@ -1,6 +1,8 @@
 # ProjectDeathStar
 The Death Star Above Brazil
 
+Good tutorial(bossletplays (https://www.youtube.com/playlist?list=PLzM5baL2UjtLEewQScGTWNgeoGXMxG7pc))
+
 Project Layout
 
 Basics
@@ -18,6 +20,8 @@ Level Design
     Coding
       Map
         Map background
+        Tile Mapping (what you stand on)
+        
         
     Asthetics
       Timer
