@@ -36,7 +36,17 @@ Level Design
 Entities
   Charactrer entity
     Character movement
+      Key reader
     Character Collisions
+    Character animations
+      Close attack (melee)
+        Play seperate annimations
+        Register if attack hit
+      Ranged attack
+        Play seperate annimation
+        Display entity
+        Check is entity collides
   Enemy entity
+    
   items and placement / collection (mabye)
   
