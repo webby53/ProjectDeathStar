@@ -12,16 +12,28 @@ public class Game extends Canvas implements Runnable{
 	public static final String TITLE = "Wukongs Advernture Ver 1.0";
 	public static final int WIDTH = 896;
 	public static final int HEIGHT = WIDTH / 4 * 3;
+	//boolean to test if game is running
+	private boolean running;
 	
 	//makes a new thread
 	public void start(){
-		new Thread(this, "Main-Thread").start();
+		if(running)
+			return;
+		else{
+			running = true;
+			new Thread(this, "Main-Thread").start();
+		}
 	}
 	
 	
 	//stops the game
 	private void stop(){
-		System.exit(0);
+		if(! running)
+			return;
+		else{
+			running = false;
+			System.exit(0);
+		}
 	}//stop
 
 	//used to start a thread of our game
@@ -48,7 +60,9 @@ public class Game extends Canvas implements Runnable{
 			}
 		});
 		
+		//puts game frame in center of screen
 		frame.setLocationRelativeTo(null);
+		//so it can be seen
 		frame.setVisible(true);
 		frame.requestFocus();	
 		game.start();
