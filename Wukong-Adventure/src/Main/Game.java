@@ -1,4 +1,4 @@
-package version1;
+package Main;
 
 import java.awt.Canvas;
 import java.awt.event.WindowAdapter;
@@ -8,6 +8,8 @@ import java.awt.*;
 
 import javax.swing.JFrame;
 
+import Rendering.Textures;
+
 public class Game extends Canvas implements Runnable{
 
 	public static final String TITLE = "Wukongs Advernture Ver 1.01";
@@ -15,6 +17,12 @@ public class Game extends Canvas implements Runnable{
 	public static final int HEIGHT = WIDTH / 4 * 3;
 	//boolean to test if game is running
 	private boolean running;
+	private Textures texture, guy;
+	
+	public Game(){
+		texture = new Textures("test");
+		guy = new Textures("testcharacter");
+	}
 	
 	//makes a new thread
 	public void start(){
@@ -47,6 +55,8 @@ public class Game extends Canvas implements Runnable{
 		//////\\\\\\
 		g.setColor(Color.BLUE);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
+		texture.render(g, 100, 100);
+		guy.render(g, 100, 200);
 		g.dispose();//disposes last graphics
 		//////\\\\\\
 		bs.show();
@@ -56,7 +66,7 @@ public class Game extends Canvas implements Runnable{
 	private void stop(){
 		if(! running)
 			return;
-		else{
+		else{	
 			running = false;
 			System.exit(0);
 		}
