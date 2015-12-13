@@ -27,8 +27,8 @@ public class Game extends Canvas implements Runnable{
 	public Game(){
 		texture = new Textures("test");
 		guy = new Textures("testcharacter");
-		sheet = new SpriteSheet(new Textures("TestSpriteSheet"), 64);
-		sprite = new Sprite(sheet, 3, 2);//should be venosaur but it is not this may be a problem with my test sprite sheet must be tested further
+		sheet = new SpriteSheet(new Textures("Test_SpriteSheet_2"), 64);
+		sprite = new Sprite(sheet, 3, 2);
 		
 	}
 	
