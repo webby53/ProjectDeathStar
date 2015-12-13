@@ -9,6 +9,9 @@ import java.awt.*;
 import javax.swing.JFrame;
 
 import Rendering.Textures;
+import Rendering.Sprite;
+import Rendering.SpriteSheet;
+
 
 public class Game extends Canvas implements Runnable{
 
@@ -18,10 +21,15 @@ public class Game extends Canvas implements Runnable{
 	//boolean to test if game is running
 	private boolean running;
 	private Textures texture, guy;
+	private SpriteSheet sheet;
+	private Sprite sprite;
 	
 	public Game(){
 		texture = new Textures("test");
 		guy = new Textures("testcharacter");
+		sheet = new SpriteSheet(new Textures("TestSpriteSheet"), 64);
+		sprite = new Sprite(sheet, 3, 2);//should be venosaur but it is not this may be a problem with my test sprite sheet must be tested further
+		
 	}
 	
 	//makes a new thread
@@ -52,13 +60,18 @@ public class Game extends Canvas implements Runnable{
 		
 		//this makes our buffer supply the graphics
 		Graphics g = bs.getDrawGraphics();
+		
 		//////\\\\\\
+		
 		g.setColor(Color.BLUE);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		texture.render(g, 100, 100);
 		guy.render(g, 100, 200);
+		sprite.render(g, 200, 200);
 		g.dispose();//disposes last graphics
+
 		//////\\\\\\
+		
 		bs.show();
 	}
 	
