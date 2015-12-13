@@ -12,7 +12,7 @@ import Rendering.Textures;
 
 public class Game extends Canvas implements Runnable{
 
-	public static final String TITLE = "Wukongs Advernture Ver 1.01";
+	public static final String TITLE = "Wukongs Advernture Ver 1.10";
 	public static final int WIDTH = 896;
 	public static final int HEIGHT = WIDTH / 4 * 3;
 	//boolean to test if game is running
