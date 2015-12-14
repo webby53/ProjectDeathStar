@@ -6,9 +6,9 @@ Good tutorial(bossletplays (https://www.youtube.com/playlist?list=PLzM5baL2UjtLE
 Project Layout
 
 Basics
-  Create menu
+  Create menu--Watching video
     Jframes
-  key Inputs
+  key Inputs--after menu
 
 Menu (Start) 
   Start Game (begins running level)
@@ -21,12 +21,12 @@ Level Design
       Map
         Map background
           Backround Scrolling / movement
-        Tile Mapping (what you stand on)
-          Reading in the tile map
-          Intializing the tile map
-          Contructing and outputing the tiles into window
+        Tile Mapping (what you stand on)--done
+          Reading in the tile map--done
+          Intializing the tile map--done
+          Contructing and outputing the tiles into window--done
         Character
-          Inserting Character
+          Inserting Character--waiting on textures
         
     Asthetics
       Timer
