@@ -35,4 +35,8 @@ public class KeyInput extends KeyAdapter{
 		return isKeyDown(keyCode) && !lastKeys[keyCode];
 	}
 	
+	public static boolean wasReleased(int keyCode){
+		return !isKeyDown(keyCode) && lastKeys[keyCode];
+	}
+	
 }
