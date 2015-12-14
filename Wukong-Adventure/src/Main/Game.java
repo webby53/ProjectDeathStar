@@ -28,7 +28,7 @@ public class Game extends Canvas implements Runnable{
 		texture = new Textures("test");
 		guy = new Textures("testcharacter");
 		sheet = new SpriteSheet(new Textures("SpriteCell(4x4)"), 64);
-		sprite = new Sprite(sheet, 4, 4);
+		sprite = new Sprite(sheet, 1, 1);
 		
 	}
 	
@@ -63,7 +63,7 @@ public class Game extends Canvas implements Runnable{
 		
 		//////\\\\\\
 		
-		g.setColor(Color.BLUE);
+		g.setColor(Color.GREEN);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		texture.render(g, 100, 100);
 		guy.render(g, 100, 200);
