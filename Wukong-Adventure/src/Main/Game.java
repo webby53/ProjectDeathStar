@@ -1,6 +1,7 @@
 package Main;
 
 import java.awt.Canvas;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
@@ -9,6 +10,7 @@ import java.awt.*;
 import javax.swing.JFrame;
 
 import Rendering.Textures;
+import input.KeyInput;
 import Rendering.Sprite;
 import Rendering.SpriteSheet;
 
@@ -23,12 +25,14 @@ public class Game extends Canvas implements Runnable{
 	private Textures texture, guy;
 	private SpriteSheet sheet;
 	private Sprite sprite;
+	private double sX = 200, sY = 200;
 	
 	public Game(){
 		texture = new Textures("test");
 		guy = new Textures("testcharacter");
 		sheet = new SpriteSheet(new Textures("SpriteCell(4x4)"), 64);
 		sprite = new Sprite(sheet, 1, 1);
+		addKeyListener(new KeyInput());
 		
 	}
 	
@@ -40,6 +44,14 @@ public class Game extends Canvas implements Runnable{
 			running = true;
 			new Thread(this, "Main-Thread").start();
 		}
+	}
+	
+	//the tick method
+	private void tick(){
+		if(KeyInput.isKeyDown(KeyEvent.VK_SPACE))
+			sY -= 2;
+		if (KeyInput.wasKeyPressed(KeyEvent.VK_ENTER))
+			sY = 300;
 	}
 	
 	//this takes all graphics
@@ -67,7 +79,7 @@ public class Game extends Canvas implements Runnable{
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		texture.render(g, 100, 100);
 		guy.render(g, 100, 200);
-		sprite.render(g, 200, 200);
+		sprite.render(g, sX, sY);
 		g.dispose();//disposes last graphics
 
 		//////\\\\\\
@@ -85,11 +97,10 @@ public class Game extends Canvas implements Runnable{
 		}
 	}//stop
 
-	//the tick method
-	private void tick(){}
 	
 	//used to start a thread of our game
 	public void run(){
+		requestFocus();
 		//this is the target frames per second
 		double target = 60.0;
 		//this helps with second calculation
@@ -120,6 +131,7 @@ public class Game extends Canvas implements Runnable{
 			//and then resets unprocessed and canRender
 			if(unprocessed >= 1){
 				tick();
+				KeyInput.update();
 				unprocessed--;
 				tps++;
 				canRender = true;
@@ -175,7 +187,6 @@ public class Game extends Canvas implements Runnable{
 		frame.setLocationRelativeTo(null);
 		//so it can be seen
 		frame.setVisible(true);
-		frame.requestFocus();	
 		game.start();
 	}
 	
