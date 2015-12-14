@@ -27,8 +27,8 @@ public class Game extends Canvas implements Runnable{
 	public Game(){
 		texture = new Textures("test");
 		guy = new Textures("testcharacter");
-		sheet = new SpriteSheet(new Textures("Test_SpriteSheet_2"), 64);
-		sprite = new Sprite(sheet, 3, 2);
+		sheet = new SpriteSheet(new Textures("SpriteCell(4x4)"), 64);
+		sprite = new Sprite(sheet, 4, 4);
 		
 	}
 	
