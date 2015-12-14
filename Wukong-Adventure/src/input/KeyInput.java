@@ -26,15 +26,18 @@ public class KeyInput extends KeyAdapter{
 		return keys[key];
 	}
 	
+	//Sets all of the lastkeys to have the values of the keys
 	public static void update(){
 		for(int i = 0; i < NUM_KEYS; i++)
 			lastKeys[i] = keys[i];
 	}
 	
+	//checks if the key is pressed by checking with the isKeyDown method
 	public static boolean wasKeyPressed(int keyCode){
 		return isKeyDown(keyCode) && !lastKeys[keyCode];
 	}
 	
+	//Same is pressed but with released
 	public static boolean wasReleased(int keyCode){
 		return !isKeyDown(keyCode) && lastKeys[keyCode];
 	}
