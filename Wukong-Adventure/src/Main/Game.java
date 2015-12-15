@@ -2,22 +2,22 @@ package Main;
 
 import java.awt.Canvas;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.*;
-
 import javax.swing.JFrame;
-
 import Rendering.Textures;
 import input.KeyInput;
+import input.MouseInput;
 import Rendering.Sprite;
 import Rendering.SpriteSheet;
 
 
 public class Game extends Canvas implements Runnable{
 
-	public static final String TITLE = "Wukongs Advernture Ver 1.10";
+	public static final String TITLE = "Wukongs Advernture Ver 1.30";
 	public static final int WIDTH = 896;
 	public static final int HEIGHT = WIDTH / 4 * 3;
 	//boolean to test if game is running
@@ -26,6 +26,7 @@ public class Game extends Canvas implements Runnable{
 	private SpriteSheet sheet;
 	private Sprite sprite;
 	private double sX = 200, sY = 200;
+	private Menu menu;
 	
 	public Game(){
 		texture = new Textures("test");
@@ -33,7 +34,11 @@ public class Game extends Canvas implements Runnable{
 		sheet = new SpriteSheet(new Textures("SpriteCell(4x4)"), 64);
 		sprite = new Sprite(sheet, 1, 1);
 		addKeyListener(new KeyInput());
-		
+		MouseInput mouse = new MouseInput();
+		addMouseListener(mouse);
+		addMouseMotionListener(mouse);
+		menu = new Menu();
+
 	}
 	
 	//makes a new thread
@@ -48,10 +53,9 @@ public class Game extends Canvas implements Runnable{
 	
 	//the tick method
 	private void tick(){
-		if(KeyInput.isKeyDown(KeyEvent.VK_SPACE))
-			sY -= 2;
-		if (KeyInput.wasKeyPressed(KeyEvent.VK_ENTER))
-			sY = 300;
+		if(MouseInput.isMoving())
+			System.out.println("X:" + MouseInput.getX() + " Y:" + MouseInput.getY());
+		
 	}
 	
 	//this takes all graphics
@@ -74,12 +78,7 @@ public class Game extends Canvas implements Runnable{
 		Graphics g = bs.getDrawGraphics();
 		
 		//////\\\\\\
-		
-		g.setColor(Color.GREEN);
-		g.fillRect(0, 0, WIDTH, HEIGHT);
-		texture.render(g, 100, 100);
-		guy.render(g, 100, 200);
-		sprite.render(g, sX, sY);
+		menu.render(g);
 		g.dispose();//disposes last graphics
 
 		//////\\\\\\
@@ -97,7 +96,6 @@ public class Game extends Canvas implements Runnable{
 		}
 	}//stop
 
-	
 	//used to start a thread of our game
 	public void run(){
 		requestFocus();
@@ -105,7 +103,7 @@ public class Game extends Canvas implements Runnable{
 		double target = 60.0;
 		//this helps with second calculation
 		double nanoSecPerTick = 1000000000.0 /target;
-		//this is the time we havent processed
+		//this is the time we haven't processed
 		//so we can tell when to tick
 		double unprocessed = 0;
 		//
@@ -121,7 +119,7 @@ public class Game extends Canvas implements Runnable{
 		while(running){
 			//
 			long now =System.nanoTime();
-			//this calculates the time diff
+			//this calculates the time difference
 			//from the last loop to current
 			unprocessed += (now - lastTime) / nanoSecPerTick;
 			lastTime = now;
@@ -132,6 +130,7 @@ public class Game extends Canvas implements Runnable{
 			if(unprocessed >= 1){
 				tick();
 				KeyInput.update();
+				MouseInput.update();
 				unprocessed--;
 				tps++;
 				canRender = true;
