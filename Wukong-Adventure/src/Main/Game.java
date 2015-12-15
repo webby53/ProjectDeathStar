@@ -25,6 +25,7 @@ public class Game extends Canvas implements Runnable{
 	private Textures texture, guy;
 	private SpriteSheet sheet;
 	private Sprite sprite;
+	private Sprite sprite2;
 	private double sX = 200, sY = 200;
 	private Menu menu;
 	
@@ -33,6 +34,7 @@ public class Game extends Canvas implements Runnable{
 		guy = new Textures("testcharacter");
 		sheet = new SpriteSheet(new Textures("SpriteCell(4x4)"), 64);
 		sprite = new Sprite(sheet, 1, 1);
+		sprite2 = new Sprite(sheet, 3, 1);
 		addKeyListener(new KeyInput());
 		MouseInput mouse = new MouseInput();
 		addMouseListener(mouse);
@@ -79,8 +81,13 @@ public class Game extends Canvas implements Runnable{
 		
 		//////\\\\\\
 		menu.render(g);
+        for(int i= 0; i < 14; i++){
+        	sprite.render(g, 64 * i, 500);
+        	sprite2.render(g, 64 * i, 564);
+        	sprite2.render(g, 64 * i, 628);
+        }
 		g.dispose();//disposes last graphics
-
+        
 		//////\\\\\\
 		
 		bs.show();
