@@ -1,8 +1,8 @@
 package Main;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
-
 import Rendering.DrawString;
 import input.MouseInput;
 
@@ -14,7 +14,11 @@ public class Menu {
 	public void render(Graphics g){
 		g.setColor(Color.YELLOW);
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
-		DrawString.drawString(g, "X:" + MouseInput.getX() + " Y:" + MouseInput.getY(), 
-				Game.WIDTH / 2, Game.HEIGHT / 2);
+
+		Font f = new Font("Arial",Font.BOLD, 26);
+		DrawString.drawString(g, "X:" + MouseInput.getX() + " Y:" + MouseInput.getY(), Color.BLUE, f);
+		DrawString.drawString(g, "Test", Color.BLACK, f);
 	}
+	
+	
 }
