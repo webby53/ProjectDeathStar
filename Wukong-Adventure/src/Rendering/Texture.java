@@ -12,7 +12,7 @@ import Managers.TextureManager;
 /*	This class ensures only one use of textures
  * 	auto removes unused textures
  */
-public class Textures{
+public class Texture{
 
 	private final static Map<String, TextureManager> textmap = new HashMap<String, TextureManager>();
 	private String fileName;
@@ -20,7 +20,7 @@ public class Textures{
 	private TextureManager manager;
 	
 	//so creates a texture 
-	public Textures(String fileName){
+	public Texture(String fileName){
 		this.fileName = fileName;
 		TextureManager oldTexture = textmap.get(fileName);
 		if(oldTexture != null){

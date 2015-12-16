@@ -14,11 +14,9 @@ public class MouseInput extends MouseAdapter{
 	
 	
 	public void mousePressed(MouseEvent e) {
-		System.out.println("Button " + e.getButton() + " is pressed");
 		buttons[e.getButton()] = true;
 	}
 	public void mouseReleased(MouseEvent e) {
-		System.out.println("Button " + e.getButton() + " is released");
         buttons[e.getButton()] = false;
 	}
 	public void mouseDragged(MouseEvent e) {

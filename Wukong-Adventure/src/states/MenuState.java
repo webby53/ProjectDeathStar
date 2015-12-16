@@ -1,4 +1,4 @@
-package Main;
+package states;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -6,18 +6,27 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-
+import Main.Game;
+import Managers.StateManager;
 import Rendering.DrawString;
+import Rendering.Sprite;
+import Rendering.SpriteSheet;
+import Rendering.Texture;
 import input.MouseInput;
 import input.Button;
 import input.KeyInput;
 
-public class Menu {
+public class MenuState implements State{
 
-	private final Button[] buttons;
+	private Button[] buttons;
 	private int currentSelection;
+	private Texture texture = new Texture("SpriteCell(4x4)");
+	private SpriteSheet sheet = new SpriteSheet(texture, 64);
+	private Sprite sprite = new Sprite(sheet, 1, 1);
+	private Sprite sprite2 = new Sprite(sheet, 3, 1);
 
-	public Menu(){
+	@Override
+	public void init() {
 		buttons = new Button[3];
 
 		buttons[0]= new Button("PLAY", new Font("Ariel", Font.PLAIN, 35), new Font("Ariel", Font.BOLD, 45),
@@ -28,8 +37,11 @@ public class Menu {
 				Color.BLACK, Color.BLUE, 350 + 50);
 	}
 
-	public void tick(){
-		
+	@Override
+	public void enter() {
+	}
+
+	public void tick(StateManager stateManager){
 		//key check
 		if(KeyInput.wasKeyPressed(KeyEvent.VK_UP) || KeyInput.wasKeyPressed(KeyEvent.VK_W))
 			if(currentSelection < 0)
@@ -55,12 +67,13 @@ public class Menu {
 		}
 				
 		if(isClicked || KeyInput.wasKeyPressed(KeyEvent.VK_SPACE))
-			select();
+			select(stateManager);
 	}
 	
-	public void select(){
+	public void select(StateManager stateManager){
 		switch(currentSelection){
 		case 0: System.out.println("Play is pressed");
+				stateManager.setState("Level1");
 		break;
 		case 1:System.out.println("Help is pressed");
 		break;
@@ -82,6 +95,22 @@ public class Menu {
 				buttons[i].setSelected(false);
 			buttons[i].render(g);
 		}
+		for(int i= 0; i < 14; i++){
+        	sprite.render(g, 64 * i, 500);
+        	sprite2.render(g, 64 * i, 564);
+        	sprite2.render(g, 64 * i, 628);
+        }
+	}
+
+	@Override
+	public void exit() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getName() {
+		return "Menu";
 	}
 
 	//public 

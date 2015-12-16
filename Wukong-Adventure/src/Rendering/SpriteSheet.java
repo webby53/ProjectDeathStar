@@ -8,21 +8,21 @@ public class SpriteSheet {
  */
 	
 	
-	private Textures texture;
+	private Texture texture;
 	private int width, height;
 	
-	public SpriteSheet(Textures texture, int size){
+	public SpriteSheet(Texture texture, int size){
 		this(texture, size, size);
 	}
 	
-	public SpriteSheet(Textures texture, int width, int height){
+	public SpriteSheet(Texture texture, int width, int height){
 		this.texture = texture;
 		this.width = width;
 		this.height = height;
 	}
 	
 	//returns the texture
-	public Textures getTexture(){
+	public Texture getTexture(){
 		return texture;
 	}
 	

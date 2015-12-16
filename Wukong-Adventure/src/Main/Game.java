@@ -8,39 +8,33 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.*;
 import javax.swing.JFrame;
-import Rendering.Textures;
+
+import Managers.StateManager;
+import Rendering.Texture;
 import input.KeyInput;
 import input.MouseInput;
+import states.MenuState;
 import Rendering.Sprite;
 import Rendering.SpriteSheet;
 
 
 public class Game extends Canvas implements Runnable{
 
-	public static final String TITLE = "Wukongs Advernture Ver 1.52";
+	public static final String TITLE = "Wukongs Advernture Ver 1.61";
 	public static final int WIDTH = 896;
 	public static final int HEIGHT = WIDTH / 4 * 3;
 	public static Game INSTANCE;
 	//boolean to test if game is running
 	private boolean running;
-	private Textures texture, guy;
-	private SpriteSheet sheet;
-	private Sprite sprite;
-	private Sprite sprite2;
-	private double sX = 200, sY = 200;
-	private Menu menu;
+	private StateManager stateManager;
 	
 	public Game(){
-		texture = new Textures("test");
-		guy = new Textures("testcharacter");
-		sheet = new SpriteSheet(new Textures("SpriteCell(4x4)"), 64);
-		sprite = new Sprite(sheet, 1, 1);
-		sprite2 = new Sprite(sheet, 3, 1);
 		addKeyListener(new KeyInput());
 		MouseInput mouse = new MouseInput();
 		addMouseListener(mouse);
 		addMouseMotionListener(mouse);
-		menu = new Menu();
+		stateManager = new StateManager();
+		stateManager.addState(new MenuState());
 		INSTANCE = this;
 
 	}
@@ -57,7 +51,7 @@ public class Game extends Canvas implements Runnable{
 	
 	//the tick method
 	private void tick(){
-		menu.tick();
+		stateManager.tick();
 		
 	}
 	
@@ -81,12 +75,7 @@ public class Game extends Canvas implements Runnable{
 		Graphics g = bs.getDrawGraphics();
 		
 		//////\\\\\\
-		menu.render(g);
-        for(int i= 0; i < 14; i++){
-        	sprite.render(g, 64 * i, 500);
-        	sprite2.render(g, 64 * i, 564);
-        	sprite2.render(g, 64 * i, 628);
-        }
+    	stateManager.render(g);
 		g.dispose();//disposes last graphics
         
 		//////\\\\\\
@@ -174,6 +163,7 @@ public class Game extends Canvas implements Runnable{
 	public static void main(String[] args){
 		//creates our main frame and instance of Game
 		final Game game = new Game();
+		
 		JFrame frame =new JFrame(TITLE);
 		
 		frame.add(game);
