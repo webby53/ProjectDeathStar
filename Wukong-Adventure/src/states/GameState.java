@@ -19,7 +19,7 @@ public class GameState implements State{
 	private Texture texture = new Texture("SpriteCell(4x4)");
 	private SpriteSheet sheet = new SpriteSheet(texture, 64);
 	private Sprite sprite = new Sprite(sheet, 1, 1);
-	private Sprite sprite2 = new Sprite(sheet, 3, 1);
+	//private Sprite sprite2 = new Sprite(sheet, 3, 1);
 	private Tile tile = new Tile(100, 100, sprite);
 	private Button buttons[];
 	private int currentSelection;

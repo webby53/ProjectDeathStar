@@ -1,13 +1,8 @@
 package Managers;
 
-import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.image.BufferStrategy;
 import java.util.HashMap;
 import java.util.Map;
-
-import Main.Game;
-import states.GameState;
 import states.State;
 
 public class StateManager {

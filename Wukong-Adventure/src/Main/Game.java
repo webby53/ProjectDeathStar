@@ -1,22 +1,15 @@
 package Main;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.*;
-
 import javax.swing.JFrame;
-
 import Managers.StateManager;
-import Rendering.Texture;
 import input.KeyInput;
 import input.MouseInput;
 import states.GameState;
 import states.MenuState;
-import Rendering.Sprite;
-import Rendering.SpriteSheet;
 
 
 public class Game extends Canvas implements Runnable{

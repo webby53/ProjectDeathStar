@@ -1,7 +1,6 @@
 package entities;
 
 import Rendering.Sprite;
-import java.awt.Rectangle;
 
 public class Tile extends Entity{
 
