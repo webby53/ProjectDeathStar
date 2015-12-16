@@ -73,7 +73,8 @@ public class MenuState implements State{
 	public void select(StateManager stateManager){
 		switch(currentSelection){
 		case 0: System.out.println("Play is pressed");
-				stateManager.setState("Level1");
+				stateManager.setState("Game");
+				exit();
 		break;
 		case 1:System.out.println("Help is pressed");
 		break;
@@ -105,7 +106,6 @@ public class MenuState implements State{
 	@Override
 	public void exit() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

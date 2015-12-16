@@ -7,12 +7,14 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.*;
+
 import javax.swing.JFrame;
 
 import Managers.StateManager;
 import Rendering.Texture;
 import input.KeyInput;
 import input.MouseInput;
+import states.GameState;
 import states.MenuState;
 import Rendering.Sprite;
 import Rendering.SpriteSheet;
@@ -35,6 +37,7 @@ public class Game extends Canvas implements Runnable{
 		addMouseMotionListener(mouse);
 		stateManager = new StateManager();
 		stateManager.addState(new MenuState());
+		stateManager.addState(new GameState());
 		INSTANCE = this;
 
 	}
