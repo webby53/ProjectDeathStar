@@ -1,6 +1,5 @@
 package Main;
 
-import java.awt.Canvas;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -22,7 +21,7 @@ import Rendering.SpriteSheet;
 
 public class Game extends Canvas implements Runnable{
 
-	public static final String TITLE = "Wukongs Advernture Ver 1.61";
+	public static final String TITLE = "Wukong's Advernture Ver 1.8";
 	public static final int WIDTH = 896;
 	public static final int HEIGHT = WIDTH / 4 * 3;
 	public static Game INSTANCE;
@@ -75,7 +74,7 @@ public class Game extends Canvas implements Runnable{
 		}
 		
 		//this makes our buffer supply the graphics
-		Graphics g = bs.getDrawGraphics();
+		Graphics2D g = (Graphics2D) bs.getDrawGraphics();
 		
 		//////\\\\\\
     	stateManager.render(g);

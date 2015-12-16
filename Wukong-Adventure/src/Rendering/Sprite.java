@@ -1,11 +1,14 @@
 package Rendering;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 public class Sprite {
 
 	private BufferedImage image;
+	private int width;
+	private int height;
 	
 	//isolates the individual spites
 	public Sprite(SpriteSheet spritesheet, int x, int y){
@@ -18,10 +21,19 @@ public class Sprite {
 				//same principle as what is happening with the x val but with the y val
 				(y * spritesheet.getHeight()) - spritesheet.getHeight(),
 				spritesheet.getWidth(), spritesheet.getHeight());
+		width = spritesheet.getWidth();
+		height = spritesheet.getHeight();
 	}
 	
 	//renders the graphics
-	public void render(Graphics g, double x, double y){
+	public void render(Graphics2D g, double x, double y){
 		g.drawImage(image, (int)x, (int)y, null);
+	}
+	
+	public int getHeight(){
+		return height;
+	}
+	public int getWidth(){
+		return width;
 	}
 }

@@ -1,6 +1,7 @@
 package Managers;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,7 +39,7 @@ public class StateManager {
 		currentState = state;
 	}
 	
-	public void render(Graphics g){
+	public void render(Graphics2D g){
 		currentState.render(g);
 	}
 	public void tick(){

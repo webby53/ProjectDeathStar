@@ -28,7 +28,6 @@ public class Texture{
 			manager.addReference();
 		}else{
 			try {
-				System.out.println("Printing file: " + fileName);
 				manager = new TextureManager(ImageIO.read(new File("./resources/textures/" + fileName + ".png")));
 				textmap.put(fileName,manager);
 			} catch (IOException e) {
