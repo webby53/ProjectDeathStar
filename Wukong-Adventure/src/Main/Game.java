@@ -17,9 +17,10 @@ import Rendering.SpriteSheet;
 
 public class Game extends Canvas implements Runnable{
 
-	public static final String TITLE = "Wukongs Advernture Ver 1.22";
+	public static final String TITLE = "Wukongs Advernture Ver 1.52";
 	public static final int WIDTH = 896;
 	public static final int HEIGHT = WIDTH / 4 * 3;
+	public static Game INSTANCE;
 	//boolean to test if game is running
 	private boolean running;
 	private Textures texture, guy;
@@ -40,6 +41,7 @@ public class Game extends Canvas implements Runnable{
 		addMouseListener(mouse);
 		addMouseMotionListener(mouse);
 		menu = new Menu();
+		INSTANCE = this;
 
 	}
 	
@@ -55,8 +57,7 @@ public class Game extends Canvas implements Runnable{
 	
 	//the tick method
 	private void tick(){
-		if(MouseInput.isMoving())
-			System.out.println("X:" + MouseInput.getX() + " Y:" + MouseInput.getY());
+		menu.tick();
 		
 	}
 	
@@ -94,7 +95,7 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	//stops the game
-	private void stop(){
+	public void stop(){
 		if(! running)
 			return;
 		else{	
