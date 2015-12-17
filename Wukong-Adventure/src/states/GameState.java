@@ -29,7 +29,7 @@ public class GameState implements State{
 	private Tile tile = new Tile(100, 100, sprite);
 	private ArrayList<Button> buttons;
 	private int currentSelection;
-	private ArrayList<Mob> entites;
+	private ArrayList<Mob> entites = new ArrayList<Mob>();
 	private StateManager stateManager;
 	private boolean enter = true;
 
@@ -37,8 +37,6 @@ public class GameState implements State{
 	public void init() {
 		// TODO Auto-generated method stub
 		enter();
-		entites = new ArrayList<Mob>();
-		entites.add(new Mob(Game.WIDTH / 2, Game.HEIGHT / 2, new Sprite("test")));
 
 	}
 
@@ -53,6 +51,7 @@ public class GameState implements State{
 				Color.BLACK, Color.RED, 90));
 		buttons.add(new Button("Exit",  new Font("Ariel", Font.PLAIN, 25), new Font("Ariel", Font.BOLD, 35),
 				Color.BLACK, Color.GREEN, 130));
+		entites.add(new Mob(Game.WIDTH / 2, Game.HEIGHT / 2, new Sprite("test", 64, 64)));
 
 
 	}

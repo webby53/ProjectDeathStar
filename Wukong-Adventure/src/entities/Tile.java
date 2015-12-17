@@ -1,6 +1,9 @@
 package entities;
 
 import Rendering.Sprite;
+import java.awt.Rectangle;
+import java.util.ArrayList;
+
 
 public class Tile extends Entity{
 
@@ -8,7 +11,6 @@ public class Tile extends Entity{
 	
 	public Tile(double x, double y, Sprite sprite) {
 		super(x, y, sprite);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

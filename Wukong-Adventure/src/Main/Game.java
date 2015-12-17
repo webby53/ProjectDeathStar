@@ -114,6 +114,9 @@ public class Game extends Canvas implements Runnable{
 			//this calculates the time difference
 			//from the last loop to current
 			unprocessed += (now - lastTime) / nanoSecPerTick;
+			if(tps > target)
+				unprocessed = 0;
+
 			lastTime = now;
 			
 			//so some time after one second

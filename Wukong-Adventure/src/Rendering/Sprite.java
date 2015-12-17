@@ -24,10 +24,12 @@ public class Sprite {
 		height = spritesheet.getHeight();
 	}
 	
-	public Sprite(String string) {
+	public Sprite(String string, int width, int height) {
 		// TODO Auto-generated constructor stub
 		Texture tex = new Texture(string);
 		image = tex.getImage();
+		this.width = width;
+		this.height = height;
 	}
 
 	//renders the graphics

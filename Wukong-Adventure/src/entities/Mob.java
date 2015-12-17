@@ -2,6 +2,7 @@ package entities;
 
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import Rendering.Sprite;
 import input.KeyInput;
 
@@ -23,6 +24,8 @@ public class Mob extends Entity{
 			dy = -3;
 		if(KeyInput.isKeyDown(KeyEvent.VK_S)|| KeyInput.isKeyDown(KeyEvent.VK_DOWN))
 			dy = 3;
+		if(KeyInput.isKeyDown(KeyEvent.VK_SPACE))
+			System.out.println(this.toString());
 		move();
 		if(dy != 0 || dx != 0){
 			dx = 0;
@@ -30,18 +33,22 @@ public class Mob extends Entity{
 		}
 	}
 
-	public void rebound(Rectangle rec){
-
-		if(this.getBounds().intersects(rec))
-			collision = true;
-		else
-			collision = false;
-	}
-
 	public void move(){
 		lastx = x;
 		lasty = y;
-			x += dx;
-			y += dy;
+
+		x += dx;
+		y += dy;
+		for(Entity temp: entities){
+			if(this.collision(temp.rec)){
+				collision = true;
+				return;
+			}
+		}
+		if(collision){
+			x = lastx;
+			y = lasty;
+		}
 	}
+
 }
