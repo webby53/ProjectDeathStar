@@ -83,7 +83,6 @@ public class GameState implements State{
 		case 0: stateManager.setState("Menu"); exit();
 		break;
 		case 1: JOptionPane.showMessageDialog(null, Game.INFO); Game.INSTANCE.setFocusable(true); 
-		try{
 		break;
 		case 2: Game.INSTANCE.stop();
 		break;
