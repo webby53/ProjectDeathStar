@@ -7,13 +7,14 @@ import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import Main.Game;
 import Managers.StateManager;
 import Rendering.DrawString;
 import Rendering.Sprite;
 import Rendering.SpriteSheet;
 import Rendering.Texture;
-import entities.Entity;
 import entities.Mob;
 import entities.Tile;
 import input.Button;
@@ -37,26 +38,28 @@ public class GameState implements State{
 		// TODO Auto-generated method stub
 		enter();
 		entites = new ArrayList<Mob>();
-		entites.add(new Mob(200, 200, new Sprite("test")));
+		entites.add(new Mob(Game.WIDTH / 2, Game.HEIGHT / 2, new Sprite("test")));
 
 	}
 
 	@Override
 	public void enter() {
 		// TODO Auto-generated method stub
-		currentSelection = 0;
+		currentSelection = -1;
 		buttons = new ArrayList<Button>();
-		buttons.add(new Button("Back",  new Font("Ariel", Font.PLAIN, 35), new Font("Ariel", Font.BOLD, 45),
-				Color.BLACK, Color.GREEN, 200));
-		buttons.add(new Button("Exit",  new Font("Ariel", Font.PLAIN, 35), new Font("Ariel", Font.BOLD, 45),
-				Color.BLACK, Color.GREEN, 300));
+		buttons.add(new Button("Back",  new Font("Ariel", Font.PLAIN, 25), new Font("Ariel", Font.BOLD, 35),
+				Color.BLACK, Color.GREEN, 50));
+		buttons.add(new Button("Info",  new Font("Ariel", Font.PLAIN, 25), new Font("Ariel", Font.BOLD, 35),
+				Color.BLACK, Color.RED, 90));
+		buttons.add(new Button("Exit",  new Font("Ariel", Font.PLAIN, 25), new Font("Ariel", Font.BOLD, 35),
+				Color.BLACK, Color.GREEN, 130));
 
 
 	}
 
 	@Override
 	public void tick(StateManager stateManager) {
-		// TODO Auto-generated method stub
+		//mouse check
 		boolean isClicked = false;
 		for(int i = 0; i < buttons.size(); i++){
 			if(buttons.get(i).intersects(new Rectangle(MouseInput.getX(), MouseInput.getY(), 1, 1))){
@@ -66,8 +69,10 @@ public class GameState implements State{
 				else
 					isClicked = false;
 			}
+			if(!buttons.get(i).intersects(new Rectangle(MouseInput.getX(), MouseInput.getY(), 1, 1)))
+				if(MouseInput.wasReleased(MouseEvent.BUTTON1))
+				currentSelection = -1;
 		}
-
 		if(isClicked)
 			select(stateManager);
 		entites.get(0).tick();
@@ -75,10 +80,12 @@ public class GameState implements State{
 
 	public void select(StateManager stateManager){
 		switch(currentSelection){
-		case 0: stateManager.setState("Menu");
-		exit();
+		case 0: stateManager.setState("Menu"); exit();
 		break;
-		case 1: Game.INSTANCE.stop();
+		case 1: JOptionPane.showMessageDialog(null, Game.INFO); Game.INSTANCE.setFocusable(true); 
+		try{
+		break;
+		case 2: Game.INSTANCE.stop();
 		break;
 		}
 	}
@@ -88,22 +95,20 @@ public class GameState implements State{
 		// TODO Auto-generated method stub
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
-		//		for(int i= 0; i < 14; i++){
-		//			sprite.render(g, 64 * i, 500);
-		//			sprite2.render(g, 64 * i, 564);
-		//			sprite2.render(g, 64 * i, 628);
-		//		}
-
+		
 		for(int i = 0; i < buttons.size(); i++){
 			if(i == currentSelection)	
 				buttons.get(i).setSelected(true);
 			else
 				buttons.get(i).setSelected(false);
-			buttons.get(i).render(g);
+			buttons.get(i).render(g, Game.WIDTH - 110);
 		}
-		entites.get(0).render(g);
-		tile.render(g);
 		DrawString.drawInfo(g);
+		DrawString.drawStringCenterV(g, "Collision Testing", Color.CYAN, new Font("Arial", Font.CENTER_BASELINE, 50), 100);		
+		tile.render(g);
+		entites.get(0).render(g);
+
+		
 	}
 
 	@Override

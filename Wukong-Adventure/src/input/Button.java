@@ -29,6 +29,16 @@ public class Button extends Rectangle{
 		this.selectedColor = selectedColor;
 		this.texty = texty;
 	}
+	public Button(String text, Font currentFont, Font selectedFont, Color currentColor, Color selectedColor,
+			int texty, int x) {
+		super();
+		this.text = text;
+		this.currentFont = currentFont;
+		this.selectedFont = selectedFont;
+		this.currentColor = currentColor;
+		this.selectedColor = selectedColor;
+		this.texty = texty;
+	}
 	
 	//this is to set if a button is being selected
 	public void setSelected(boolean selected){
@@ -52,9 +62,23 @@ public class Button extends Rectangle{
 		this.height = fm.getHeight();
 		this.width = fm.stringWidth(text);
 		//draws the text first and bold if they are selected (and changes color)
+	}
+	public void render(Graphics g, int x){
+		//draws the text first and bold if they are selected (and changes color)
+		this.x = x;
 		if(isSelected)
-			DrawString.drawStringCenterV(g, text, selectedColor, selectedFont, texty);
+			DrawString.drawString(g, text, selectedFont, selectedColor, x, texty);
 		else
-			DrawString.drawStringCenterV(g, text, currentColor, currentFont, texty);
+			DrawString.drawString(g, text, currentFont, currentColor, x, texty);
+        //this is so we get the right font metrics sizes for the font being drawn
+		FontMetrics fm = g.getFontMetrics();
+		//this is similar to how we draw centered text in the DrawStirng class
+		//since strings are drawn from bottom we subtract height of font from the y
+		this.y = texty - fm.getHeight();
+		
+		//these are for rectangle dimensions we can then use a intersection check to tell if someone is clicking inside
+		this.height = fm.getHeight();
+		this.width = fm.stringWidth(text);
+		//draws the text first and bold if they are selected (and changes color)
 	}
 }

@@ -7,6 +7,9 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+
 import Main.Game;
 import Managers.StateManager;
 import Rendering.DrawString;
@@ -33,13 +36,16 @@ public class MenuState implements State{
 
 	@Override
 	public void enter() {
+		currentSelection = -1;
 		buttons = new ArrayList<Button>();
-		buttons.add(new Button("PLAY", new Font("Ariel", Font.PLAIN, 35), new Font("Ariel", Font.BOLD, 45),
-				Color.BLACK, Color.BLUE, 150 + 50));
-		buttons.add(new Button("HELP", new Font("Ariel", Font.PLAIN, 35), new Font("Ariel", Font.BOLD, 45),
-				Color.BLACK, Color.BLUE, 250 + 50));
-		buttons.add(new Button("EXIT", new Font("Ariel", Font.PLAIN, 35), new Font("Ariel", Font.BOLD, 45),
-				Color.BLACK, Color.BLUE, 350 + 50));
+		buttons.add(new Button("PLAY", new Font("Ariel", Font.CENTER_BASELINE, 35), new Font("Ariel", Font.CENTER_BASELINE, 45),
+				Color.BLACK, Color.BLUE, 100 + 50));
+		buttons.add(new Button("HELP", new Font("Ariel", Font.ITALIC, 35), new Font("Ariel", Font.ITALIC, 45),
+				Color.BLACK, Color.RED, 200 + 50));
+		buttons.add(new Button("OPTIONS", new Font("Ariel", Font.ITALIC, 35), new Font("Ariel", Font.ITALIC, 45),
+				Color.BLACK, Color.RED, 300 + 50));
+		buttons.add(new Button("EXIT", new Font("Ariel", Font.CENTER_BASELINE, 35), new Font("Ariel", Font.CENTER_BASELINE, 45),
+				Color.BLACK, Color.BLUE, 400 + 50));
 	}
 
 	public void tick(StateManager stateManager){
@@ -65,6 +71,10 @@ public class MenuState implements State{
 				else
 					isClicked = false;
 			}
+			if(!buttons.get(i).intersects(new Rectangle(MouseInput.getX(), MouseInput.getY(), 1, 1)))
+				if(MouseInput.wasReleased(MouseEvent.BUTTON1))
+				currentSelection = -1;
+				
 		}
 				
 		if(isClicked || KeyInput.wasKeyPressed(KeyEvent.VK_SPACE))
@@ -76,9 +86,11 @@ public class MenuState implements State{
 		case 0:	stateManager.setState("Game");
 				exit();
 		break;
-		case 1:System.out.println("Help is pressed");
+		case 1:	JOptionPane.showMessageDialog(null, "This Feature is Unavailable"); Game.INSTANCE.setFocusable(true);
 		break;
-		case 2: Game.INSTANCE.stop();
+		case 2: JOptionPane.showMessageDialog(null, "This Feature is Unavailable"); Game.INSTANCE.setFocusable(true);
+		break;
+		case 3: Game.INSTANCE.stop();
 		break;
 		}
 	}

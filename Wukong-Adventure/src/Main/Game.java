@@ -18,6 +18,7 @@ public class Game extends Canvas implements Runnable{
 	public static final int WIDTH = 896;
 	public static final int HEIGHT = WIDTH / 4 * 3;
 	public static Game INSTANCE;
+	public static String INFO = "";
 	//boolean to test if game is running
 	private boolean running;
 	public static int FPS, TPS;
@@ -37,6 +38,7 @@ public class Game extends Canvas implements Runnable{
 	
 	//makes a new thread
 	public void start(){
+		INFO += "Game Name: " + TITLE + "\nCanvas Width: " + WIDTH + "\nCanvas Height: " + HEIGHT;
 		if(running)
 			return;
 		else{
@@ -48,7 +50,6 @@ public class Game extends Canvas implements Runnable{
 	//the tick method
 	private void tick(){
 		stateManager.tick();
-		
 	}
 	
 	//this takes all graphics
@@ -109,6 +110,7 @@ public class Game extends Canvas implements Runnable{
 		int tps = 0;
 		//Limits frames to when we can tick
 		boolean canRender= false;
+		
 		while(running){
 			//
 			long now =System.nanoTime();
@@ -130,7 +132,7 @@ public class Game extends Canvas implements Runnable{
 			}else//this is so the frames are limited by the ticks
 				//since we don't render until we tick
 				canRender= false;
-			
+
 			//sleeps for 1 millisecond (delay)
 			try{
 				Thread.sleep(1);	
