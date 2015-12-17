@@ -6,6 +6,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 
 import Main.Game;
+import input.MouseInput;
 
 public class DrawString {
 
@@ -39,5 +40,10 @@ public class DrawString {
 		g.setFont(f);
 		int x = (Game.WIDTH - fm.stringWidth(text)) / 2;
 		g.drawString(text, x, y);
+	}
+	
+	public static void drawInfo(Graphics g){
+		DrawString.drawString(g, "X:" + MouseInput.getX() + " Y:" + MouseInput.getY(), new Font("Arial",Font.PLAIN, 13),  Color.BLUE,Game.WIDTH - 105, 11);
+		DrawString.drawString(g, "FPS:" + Game.FPS + " TPS:" + Game.TPS, new Font("Arial",Font.PLAIN, 13),  Color.BLUE,10, 11);
 	}
 }

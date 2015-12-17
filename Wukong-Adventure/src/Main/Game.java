@@ -14,12 +14,13 @@ import states.MenuState;
 
 public class Game extends Canvas implements Runnable{
 
-	public static final String TITLE = "Wukong's Advernture Ver 1.8";
+	public static final String TITLE = "Wukong's Advernture Ver 1.9";
 	public static final int WIDTH = 896;
 	public static final int HEIGHT = WIDTH / 4 * 3;
 	public static Game INSTANCE;
 	//boolean to test if game is running
 	private boolean running;
+	public static int FPS, TPS;
 	private StateManager stateManager;
 	
 	public Game(){
@@ -146,7 +147,8 @@ public class Game extends Canvas implements Runnable{
 			//and outputs them and resets their values
 			if(System.currentTimeMillis() - 1000 > timer){
 				timer += 1000;
-				System.out.printf("FPS: %d | TPS: %d\n", fps, tps);
+				FPS = fps;
+				TPS = tps;
 				fps = 0;
 				tps = 0;
 			}
@@ -154,32 +156,4 @@ public class Game extends Canvas implements Runnable{
 
 		System.out.println("The Game has Started!");
 	}//run
-	
-	public static void main(String[] args){
-		//creates our main frame and instance of Game
-		final Game game = new Game();
-		
-		JFrame frame =new JFrame(TITLE);
-		
-		frame.add(game);
-		frame.setSize(WIDTH, HEIGHT);
-		//so they can't change window size
-		frame.setResizable(false);
-		//so we can get key inputs
-		frame.setFocusable(true);
-		frame.addWindowListener(new WindowAdapter(){
-			
-			public void windowClosing(WindowEvent e){
-				System.err.println("The Game is now Closing...");
-				game.stop();
-			}
-		});
-		
-		//puts game frame in center of screen
-		frame.setLocationRelativeTo(null);
-		//so it can be seen
-		frame.setVisible(true);
-		game.start();
-	}
-	
 }
