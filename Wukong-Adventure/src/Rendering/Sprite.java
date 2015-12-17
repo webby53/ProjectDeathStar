@@ -24,6 +24,12 @@ public class Sprite {
 		height = spritesheet.getHeight();
 	}
 	
+	public Sprite(String string) {
+		// TODO Auto-generated constructor stub
+		Texture tex = new Texture(string);
+		image = tex.getImage();
+	}
+
 	//renders the graphics
 	public void render(Graphics2D g, double x, double y){
 		g.drawImage(image, (int)x, (int)y, null);

@@ -51,8 +51,6 @@ public class Button extends Rectangle{
 		//these are for rectangle dimensions we can then use a intersection check to tell if someone is clicking inside
 		this.height = fm.getHeight();
 		this.width = fm.stringWidth(text);
-		g.setColor(Color.WHITE);
-		g.fillRect(x, y, width, height);
 		//draws the text first and bold if they are selected (and changes color)
 		if(isSelected)
 			DrawString.drawStringCenterV(g, text, selectedColor, selectedFont, texty);

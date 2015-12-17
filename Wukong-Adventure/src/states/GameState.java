@@ -13,6 +13,8 @@ import Rendering.DrawString;
 import Rendering.Sprite;
 import Rendering.SpriteSheet;
 import Rendering.Texture;
+import entities.Entity;
+import entities.Mob;
 import entities.Tile;
 import input.Button;
 import input.MouseInput;
@@ -26,6 +28,7 @@ public class GameState implements State{
 	private Tile tile = new Tile(100, 100, sprite);
 	private ArrayList<Button> buttons;
 	private int currentSelection;
+	private ArrayList<Mob> entites;
 	private StateManager stateManager;
 	private boolean enter = true;
 
@@ -33,6 +36,8 @@ public class GameState implements State{
 	public void init() {
 		// TODO Auto-generated method stub
 		enter();
+		entites = new ArrayList<Mob>();
+		entites.add(new Mob(200, 200, new Sprite("test")));
 
 	}
 
@@ -65,6 +70,7 @@ public class GameState implements State{
 
 		if(isClicked)
 			select(stateManager);
+		entites.get(0).tick();
 	}
 
 	public void select(StateManager stateManager){
@@ -95,6 +101,7 @@ public class GameState implements State{
 				buttons.get(i).setSelected(false);
 			buttons.get(i).render(g);
 		}
+		entites.get(0).render(g);
 		tile.render(g);
 		DrawString.drawInfo(g);
 	}
