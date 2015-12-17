@@ -21,8 +21,15 @@ public abstract class Entity {
 	public abstract void tick();
 	
 	public Rectangle getBounds(){
-		Rectangle rec = new Rectangle((int)x, (int)y, -sprite.getWidth(), -sprite.getHeight());
+		Rectangle rec = new Rectangle((int)x, (int)y, sprite.getWidth(), sprite.getHeight());
 		return rec;
+	}
+	
+	public int getWidth(){
+		return sprite.getWidth();
+	}
+	public int getHeight(){
+		return sprite.getHeight();
 	}
 	
 }

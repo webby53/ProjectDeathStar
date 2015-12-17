@@ -1,17 +1,17 @@
 package entities;
 
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
-
 import Rendering.Sprite;
 import input.KeyInput;
 
 public class Mob extends Entity{
 
 	protected double dx, dy, lastx, lasty;
-	
+	private boolean collision;
+
 	public Mob(double x, double y, Sprite sprite) {
 		super(x, y, sprite);
-		// TODO Auto-generated constructor stub
 	}
 
 	public void tick(){
@@ -29,9 +29,19 @@ public class Mob extends Entity{
 			dy = 0;
 		}
 	}
-	
+
+	public void rebound(Rectangle rec){
+
+		if(this.getBounds().intersects(rec))
+			collision = true;
+		else
+			collision = false;
+	}
+
 	public void move(){
-		x += dx;
-		y += dy;
+		lastx = x;
+		lasty = y;
+			x += dx;
+			y += dy;
 	}
 }
