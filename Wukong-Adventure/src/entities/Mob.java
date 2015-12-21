@@ -9,6 +9,7 @@ public class Mob extends Entity{
 
 	protected double dx, dy, lastx, lasty;
 	protected boolean collision;
+	private int numJumps = 0;
 
 	public Mob(double x, double y, Sprite sprite) {
 		super(x, y, sprite);
@@ -24,15 +25,21 @@ public class Mob extends Entity{
 			dy = -3;
 		if(KeyInput.isKeyDown(KeyEvent.VK_S)|| KeyInput.isKeyDown(KeyEvent.VK_DOWN))
 			dy = 3;
-		if(KeyInput.isKeyDown(KeyEvent.VK_SPACE))
+		if(KeyInput.isKeyDown(KeyEvent.VK_SPACE)){
 			//System.out.println("Top-X:" + recLeft.getX() + " Y:" + recLeft.getY());
-			for(Entity ent: Tile.tiles)
-				System.out.println(ent);
+			//Space is now jumping
+			/*			for(Entity ent: Tile.tiles)
+				System.out.println(ent);*/
+			jump();
+		}
 		move();
 		if(dy != 0 || dx != 0){
 			dx = 0;
 			dy = 0;
 		}
+		gravity();
+		jumpReset();
+		
 	}
 
 	public Rectangle getBounds(){
@@ -61,5 +68,32 @@ public class Mob extends Entity{
 		y += dy;
 
 	}
+
+	private void jump(){
+		
+		if(numJumps <= 8){
+			dy = -10;
+		}
+		
+		numJumps++;
+	}//jump
+
+	private void gravity(){
+		int gravity = 2;	//force of gravity
+		
+		for(int i = 0; i < Tile.tiles.size(); i++){
+			if(!(getBounds().intersects(Tile.tiles.get(i).recBot))){
+				dy = gravity;
+			}
+		}
+	}//gravity
+	
+	private void jumpReset(){
+		for(int i = 0; i < Tile.tiles.size(); i++){
+			if(getBounds().intersects(Tile.tiles.get(i).recTop)){
+				numJumps = 0;
+			}
+		}
+	}//JumpReset
 
 }

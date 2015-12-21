@@ -29,6 +29,7 @@ public class GameState implements State{
 	//private Sprite sprite2 = new Sprite(sheet, 3, 1);
 	public static Tile tile = new Tile(100, 100, sprite);
 	private Tile tile2 = new Tile(100, 250, sprite);
+	private Tile tile3 = new Tile(200, 250, sprite);
 	private ArrayList<Button> buttons;
 	private int currentSelection;
 	private ArrayList<Mob> entities = new ArrayList<Mob>();
@@ -107,6 +108,7 @@ public class GameState implements State{
 		DrawString.drawStringCenterV(g, "Collision Testing", Color.CYAN, new Font("Arial", Font.CENTER_BASELINE, 50), 100);		
 		tile.render(g);
 		tile2.render(g);
+		tile3.render(g);
 		entities.get(0).render(g);
 
 		
