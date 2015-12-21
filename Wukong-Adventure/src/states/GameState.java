@@ -15,6 +15,7 @@ import Rendering.DrawString;
 import Rendering.Sprite;
 import Rendering.SpriteSheet;
 import Rendering.Texture;
+import entities.Entity;
 import entities.Mob;
 import entities.Tile;
 import input.Button;
@@ -22,14 +23,15 @@ import input.MouseInput;
 
 public class GameState implements State{
 
-	private Texture texture = new Texture("SpriteCell(4x4)");
-	private SpriteSheet sheet = new SpriteSheet(texture, 64);
-	private Sprite sprite = new Sprite(sheet, 1, 1);
+	private static Texture texture = new Texture("SpriteCell(4x4)");
+	private static SpriteSheet sheet = new SpriteSheet(texture, 64);
+	private static Sprite sprite = new Sprite(sheet, 1, 1);
 	//private Sprite sprite2 = new Sprite(sheet, 3, 1);
-	private Tile tile = new Tile(100, 100, sprite);
+	public static Tile tile = new Tile(100, 100, sprite);
+	private Tile tile2 = new Tile(100, 250, sprite);
 	private ArrayList<Button> buttons;
 	private int currentSelection;
-	private ArrayList<Mob> entites = new ArrayList<Mob>();
+	private ArrayList<Mob> entities = new ArrayList<Mob>();
 	private StateManager stateManager;
 	private boolean enter = true;
 
@@ -51,7 +53,7 @@ public class GameState implements State{
 				Color.BLACK, Color.RED, 90));
 		buttons.add(new Button("Exit",  new Font("Ariel", Font.PLAIN, 25), new Font("Ariel", Font.BOLD, 35),
 				Color.BLACK, Color.GREEN, 130));
-		entites.add(new Mob(Game.WIDTH / 2, Game.HEIGHT / 2, new Sprite("test", 64, 64)));
+		entities.add(new Mob(Game.WIDTH / 2, Game.HEIGHT / 2, new Sprite("test", 64, 64)));
 
 
 	}
@@ -74,14 +76,13 @@ public class GameState implements State{
 		}
 		if(isClicked)
 			select(stateManager);
-		entites.get(0).tick();
 	}
 
 	public void select(StateManager stateManager){
 		switch(currentSelection){
 		case 0: stateManager.setState("Menu"); exit();
 		break;
-		case 1: JOptionPane.showMessageDialog(null, Game.INFO); Game.INSTANCE.setFocusable(true); 
+		case 1: JOptionPane.showMessageDialog(null, Game.Help); Game.INSTANCE.setFocusable(true); 
 		break;
 		case 2: Game.INSTANCE.stop();
 		break;
@@ -93,7 +94,8 @@ public class GameState implements State{
 		// TODO Auto-generated method stub
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
-		
+		DrawString.drawString(g, "Player[X:" + entities.get(0).getX() + " Y:" +entities.get(0).getY() + "]", new Font("Arial",Font.PLAIN, 13),  Color.BLUE,Game.WIDTH - 128, 11 * 2);
+
 		for(int i = 0; i < buttons.size(); i++){
 			if(i == currentSelection)	
 				buttons.get(i).setSelected(true);
@@ -104,7 +106,8 @@ public class GameState implements State{
 		DrawString.drawInfo(g);
 		DrawString.drawStringCenterV(g, "Collision Testing", Color.CYAN, new Font("Arial", Font.CENTER_BASELINE, 50), 100);		
 		tile.render(g);
-		entites.get(0).render(g);
+		tile2.render(g);
+		entities.get(0).render(g);
 
 		
 	}
@@ -113,6 +116,7 @@ public class GameState implements State{
 	public void exit() {
 		// TODO Auto-generated method stub
 		buttons.clear();
+		this.entities.clear();
 	}
 
 	@Override

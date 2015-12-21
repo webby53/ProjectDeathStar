@@ -98,7 +98,6 @@ public class MenuState implements State{
 	public void render(Graphics2D g){
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
-		DrawString.drawString(g, "X:" + MouseInput.getX() + " Y:" + MouseInput.getY(), new Font("Arial",Font.PLAIN, 13),  Color.BLUE,Game.WIDTH - 105, 11);
 		DrawString.drawInfo(g);
 		DrawString.drawStringCenterV(g, Game.TITLE, Color.GREEN, new Font("Arial",Font.BOLD, 52), 60);
 

@@ -4,11 +4,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 import Main.Game;
 import input.MouseInput;
 
 public class DrawString {
+	
+	public static ArrayList<String> gameInfo = new ArrayList<String>();
 
 	//draws a string at the specified location with the specified color and font
 	public static void drawString(Graphics g, String text, Font f, Color c, int x, int y){
@@ -45,5 +48,9 @@ public class DrawString {
 	public static void drawInfo(Graphics g){
 		DrawString.drawString(g, "X:" + MouseInput.getX() + " Y:" + MouseInput.getY(), new Font("Arial",Font.PLAIN, 13),  Color.BLUE,Game.WIDTH - 105, 11);
 		DrawString.drawString(g, "FPS:" + Game.FPS + " TPS:" + Game.TPS, new Font("Arial",Font.PLAIN, 13),  Color.BLUE,10, 11);
+	}
+	
+	public static void addInfo(String text){
+		
 	}
 }

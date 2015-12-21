@@ -3,6 +3,7 @@ package Main;
 import java.awt.image.BufferStrategy;
 import java.awt.*;
 import Managers.StateManager;
+import Rendering.DrawString;
 import input.KeyInput;
 import input.MouseInput;
 import states.GameState;
@@ -15,7 +16,7 @@ public class Game extends Canvas implements Runnable{
 	public static final int WIDTH = 896;
 	public static final int HEIGHT = WIDTH / 4 * 3;
 	public static Game INSTANCE;
-	public static String INFO = "";
+	public static String Help = "";
 	//boolean to test if game is running
 	private boolean running;
 	public static int FPS, TPS;
@@ -30,12 +31,14 @@ public class Game extends Canvas implements Runnable{
 		stateManager.addState(new MenuState());
 		stateManager.addState(new GameState());
 		INSTANCE = this;
+		DrawString.addInfo("X:" + MouseInput.getX() + " Y:" + MouseInput.getY());
+		DrawString.addInfo("FPS:" + Game.FPS + " TPS:" + Game.TPS);
 
 	}
 	
 	//makes a new thread
 	public void start(){
-		INFO += "Game Name: " + TITLE + "\nCanvas Width: " + WIDTH + "\nCanvas Height: " + HEIGHT;
+		Help += "Game Name: " + TITLE + "\nCanvas Width: " + WIDTH + "\nCanvas Height: " + HEIGHT;
 		if(running)
 			return;
 		else{
@@ -66,10 +69,10 @@ public class Game extends Canvas implements Runnable{
 		}
 		
 		//this makes our buffer supply the graphics
-		Graphics2D g = (Graphics2D) bs.getDrawGraphics();
-		
+		Graphics g = bs.getDrawGraphics();
+		Graphics2D g2D = (Graphics2D) g;
 		//////\\\\\\
-    	stateManager.render(g);
+    	stateManager.render(g2D);
 		g.dispose();//disposes last graphics
         
 		//////\\\\\\
