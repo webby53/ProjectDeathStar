@@ -37,6 +37,7 @@ public class Mob extends Entity{
 			camx += 0.5;
 		System.out.println("Cam change = " + camx);
 		move();
+		friction();
 		fall();
 	}
 
@@ -68,12 +69,16 @@ public class Mob extends Entity{
 		collisionCheck();
 		x += dx;
 		y += dy;
+		
+	}//move
+
+	private void friction(){
 		if(dx < 0)
 			dx += 0.15;
 		if(dx > 0)
 			dx -= 0.15;
-	}//move
-
+	}
+	
 	private void jump(){
 		if(canJump){
 			dy = -5;
