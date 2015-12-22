@@ -13,7 +13,8 @@ public abstract class Entity {
 	double x, y;
 	protected Sprite sprite;
 	protected Rectangle2D recTop, recBot, recLeft, recRight;
-	protected boolean solid;
+	protected boolean solid;//not used
+	public static double camx;
 	
 	public Entity(double x, double y, Sprite sprite) {
 		this.x = x;
@@ -25,6 +26,7 @@ public abstract class Entity {
 	public void render(Graphics2D g){
 		this.tick();
 		sprite.render(g, x, y);
+		g.translate(0 + camx, 0);
 	}
 	
 	public abstract void tick();

@@ -9,11 +9,13 @@ public class Mob extends Entity{
 
 	protected double dx, dy, lastx, lasty;
 	protected boolean collision;
-	private int numJumps = 0;
+	private double gravity, terminalV;
+	private boolean canJump, falling = true;
 
 	public Mob(double x, double y, Sprite sprite) {
 		super(x, y, sprite);
-
+		gravity = 0.5;
+		terminalV = 6;
 	}
 
 	public void tick(){
@@ -25,32 +27,35 @@ public class Mob extends Entity{
 			jump();
 		if(KeyInput.isKeyDown(KeyEvent.VK_S)|| KeyInput.isKeyDown(KeyEvent.VK_DOWN))
 			dy = 4;
+		if(KeyInput.isKeyDown(KeyEvent.VK_Q))
+			camx -=0.5;
+		if(KeyInput.isKeyDown(KeyEvent.VK_E))
+			camx += 0.5;
+		System.out.println("Cam change = " + camx);
 		move();
-		if(dy != 0 || dx != 0){
-			dx = 0;
-			dy = 0;
-		}
-		gravity();
-		jumpReset();
-		
+		fall();
 	}
 
 	public Rectangle getBounds(){
 		return new Rectangle((int)x, (int)y, this.getHeight(), this.getWidth());
-	}
+	}//getBounds
 
 	public void collisionCheck(){
 		for(int i = 0; i < Tile.tiles.size(); i++){
 			if(getBounds().intersects(Tile.tiles.get(i).recBot) && dy < 0)
 				dy = 0;
-			if(getBounds().intersects(Tile.tiles.get(i).recTop) && dy > 0)
+			if(getBounds().intersects(Tile.tiles.get(i).recTop) && dy > 0){
 				dy = 0;
+				canJump = true;
+				falling = false;
+			}else
+				falling = true;
 			if(getBounds().intersects(Tile.tiles.get(i).recLeft) && dx > 0)
 				dx = 0;
 			if(getBounds().intersects(Tile.tiles.get(i).recRight) && dx < 0)
 				dx = 0;
 		}
-	}
+	}//collisionCheck
 
 	public void move(){
 		lastx = x;
@@ -59,33 +64,24 @@ public class Mob extends Entity{
 		collisionCheck();
 		x += dx;
 		y += dy;
-
-	}
+		if(dx != 0){
+			dx = 0;
+		}
+	}//move
 
 	private void jump(){
-		if(numJumps < 15){
-			dy = -5;
-			numJumps++;
+		if(canJump){
+			dy = -15;
+			canJump = false;
 		}else
 			System.out.println("Cannot jump anymore");
 	}//jump
 
-	private void gravity(){
-		int gravity = 3;	//force of gravity
-		
-		for(int i = 0; i < Tile.tiles.size(); i++){
-			if(!(getBounds().intersects(Tile.tiles.get(i).recBot))){
-				dy = gravity;
-			}
+	private void fall(){
+		if(falling){
+			dy += gravity;
+			if(dy > terminalV)
+				dy = terminalV;
 		}
-	}//gravity
-	
-	private void jumpReset(){
-		for(int i = 0; i < Tile.tiles.size(); i++){
-			if(getBounds().intersects(Tile.tiles.get(i).recTop)){
-				numJumps = 0;
-			}
-		}
-	}//JumpReset
-
+	}
 }

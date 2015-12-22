@@ -109,9 +109,7 @@ public class GameState implements State{
 			tile = new Tile(64 * i, 500, sprite);
         	tile.render(g);
 		}
-		entities.get(0).render(g);
-
-		
+		entities.get(0).render(g);		
 	}
 
 	@Override
