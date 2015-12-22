@@ -6,9 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
-
 import Main.Game;
 import Managers.StateManager;
 import Rendering.DrawString;
@@ -17,6 +15,7 @@ import Rendering.SpriteSheet;
 import Rendering.Texture;
 import entities.Entity;
 import entities.Mob;
+import entities.Player;
 import entities.Tile;
 import input.Button;
 import input.MouseInput;
@@ -28,12 +27,10 @@ public class GameState implements State{
 	private static Sprite sprite = new Sprite(sheet, 1, 1);
 	//private Sprite sprite2 = new Sprite(sheet, 3, 1);
 	public static Tile tile;
-	private Tile tile2;
+	public static boolean debugging;
 	private ArrayList<Button> buttons;
 	private int currentSelection;
 	private ArrayList<Mob> entities = new ArrayList<Mob>();
-	private StateManager stateManager;
-	private boolean enter = true;
 
 	@Override
 	public void init() {
@@ -49,11 +46,11 @@ public class GameState implements State{
 		buttons = new ArrayList<Button>();
 		buttons.add(new Button("Back",  new Font("Ariel", Font.PLAIN, 25), new Font("Ariel", Font.BOLD, 35),
 				Color.BLACK, Color.GREEN, 50));
-		buttons.add(new Button("Info",  new Font("Ariel", Font.PLAIN, 25), new Font("Ariel", Font.BOLD, 35),
+		buttons.add(new Button("Debug",  new Font("Ariel", Font.PLAIN, 25), new Font("Ariel", Font.BOLD, 35),
 				Color.BLACK, Color.RED, 90));
 		buttons.add(new Button("Exit",  new Font("Ariel", Font.PLAIN, 25), new Font("Ariel", Font.BOLD, 35),
 				Color.BLACK, Color.GREEN, 130));
-		entities.add(new Mob(Game.WIDTH / 2, Game.HEIGHT / 2, new Sprite("test", 64, 64)));
+		entities.add(new Player(Game.WIDTH / 2, Game.HEIGHT / 2, new Sprite("test", 64, 64)));
 
 
 	}
@@ -82,7 +79,11 @@ public class GameState implements State{
 		switch(currentSelection){
 		case 0: stateManager.setState("Menu"); exit();
 		break;
-		case 1: JOptionPane.showMessageDialog(null, Game.Help); Game.INSTANCE.setFocusable(true); 
+		case 1:
+			if(debugging)
+				debugging = false;
+			else
+				debugging = true;
 		break;
 		case 2: Game.INSTANCE.stop();
 		break;

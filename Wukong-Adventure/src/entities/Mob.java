@@ -1,44 +1,27 @@
 package entities;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.event.KeyEvent;
 import Rendering.Sprite;
-import input.KeyInput;
+import states.GameState;
 
-public class Mob extends Entity{
+public abstract class Mob extends Entity{
 
-	protected double dx, dy, lastx, lasty;
+	public double dx, dy;
 	protected boolean collision;
-	private double gravity, terminalV;
+	protected double gravity = 0.2;
+	protected double terminalV = 7;
 	private boolean canJump, falling = true;
 
 	public Mob(double x, double y, Sprite sprite) {
 		super(x, y, sprite);
-		gravity = 0.2;
-		terminalV = 7;
 	}
 
 	public void tick(){
-		if(KeyInput.isKeyDown(KeyEvent.VK_A) || KeyInput.isKeyDown(KeyEvent.VK_LEFT)){
-			dx += -0.3;
-			if(dx < -3) dx = -3;
-		}
-		if(KeyInput.isKeyDown(KeyEvent.VK_D)|| KeyInput.isKeyDown(KeyEvent.VK_RIGHT)){
-			dx += 0.3;
-			if(dx > 3) dx = 3;
-		}
-		if(KeyInput.isKeyDown(KeyEvent.VK_W)|| KeyInput.isKeyDown(KeyEvent.VK_UP))
-			jump();
-		if(KeyInput.isKeyDown(KeyEvent.VK_S)|| KeyInput.isKeyDown(KeyEvent.VK_DOWN))
-			dy = 4;
-		if(KeyInput.isKeyDown(KeyEvent.VK_Q))
-			camx -=0.5;
-		if(KeyInput.isKeyDown(KeyEvent.VK_E))
-			camx += 0.5;
-		System.out.println("Cam change = " + camx);
-		move();
 		friction();
 		fall();
+		move();
 	}
 
 	public Rectangle getBounds(){
@@ -63,35 +46,39 @@ public class Mob extends Entity{
 	}//collisionCheck
 
 	public void move(){
-		lastx = x;
-		lasty = y;
-
 		collisionCheck();
 		x += dx;
 		y += dy;
 		
 	}//move
 
-	private void friction(){
+	public void friction(){
 		if(dx < 0)
 			dx += 0.15;
 		if(dx > 0)
 			dx -= 0.15;
 	}
 	
-	private void jump(){
+	public void jump(){
 		if(canJump){
-			dy = -5;
+			dy = -7;
 			canJump = false;
 		}else
 			System.out.println("Cannot jump anymore");
 	}//jump
 
-	private void fall(){
+	public void fall(){
 		if(falling){
 			dy += gravity;
 			if(dy > terminalV)
 				dy = terminalV;
 		}
+	}
+	
+	public void render(Graphics2D g){
+		super.render(g);
+		g.setColor(Color.MAGENTA);
+		if(GameState.debugging)
+			g.draw(getBounds());
 	}
 }

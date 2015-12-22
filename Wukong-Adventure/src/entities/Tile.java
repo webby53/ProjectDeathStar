@@ -1,7 +1,10 @@
 package entities;
 
 import Rendering.Sprite;
+import states.GameState;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
@@ -22,5 +25,19 @@ public class Tile extends Entity{
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
+	}
+	
+	public void render(Graphics2D g){
+		sprite.render(g, x, y);
+		if(GameState.debugging){
+			g.setColor(Color.BLUE);
+			g.draw(recTop);
+			g.setColor(Color.RED);
+			g.draw(recBot);
+			g.setColor(Color.GREEN);
+			g.draw(recLeft);
+			g.setColor(Color.ORANGE);
+			g.draw(recRight);
+		}
 	}
 }
