@@ -14,15 +14,19 @@ public class Mob extends Entity{
 
 	public Mob(double x, double y, Sprite sprite) {
 		super(x, y, sprite);
-		gravity = 0.5;
-		terminalV = 6;
+		gravity = 0.2;
+		terminalV = 7;
 	}
 
 	public void tick(){
-		if(KeyInput.isKeyDown(KeyEvent.VK_A) || KeyInput.isKeyDown(KeyEvent.VK_LEFT))
-			dx = -4;
-		if(KeyInput.isKeyDown(KeyEvent.VK_D)|| KeyInput.isKeyDown(KeyEvent.VK_RIGHT))
-			dx = 4;
+		if(KeyInput.isKeyDown(KeyEvent.VK_A) || KeyInput.isKeyDown(KeyEvent.VK_LEFT)){
+			dx += -0.3;
+			if(dx < -3) dx = -3;
+		}
+		if(KeyInput.isKeyDown(KeyEvent.VK_D)|| KeyInput.isKeyDown(KeyEvent.VK_RIGHT)){
+			dx += 0.3;
+			if(dx > 3) dx = 3;
+		}
 		if(KeyInput.isKeyDown(KeyEvent.VK_W)|| KeyInput.isKeyDown(KeyEvent.VK_UP))
 			jump();
 		if(KeyInput.isKeyDown(KeyEvent.VK_S)|| KeyInput.isKeyDown(KeyEvent.VK_DOWN))
@@ -64,14 +68,15 @@ public class Mob extends Entity{
 		collisionCheck();
 		x += dx;
 		y += dy;
-		if(dx != 0){
-			dx = 0;
-		}
+		if(dx < 0)
+			dx += 0.15;
+		if(dx > 0)
+			dx -= 0.15;
 	}//move
 
 	private void jump(){
 		if(canJump){
-			dy = -15;
+			dy = -5;
 			canJump = false;
 		}else
 			System.out.println("Cannot jump anymore");
