@@ -18,20 +18,13 @@ public class Mob extends Entity{
 
 	public void tick(){
 		if(KeyInput.isKeyDown(KeyEvent.VK_A) || KeyInput.isKeyDown(KeyEvent.VK_LEFT))
-			dx = -3;
+			dx = -4;
 		if(KeyInput.isKeyDown(KeyEvent.VK_D)|| KeyInput.isKeyDown(KeyEvent.VK_RIGHT))
-			dx = 3;
+			dx = 4;
 		if(KeyInput.isKeyDown(KeyEvent.VK_W)|| KeyInput.isKeyDown(KeyEvent.VK_UP))
-			dy = -3;
-		if(KeyInput.isKeyDown(KeyEvent.VK_S)|| KeyInput.isKeyDown(KeyEvent.VK_DOWN))
-			dy = 3;
-		if(KeyInput.isKeyDown(KeyEvent.VK_SPACE)){
-			//System.out.println("Top-X:" + recLeft.getX() + " Y:" + recLeft.getY());
-			//Space is now jumping
-			/*			for(Entity ent: Tile.tiles)
-				System.out.println(ent);*/
 			jump();
-		}
+		if(KeyInput.isKeyDown(KeyEvent.VK_S)|| KeyInput.isKeyDown(KeyEvent.VK_DOWN))
+			dy = 4;
 		move();
 		if(dy != 0 || dx != 0){
 			dx = 0;
@@ -70,16 +63,15 @@ public class Mob extends Entity{
 	}
 
 	private void jump(){
-		
-		if(numJumps <= 8){
-			dy = -10;
-		}
-		
-		numJumps++;
+		if(numJumps < 15){
+			dy = -5;
+			numJumps++;
+		}else
+			System.out.println("Cannot jump anymore");
 	}//jump
 
 	private void gravity(){
-		int gravity = 2;	//force of gravity
+		int gravity = 3;	//force of gravity
 		
 		for(int i = 0; i < Tile.tiles.size(); i++){
 			if(!(getBounds().intersects(Tile.tiles.get(i).recBot))){

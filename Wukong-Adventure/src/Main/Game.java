@@ -12,7 +12,7 @@ import states.MenuState;
 
 public class Game extends Canvas implements Runnable{
 
-	public static final String TITLE = "Wukong's Advernture Ver 2.1";
+	public static final String TITLE = "Wukong's Advernture Ver 4.0";
 	public static final int WIDTH = 896;
 	public static final int HEIGHT = WIDTH / 4 * 3;
 	public static Game INSTANCE;
