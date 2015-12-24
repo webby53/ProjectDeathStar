@@ -3,7 +3,6 @@ package entities;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import Rendering.Sprite;
-import states.GameState;
 
 public abstract class Entity {
 

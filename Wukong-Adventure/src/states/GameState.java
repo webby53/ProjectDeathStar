@@ -4,20 +4,20 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import Main.Game;
 import Managers.StateManager;
 import Rendering.DrawString;
 import Rendering.Sprite;
 import Rendering.SpriteSheet;
 import Rendering.Texture;
-import entities.Entity;
 import entities.Mob;
 import entities.Player;
 import entities.Tile;
 import input.Button;
+import input.KeyInput;
 import input.MouseInput;
 
 public class GameState implements State{
@@ -25,23 +25,18 @@ public class GameState implements State{
 	private static Texture texture = new Texture("SpriteCell(4x4)");
 	private static SpriteSheet sheet = new SpriteSheet(texture, 64);
 	private static Sprite sprite = new Sprite(sheet, 1, 1);
-	//private Sprite sprite2 = new Sprite(sheet, 3, 1);
+	private Sprite sprite2 = new Sprite(sheet, 3, 1);
 	public static Tile tile;
 	public static boolean debugging;
 	private ArrayList<Button> buttons;
 	private int currentSelection;
 	private ArrayList<Mob> entities = new ArrayList<Mob>();
 
-	@Override
 	public void init() {
-		// TODO Auto-generated method stub
 		enter();
-
 	}
 
-	@Override
 	public void enter() {
-		// TODO Auto-generated method stub
 		currentSelection = -1;
 		buttons = new ArrayList<Button>();
 		buttons.add(new Button("Back",  new Font("Ariel", Font.PLAIN, 25), new Font("Ariel", Font.BOLD, 35),
@@ -55,7 +50,6 @@ public class GameState implements State{
 
 	}
 
-	@Override
 	public void tick(StateManager stateManager) {
 		//mouse check
 		boolean isClicked = false;
@@ -90,13 +84,14 @@ public class GameState implements State{
 		}
 	}
 
-	@Override
 	public void render(Graphics2D g) {
-		// TODO Auto-generated method stub
+		//background rendering
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
+		//player coordinates
 		DrawString.drawString(g, "Player[X:" + entities.get(0).getX() + " Y:" +entities.get(0).getY() + "]", new Font("Arial",Font.PLAIN, 13),  Color.BLUE,Game.WIDTH - 128, 11 * 2);
 
+		//button selection
 		for(int i = 0; i < buttons.size(); i++){
 			if(i == currentSelection)	
 				buttons.get(i).setSelected(true);
@@ -104,27 +99,35 @@ public class GameState implements State{
 				buttons.get(i).setSelected(false);
 			buttons.get(i).render(g, Game.WIDTH - 110);
 		}
+		
+		//Text and other
 		DrawString.drawInfo(g);
-		DrawString.drawStringCenterV(g, "Collision Testing", Color.CYAN, new Font("Arial", Font.CENTER_BASELINE, 50), 100);		
+		DrawString.drawStringCenterV(g, "Collision Testing", Color.CYAN, new Font("Arial", Font.CENTER_BASELINE, 50), 100);	
+		
+		//ignore
+		tile = new Tile(200, 100, sprite);
+		tile.render(g);		
+		
+		//rendering tiles and entities
 		for(int i= 0; i < 14; i++){
 			tile = new Tile(64 * i, 500, sprite);
-        	tile.render(g);
+			tile.render(g);
+		}
+		for(int i= 1; i < 4; i++){
+			tile = new Tile(128, 500 - 64 * i, sprite2);
+			tile.render(g);
 		}
 		entities.get(0).render(g);		
-	}
+	}//render
 
-	@Override
 	public void exit() {
-		// TODO Auto-generated method stub
 		buttons.clear();
 		this.entities.clear();
-	}
+	}//exit
 
-	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return "Game";
-	}
+	}//getName
 
 
 }

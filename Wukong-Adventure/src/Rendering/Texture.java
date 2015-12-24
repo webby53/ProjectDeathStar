@@ -20,13 +20,13 @@ public class Texture{
 	//so creates a texture 
 	public Texture(String fileName){
 		this.fileName = fileName;
-		BufferedImage oldTexture = textmap.get(fileName);
+		BufferedImage oldTexture = textmap.get(this.fileName);
 		if(oldTexture != null){
 			image = oldTexture;
 		}else{
 			try {
-				image = ImageIO.read(new File("./resources/textures/" + fileName + ".png"));
-				textmap.put(fileName,image);
+				image = ImageIO.read(new File("./resources/textures/" + this.fileName + ".png"));
+				textmap.put(this.fileName,image);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

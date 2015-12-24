@@ -9,6 +9,7 @@ import java.awt.Rectangle;
 import Main.Game;
 import Rendering.DrawString;
 
+@SuppressWarnings("serial")
 public class Button extends Rectangle{
 
 	//fonts and colors for a selected and non selected button

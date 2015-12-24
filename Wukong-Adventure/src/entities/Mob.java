@@ -12,7 +12,7 @@ public abstract class Mob extends Entity{
 	protected boolean collision;
 	protected double gravity = 0.2;
 	protected double terminalV = 7;
-	private boolean canJump, falling = true;
+	private boolean falling = true;
 
 	public Mob(double x, double y, Sprite sprite) {
 		super(x, y, sprite);
@@ -30,11 +30,18 @@ public abstract class Mob extends Entity{
 
 	public void collisionCheck(){
 		for(int i = 0; i < Tile.tiles.size(); i++){
+			if(getBounds().intersects(Tile.tiles.get(i).recTop) && (getBounds().intersects(Tile.tiles.get(i).recLeft)) || 
+					getBounds().intersects(Tile.tiles.get(i).recTop) && (getBounds().intersects(Tile.tiles.get(i).recRight)) || 
+					getBounds().intersects(Tile.tiles.get(i).recRight) && (getBounds().intersects(Tile.tiles.get(i).recLeft)))
+				y -= 1;
 			if(getBounds().intersects(Tile.tiles.get(i).recBot) && dy < 0)
 				dy = 0;
 			if(getBounds().intersects(Tile.tiles.get(i).recTop) && dy > 0){
-				dy = 0;
-				canJump = true;
+				dy=0;
+				x += dx;
+				Player.canJump = true;
+				Player.numJumps = 2;
+				Player.canDoubleJump = false;
 				falling = false;
 			}else
 				falling = true;
@@ -49,32 +56,38 @@ public abstract class Mob extends Entity{
 		collisionCheck();
 		x += dx;
 		y += dy;
-		
+		collisionCheck();
 	}//move
 
 	public void friction(){
+		collisionCheck();
 		if(dx < 0)
-			dx += 0.15;
+			if(dx > -0.15)
+				dx = 0;
+			else	
+				dx += 0.15;
 		if(dx > 0)
-			dx -= 0.15;
+			if(dx < 0.15)
+				dx = 0;
+			else	
+				dx -= 0.15;
+		collisionCheck();
 	}
-	
+
 	public void jump(){
-		if(canJump){
-			dy = -7;
-			canJump = false;
-		}else
-			System.out.println("Cannot jump anymore");
+		dy = -4;
 	}//jump
 
 	public void fall(){
+		collisionCheck();
 		if(falling){
 			dy += gravity;
 			if(dy > terminalV)
 				dy = terminalV;
 		}
+		collisionCheck();
 	}
-	
+
 	public void render(Graphics2D g){
 		super.render(g);
 		g.setColor(Color.MAGENTA);
