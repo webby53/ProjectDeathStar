@@ -33,11 +33,12 @@ public abstract class Mob extends Entity{
 			if(getBounds().intersects(Tile.tiles.get(i).recTop) && (getBounds().intersects(Tile.tiles.get(i).recLeft)) || 
 					getBounds().intersects(Tile.tiles.get(i).recTop) && (getBounds().intersects(Tile.tiles.get(i).recRight)) || 
 					getBounds().intersects(Tile.tiles.get(i).recRight) && (getBounds().intersects(Tile.tiles.get(i).recLeft)))
-				y -= 1;
+				dy = 0;
 			if(getBounds().intersects(Tile.tiles.get(i).recBot) && dy < 0)
 				dy = 0;
 			if(getBounds().intersects(Tile.tiles.get(i).recTop) && dy > 0){
-				dy=0;
+				dy = 0;
+				y = getBounds().getY();
 				x += dx;
 				Player.canJump = true;
 				Player.numJumps = 2;
@@ -60,16 +61,17 @@ public abstract class Mob extends Entity{
 	}//move
 
 	public void friction(){
+		double friction = 0.2;
 		if(dx < 0)
-			if(dx > -0.15)
+			if(dx > -friction)
 				dx = 0;
 			else	
-				dx += 0.15;
+				dx += friction;
 		if(dx > 0)
-			if(dx < 0.15)
+			if(dx < friction)
 				dx = 0;
 			else	
-				dx -= 0.15;
+				dx -= friction;
 	}
 
 	public void jump(){

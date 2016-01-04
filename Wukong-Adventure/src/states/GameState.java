@@ -23,7 +23,7 @@ import input.MouseInput;
 public class GameState implements State{
 
 	private static Texture texture = new Texture("SpriteCell(4x4)");
-	private static SpriteSheet sheet = new SpriteSheet(texture, 10);
+	private static SpriteSheet sheet = new SpriteSheet(texture, 64);
 	private static Sprite sprite = new Sprite(sheet, 1, 1);
 	private Sprite sprite2 = new Sprite(sheet, 3, 1);
 	public static Tile tile;
@@ -93,11 +93,11 @@ public class GameState implements State{
 
 		//rendering tiles and entities
 		for(int i= 0; i < 14; i++){
-			tile = new Tile(32 * i, 500, sprite);
+			tile = new Tile(64 * i, 500, sprite);
 			tile.render(g);
 		}
 		for(int i= 1; i < 4; i++){
-			tile = new Tile(128, 500 - 32 * i, sprite2);
+			tile = new Tile(64, 500 - 32 * i, sprite2);
 			tile.render(g);
 		}
 		entities.get(0).render(g);	
