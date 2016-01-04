@@ -18,11 +18,11 @@ public class Player extends Mob{
 
 	public void tick(){
 		if(KeyInput.isKeyDown(KeyEvent.VK_A) || KeyInput.isKeyDown(KeyEvent.VK_LEFT)){
-			dx += -0.3;
+			dx += -0.25;
 			if(dx < -3) dx = -3;
 		}
 		if(KeyInput.isKeyDown(KeyEvent.VK_D)|| KeyInput.isKeyDown(KeyEvent.VK_RIGHT)){
-			dx += 0.3;
+			dx += 0.25;
 			if(dx > 3) dx = 3;
 
 		}
