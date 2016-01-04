@@ -23,7 +23,7 @@ import input.MouseInput;
 public class GameState implements State{
 
 	private static Texture texture = new Texture("SpriteCell(4x4)");
-	private static SpriteSheet sheet = new SpriteSheet(texture, 64);
+	private static SpriteSheet sheet = new SpriteSheet(texture, 10);
 	private static Sprite sprite = new Sprite(sheet, 1, 1);
 	private Sprite sprite2 = new Sprite(sheet, 3, 1);
 	public static Tile tile;
@@ -45,7 +45,7 @@ public class GameState implements State{
 				Color.BLACK, Color.RED, 90));
 		buttons.add(new Button("Exit",  new Font("Ariel", Font.PLAIN, 25), new Font("Ariel", Font.BOLD, 35),
 				Color.BLACK, Color.GREEN, 130));
-		entities.add(new Player(Game.WIDTH / 2, Game.HEIGHT / 2, new Sprite("test", 64, 64)));
+		entities.add(new Player(Game.WIDTH / 2, Game.HEIGHT / 2, new Sprite("test", 16, 16)));
 
 
 	}
@@ -91,6 +91,16 @@ public class GameState implements State{
 		//player coordinates
 		DrawString.drawString(g, "Player[X:" + entities.get(0).getX() + " Y:" +entities.get(0).getY() + "]", new Font("Arial",Font.PLAIN, 13),  Color.BLUE,Game.WIDTH - 128, 11 * 2);
 
+		//rendering tiles and entities
+		for(int i= 0; i < 14; i++){
+			tile = new Tile(32 * i, 500, sprite);
+			tile.render(g);
+		}
+		for(int i= 1; i < 4; i++){
+			tile = new Tile(128, 500 - 32 * i, sprite2);
+			tile.render(g);
+		}
+		entities.get(0).render(g);	
 		//button selection
 		for(int i = 0; i < buttons.size(); i++){
 			if(i == currentSelection)	
@@ -107,17 +117,7 @@ public class GameState implements State{
 		//ignore
 		tile = new Tile(200, 100, sprite);
 		tile.render(g);		
-		
-		//rendering tiles and entities
-		for(int i= 0; i < 14; i++){
-			tile = new Tile(64 * i, 500, sprite);
-			tile.render(g);
-		}
-		for(int i= 1; i < 4; i++){
-			tile = new Tile(128, 500 - 64 * i, sprite2);
-			tile.render(g);
-		}
-		entities.get(0).render(g);		
+			
 	}//render
 
 	public void exit() {

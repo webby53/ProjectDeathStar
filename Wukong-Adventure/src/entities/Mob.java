@@ -60,7 +60,6 @@ public abstract class Mob extends Entity{
 	}//move
 
 	public void friction(){
-		collisionCheck();
 		if(dx < 0)
 			if(dx > -0.15)
 				dx = 0;
@@ -71,7 +70,6 @@ public abstract class Mob extends Entity{
 				dx = 0;
 			else	
 				dx -= 0.15;
-		collisionCheck();
 	}
 
 	public void jump(){
@@ -79,13 +77,11 @@ public abstract class Mob extends Entity{
 	}//jump
 
 	public void fall(){
-		collisionCheck();
 		if(falling){
 			dy += gravity;
 			if(dy > terminalV)
 				dy = terminalV;
 		}
-		collisionCheck();
 	}
 
 	public void render(Graphics2D g){

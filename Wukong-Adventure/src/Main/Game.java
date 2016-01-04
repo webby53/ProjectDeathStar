@@ -13,7 +13,7 @@ import states.MenuState;
 @SuppressWarnings("serial")
 public class Game extends Canvas implements Runnable{
 
-	public static final String TITLE = "Wukong's Advernture Ver 4.4";
+	public static final String TITLE = "Wukong's Advernture Ver 4.5";
 	public static final int WIDTH = 896;
 	public static final int HEIGHT = WIDTH / 4 * 3;
 	public static Game INSTANCE;
@@ -95,7 +95,7 @@ public class Game extends Canvas implements Runnable{
 	public void run(){
 		requestFocus();
 		//this is the target frames per second
-		double target = 60.0;
+		double target = 48.0;
 		//this helps with second calculation
 		double nanoSecPerTick = 1000000000.0 /target;
 		//this is the time we haven't processed
@@ -118,8 +118,6 @@ public class Game extends Canvas implements Runnable{
 			//this calculates the time difference
 			//from the last loop to current
 			unprocessed += (now - lastTime) / nanoSecPerTick;
-			if(tps > target)
-				unprocessed = 0;
 
 			lastTime = now;
 			

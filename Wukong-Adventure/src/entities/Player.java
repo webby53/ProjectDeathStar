@@ -20,12 +20,10 @@ public class Player extends Mob{
 		if(KeyInput.isKeyDown(KeyEvent.VK_A) || KeyInput.isKeyDown(KeyEvent.VK_LEFT)){
 			dx += -0.3;
 			if(dx < -3) dx = -3;
-			collisionCheck();
 		}
 		if(KeyInput.isKeyDown(KeyEvent.VK_D)|| KeyInput.isKeyDown(KeyEvent.VK_RIGHT)){
 			dx += 0.3;
 			if(dx > 3) dx = 3;
-			collisionCheck();
 
 		}
 		if(KeyInput.isKeyDown(KeyEvent.VK_W)|| KeyInput.isKeyDown(KeyEvent.VK_UP)){
@@ -34,7 +32,6 @@ public class Player extends Mob{
 
 		if(KeyInput.isKeyDown(KeyEvent.VK_S)|| KeyInput.isKeyDown(KeyEvent.VK_DOWN)){
 			dy = 0;
-			collisionCheck();
 		}
 		if(KeyInput.isKeyDown(KeyEvent.VK_E))
 			for(int i = 0; i < Tile.tiles.size(); i++)
@@ -44,12 +41,12 @@ public class Player extends Mob{
 
 	public void jump(){
 		if(canDoubleJump){
-			dy = -13;
+			dy = -5;
 			numJumps--;
 			canDoubleJump = false;
 		}
 		if(canJump){
-			dy = -10;
+			dy = -6;
 			numJumps--;
 			canJump = false;
 		}
