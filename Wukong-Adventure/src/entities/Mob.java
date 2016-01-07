@@ -64,6 +64,7 @@ public abstract class Mob extends Entity{
 		collisionCheck();
 	}//move
 
+	//slows down when moving
 	public void friction(){
 		double friction = 0.2;
 		if(dx < 0)
