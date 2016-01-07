@@ -8,13 +8,14 @@ import input.KeyInput;
 import input.MouseInput;
 import states.GameState;
 import states.MenuState;
+import Rendering.Background;
 
 
 @SuppressWarnings("serial")
 public class Game extends Canvas implements Runnable{
 
 	public static final String TITLE = "Wukong's Advernture Ver 4.8";
-	public static final int WIDTH = 1024;
+	public static final int WIDTH = 896;
 	public static final int HEIGHT = WIDTH / 4 * 3;
 	public static Game INSTANCE;
 	public static String Help = "";
@@ -22,6 +23,7 @@ public class Game extends Canvas implements Runnable{
 	private boolean running;
 	public static int FPS, TPS;
 	private StateManager stateManager;
+	private Background bg;
 	
 	public Game(){
 		addKeyListener(new KeyInput());
@@ -34,7 +36,6 @@ public class Game extends Canvas implements Runnable{
 		INSTANCE = this;
 		DrawString.addInfo("X:" + MouseInput.getX() + " Y:" + MouseInput.getY());
 		DrawString.addInfo("FPS:" + Game.FPS + " TPS:" + Game.TPS);
-
 	}
 	
 	//makes a new thread
@@ -160,4 +161,8 @@ public class Game extends Canvas implements Runnable{
 
 		System.out.println("The Game has Started!");
 	}//run
+	
+	public static int returnWidth(){
+		return WIDTH;
+	}
 }
