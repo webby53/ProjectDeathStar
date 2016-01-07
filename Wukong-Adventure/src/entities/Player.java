@@ -40,14 +40,8 @@ public class Player extends Mob{
 	}
 
 	public void jump(){
-		if(canDoubleJump){
-			dy = -5;
-			numJumps--;
-			canDoubleJump = false;
-		}
 		if(canJump){
 			dy = -6;
-			numJumps--;
 			canJump = false;
 		}
 

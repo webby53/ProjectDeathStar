@@ -32,13 +32,17 @@ public abstract class Mob extends Entity{
 		for(int i = 0; i < Tile.tiles.size(); i++){
 			if(getBounds().intersects(Tile.tiles.get(i).recTop) && (getBounds().intersects(Tile.tiles.get(i).recLeft)) || 
 					getBounds().intersects(Tile.tiles.get(i).recTop) && (getBounds().intersects(Tile.tiles.get(i).recRight)) || 
-					getBounds().intersects(Tile.tiles.get(i).recRight) && (getBounds().intersects(Tile.tiles.get(i).recLeft)))
+					getBounds().intersects(Tile.tiles.get(i).recRight) && (getBounds().intersects(Tile.tiles.get(i).recLeft))){
+				y = Tile.tiles.get(i).recTop.getY() - 64; 
+				x += dx;
 				dy = 0;
+			}
+				
 			if(getBounds().intersects(Tile.tiles.get(i).recBot) && dy < 0)
 				dy = 0;
 			if(getBounds().intersects(Tile.tiles.get(i).recTop) && dy > 0){
 				dy = 0;
-				y = getBounds().getY();
+				y = Tile.tiles.get(i).recTop.getY() - 64;
 				x += dx;
 				Player.canJump = true;
 				Player.numJumps = 2;

@@ -45,7 +45,7 @@ public class GameState implements State{
 				Color.BLACK, Color.RED, 90));
 		buttons.add(new Button("Exit",  new Font("Ariel", Font.PLAIN, 25), new Font("Ariel", Font.BOLD, 35),
 				Color.BLACK, Color.GREEN, 130));
-		entities.add(new Player(Game.WIDTH / 2, Game.HEIGHT / 2, new Sprite("test", 16, 16)));
+		entities.add(new Player(Game.WIDTH / 2, Game.HEIGHT / 2, new Sprite("test", 64, 64)));
 
 
 	}
@@ -97,7 +97,7 @@ public class GameState implements State{
 			tile.render(g);
 		}
 		for(int i= 1; i < 4; i++){
-			tile = new Tile(64, 500 - 32 * i, sprite2);
+			tile = new Tile(64, 500 - 64 * i, sprite2);
 			tile.render(g);
 		}
 		entities.get(0).render(g);	
