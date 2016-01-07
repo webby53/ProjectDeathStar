@@ -8,11 +8,11 @@ import states.GameState;
 
 public abstract class Mob extends Entity{
 
-	public double dx, dy;
+	protected double dx, dy;
 	protected boolean collision;
 	protected double gravity = 0.2;
 	protected double terminalV = 7;
-	private boolean falling = true;
+	protected boolean falling;
 
 	public Mob(double x, double y, Sprite sprite) {
 		super(x, y, sprite);
