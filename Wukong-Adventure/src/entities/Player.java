@@ -7,9 +7,7 @@ import input.KeyInput;
 
 public class Player extends Mob{
 
-	public static boolean canJump = false;
-	public static boolean canDoubleJump = false;
-	public static int numJumps = 2;
+	public static boolean canJump;
 
 	public Player(double x, double y, Sprite sprite) {
 		super(x, y, sprite);

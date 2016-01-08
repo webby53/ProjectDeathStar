@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 
 public class Tile extends Entity{
-	public static ArrayList<Tile> tiles = new ArrayList<Tile>();
-	public double x, y;
+	protected static ArrayList<Tile> tiles = new ArrayList<Tile>();
+	protected double x, y;
 	
 
 	public Tile(double x, double y, Sprite sprite) {

@@ -6,10 +6,10 @@ import Rendering.Sprite;
 
 public abstract class Entity {
 
-	double x, y;
+	public double x, y;
 	public Sprite sprite;
 	public Rectangle2D recTop, recBot, recLeft, recRight;
-	public boolean solid;//not used
+	
 	public Entity(double x, double y, Sprite sprite) {
 		this.x = x;
 		this.y = y;

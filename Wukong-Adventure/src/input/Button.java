@@ -3,7 +3,7 @@ package input;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import Main.Game;
@@ -20,6 +20,7 @@ public class Button extends Rectangle{
 	private String text;
 	private int texty;//y value of where to draw string since text strings are drawn in lower left rather than top left
 	private boolean isSelected;
+	
 	public Button(String text, Font currentFont, Font selectedFont, Color currentColor, Color selectedColor,
 			int texty) {
 		super();
@@ -46,7 +47,7 @@ public class Button extends Rectangle{
 		isSelected = selected;
 	}
 	//button rendering
-	public void render(Graphics g){
+	public void render(Graphics2D g){
 		//draws the text first and bold if they are selected (and changes color)
 		if(isSelected)
 			DrawString.drawStringCenterV(g, text, selectedColor, selectedFont, texty);
@@ -64,7 +65,7 @@ public class Button extends Rectangle{
 		this.width = fm.stringWidth(text);
 		//draws the text first and bold if they are selected (and changes color)
 	}
-	public void render(Graphics g, int x){
+	public void render(Graphics2D g, int x){
 		//draws the text first and bold if they are selected (and changes color)
 		this.x = x;
 		if(isSelected)
