@@ -16,7 +16,6 @@ public class Background {
 	public Background(int x, int y){
 		this.x = x;
 		this.y = y;
-		
 		try {
 			image = ImageIO.read(new File("./resources/textures/Background.png"));
 		} catch (IOException e) {
@@ -31,9 +30,9 @@ public class Background {
 		}
 		if(x > 0){
 			g.drawImage(image, x - Game.returnWidth(), y, null);
-		}
-		
-		
+		}	
 	}
+	
+	
 	
 }
