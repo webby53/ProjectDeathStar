@@ -11,6 +11,7 @@ public abstract class Mob extends Entity{
 	protected double dx, dy;
 	protected boolean collision;
 	protected double gravity = 0.2;
+	protected double friction = 0.2;
 	protected double terminalV = 7;
 	protected boolean falling;
 
@@ -64,7 +65,6 @@ public abstract class Mob extends Entity{
 
 	//slows down when moving
 	public void friction(){
-		double friction = 0.2;
 		if(dx < 0)
 			if(dx > -friction)
 				dx = 0;
