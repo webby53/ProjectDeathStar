@@ -12,6 +12,7 @@ public abstract class Mob extends Entity{
 	protected boolean collision;
 	protected double gravity = 0.5;
 	protected double terminalV = 20;
+	protected double friction = 0.2;
 	protected boolean falling;
 
 	public Mob(double x, double y, Sprite sprite) {

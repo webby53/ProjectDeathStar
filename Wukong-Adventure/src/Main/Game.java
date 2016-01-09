@@ -8,13 +8,12 @@ import input.KeyInput;
 import input.MouseInput;
 import states.GameState;
 import states.MenuState;
-import Rendering.Background;
 
 
 @SuppressWarnings("serial")
 public class Game extends Canvas implements Runnable{
 
-	public static final String TITLE = "Wukong's Advernture Ver 4.8";
+	public static final String TITLE = "Wukong's Advernture Ver 4.9";
 	public static final int WIDTH = 896;
 	public static final int HEIGHT = WIDTH / 4 * 3;
 	public static Game INSTANCE;
@@ -23,7 +22,6 @@ public class Game extends Canvas implements Runnable{
 	private boolean running;
 	public static int FPS, TPS;
 	private StateManager stateManager;
-	private Background bg;
 	
 	public Game(){
 		addKeyListener(new KeyInput());
