@@ -35,7 +35,14 @@ public abstract class Mob extends Entity{
 //				x += dx;
 //				dy = 0;
 //			}
-				
+			if(getBounds().intersects(Tile.tiles.get(i).recLeft) && dx > 0){
+				dx = 0;
+				x -= 0.7;
+			}
+			if(getBounds().intersects(Tile.tiles.get(i).recRight) && dx < 0){
+				dx = 0;
+				x = Tile.tiles.get(i).recRight.getX();
+			}
 			if(getBounds().intersects(Tile.tiles.get(i).recBot) && dy < 0)
 				dy = 0;
 			if(getBounds().intersects(Tile.tiles.get(i).recTop) && dy > 0){
@@ -44,18 +51,9 @@ public abstract class Mob extends Entity{
 				x += dx;
 				Player.canJump = true;
 				falling = false;
-			}else if(1==0)
-				x=0;
-			else
+			}else
 				falling = true;
-			if(getBounds().intersects(Tile.tiles.get(i).recLeft)){
-				dx = 0;
-				//x = Tile.tiles.get(i).recLeft.getX();
-			}
-			if(getBounds().intersects(Tile.tiles.get(i).recRight) && dx < 0){
-				dx = 0;
-				x = Tile.tiles.get(i).recRight.getX();
-			}
+
 		}
 	}//collisionCheck
 

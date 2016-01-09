@@ -9,7 +9,7 @@ public class Player extends Mob{
 
 	public static boolean canJump;
 	public double speed = 0.5;
-	public double maxSpeed = 4;
+	public double maxSpeed = 7;
 
 	public Player(double x, double y, Sprite sprite) {
 		super(x, y, sprite);
