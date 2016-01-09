@@ -13,12 +13,14 @@ import Rendering.DrawString;
 import Rendering.Sprite;
 import Rendering.SpriteSheet;
 import Rendering.Texture;
+import Rendering.Background;
 import entities.Mob;
 import entities.Player;
 import entities.Tile;
 import input.Button;
 import input.KeyInput;
 import input.MouseInput;
+
 
 public class GameState implements State{
 
@@ -31,6 +33,7 @@ public class GameState implements State{
 	private ArrayList<Button> buttons;
 	private int currentSelection;
 	private ArrayList<Mob> entities = new ArrayList<Mob>();
+	private Background bg = new Background("./resources/textures/Background.png", 10);
 
 	public void init() {
 		enter();
@@ -47,6 +50,9 @@ public class GameState implements State{
 				Color.BLACK, Color.GREEN, 130));
 		entities.add(new Player(Game.WIDTH / 2, Game.HEIGHT / 2, new Sprite("test", 64, 64)));
 
+		bg.setX(0);
+		bg.setY(0);	
+		bg.setDx(0.3);
 
 	}
 
@@ -86,8 +92,8 @@ public class GameState implements State{
 
 	public void render(Graphics2D g) {
 		//background rendering
-		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
+		bg.draw(g);
+		bg.update();
 		//player coordinates
 		DrawString.drawString(g, "Player[X:" + entities.get(0).getX() + " Y:" +entities.get(0).getY() + "]", new Font("Arial",Font.PLAIN, 13),  Color.BLUE,Game.WIDTH - 128, 11 * 2);
 

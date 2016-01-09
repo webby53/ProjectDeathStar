@@ -23,7 +23,6 @@ public class Game extends Canvas implements Runnable{
 	private boolean running;
 	public static int FPS, TPS;
 	private StateManager stateManager;
-	private Background bg;
 	
 	public Game(){
 		addKeyListener(new KeyInput());
@@ -162,7 +161,4 @@ public class Game extends Canvas implements Runnable{
 		System.out.println("The Game has Started!");
 	}//run
 	
-	public static int returnWidth(){
-		return WIDTH;
-	}
 }
