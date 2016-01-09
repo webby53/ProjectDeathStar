@@ -7,9 +7,11 @@ import states.State;
 
 public class StateManager {
 
+	//map that stores a string value (a name) with an instance 
 	private Map<String, State> map;
 	private State currentState;
 
+	//
 	public StateManager(){
 		map = new HashMap<String, State>();
 	}
