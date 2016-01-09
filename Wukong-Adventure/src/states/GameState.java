@@ -7,6 +7,9 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+
 import Main.Game;
 import Managers.StateManager;
 import Rendering.DrawString;
@@ -73,6 +76,12 @@ public class GameState implements State{
 		}
 		if(isClicked)
 			select(stateManager);
+		
+		if(entities.get(0).isDead()){
+			JOptionPane.showMessageDialog(null, "You have fallen to your death. You will now be sent back to the menu."); Game.INSTANCE.setFocusable(true);
+			stateManager.setState("menu");
+		}
+		
 	}
 
 	public void select(StateManager stateManager){

@@ -102,4 +102,14 @@ public abstract class Mob extends Entity{
 		if(GameState.debugging)
 			g.draw(getBounds());
 	}
+	
+	public boolean isDead(){
+		boolean death = false;
+		
+		if(y > 800){
+			death = true;
+		}
+		
+		return death;
+	}
 }
