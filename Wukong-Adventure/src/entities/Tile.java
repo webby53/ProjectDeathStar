@@ -19,10 +19,11 @@ public class Tile extends Entity{
 		this.x = x;
 		this.y = y;
 		tiles.add(this);
-		recTop = new Rectangle((int)this.x + 1, (int)this.y - 1, sprite.getWidth() - 2, 1);
-		recBot = new Rectangle((int)this.x + 1, (int)this.y + sprite.getHeight() - 1, sprite.getWidth() - 2, 1);
-		recLeft = new Rectangle((int)this.x - 2, (int)this.y, 1, sprite.getHeight() - 2);
-		recRight = new Rectangle((int)this.x + sprite.getWidth() + 1, (int)this.y, 1, sprite.getWidth() - 2);
+		recLeft = new Rectangle((int)this.x, (int)this.y + 2, 1, sprite.getHeight() - 2);
+		recRight = new Rectangle((int)this.x + sprite.getWidth(), (int)this.y + 2, 1, sprite.getWidth() - 2);
+		recTop = new Rectangle((int)this.x + 2, (int)this.y, sprite.getWidth() - 2, 1);
+		recBot = new Rectangle((int)this.x + 2, (int)this.y + sprite.getHeight(), sprite.getWidth() - 2, 1);
+
 	}
 
 	@Override

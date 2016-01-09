@@ -8,6 +8,8 @@ import input.KeyInput;
 public class Player extends Mob{
 
 	public static boolean canJump;
+	public double speed = 0.5;
+	public double maxSpeed = 4;
 
 	public Player(double x, double y, Sprite sprite) {
 		super(x, y, sprite);
@@ -16,12 +18,12 @@ public class Player extends Mob{
 
 	public void tick(){
 		if(KeyInput.isKeyDown(KeyEvent.VK_A) || KeyInput.isKeyDown(KeyEvent.VK_LEFT)){
-			dx += -0.25;
-			if(dx < -3) dx = -3;
+			dx += -speed;
+			if(dx < -maxSpeed) dx = -maxSpeed;
 		}
 		if(KeyInput.isKeyDown(KeyEvent.VK_D)|| KeyInput.isKeyDown(KeyEvent.VK_RIGHT)){
-			dx += 0.25;
-			if(dx > 3) dx = 3;
+			dx += speed;
+			if(dx > maxSpeed) dx = maxSpeed;
 
 		}
 		if(KeyInput.isKeyDown(KeyEvent.VK_W)|| KeyInput.isKeyDown(KeyEvent.VK_UP)){
@@ -39,7 +41,7 @@ public class Player extends Mob{
 
 	public void jump(){
 		if(canJump){
-			dy = -6;
+			dy = -15;
 			canJump = false;
 		}
 
