@@ -20,6 +20,7 @@ import Rendering.Background;
 import entities.Mob;
 import entities.Player;
 import entities.Tile;
+import entities.Enemy;
 import input.Button;
 import input.KeyInput;
 import input.MouseInput;
@@ -36,6 +37,7 @@ public class GameState implements State{
 	private ArrayList<Button> buttons;
 	private int currentSelection;
 	private ArrayList<Mob> entities = new ArrayList<Mob>();
+	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	private Background bg = new Background("./resources/textures/Background.png", 10);
 
 	public void init() {
@@ -52,6 +54,7 @@ public class GameState implements State{
 		buttons.add(new Button("Exit",  new Font("Ariel", Font.PLAIN, 25), new Font("Ariel", Font.BOLD, 35),
 				Color.BLACK, Color.GREEN, 130));
 		entities.add(new Player(Game.WIDTH / 2, Game.HEIGHT / 2, new Sprite("test", 64, 64)));
+		enemies.add(new Enemy(Game.WIDTH / 3, Game.HEIGHT / 2, new Sprite("test", 64, 64)));
 
 		bg.setX(0);
 		bg.setY(0);	
@@ -60,6 +63,12 @@ public class GameState implements State{
 	}
 
 	public void tick(StateManager stateManager) {
+		
+		if(entities.get(0).isDead()){
+			JOptionPane.showMessageDialog(null, "You have fallen to your death. You will now be sent back to the menu."); Game.INSTANCE.setFocusable(true);
+			stateManager.setState("menu");
+		}
+		
 		//mouse check
 		boolean isClicked = false;
 		for(int i = 0; i < buttons.size(); i++){
@@ -77,10 +86,6 @@ public class GameState implements State{
 		if(isClicked)
 			select(stateManager);
 		
-		if(entities.get(0).isDead()){
-			JOptionPane.showMessageDialog(null, "You have fallen to your death. You will now be sent back to the menu."); Game.INSTANCE.setFocusable(true);
-			stateManager.setState("menu");
-		}
 		
 	}
 
@@ -116,6 +121,7 @@ public class GameState implements State{
 			tile.render(g);
 		}
 		entities.get(0).render(g);	
+		enemies.get(0).render(g);
 		//button selection
 		for(int i = 0; i < buttons.size(); i++){
 			if(i == currentSelection)	
