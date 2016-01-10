@@ -160,7 +160,4 @@ public class Game extends Canvas implements Runnable{
 		System.out.println("The Game has Started!");
 	}//run
 	
-	public static int returnWidth(){
-		return WIDTH;
-	}
 }

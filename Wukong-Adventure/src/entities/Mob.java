@@ -10,9 +10,20 @@ public abstract class Mob extends Entity{
 
 	protected double dx, dy;
 	protected boolean collision;
+<<<<<<< HEAD
 	protected double gravity = 0.5;
 	protected double terminalV = 15;
 	protected double friction = 0.2;
+=======
+//<<<<<<< HEAD
+//	protected double gravity = 0.5;
+//	protected double terminalV = 20;
+//=======
+	protected double gravity = 0.2;
+	protected double friction = 0.2;
+	protected double terminalV = 7;
+//>>>>>>> origin/master
+>>>>>>> origin/master
 	protected boolean falling;
 
 	public Mob(double x, double y, Sprite sprite) {
@@ -96,5 +107,15 @@ public abstract class Mob extends Entity{
 		g.setColor(Color.MAGENTA);
 		if(GameState.debugging)
 			g.draw(getBounds());
+	}
+	
+	public boolean isDead(){
+		boolean death = false;
+		
+		if(y > 800){
+			death = true;
+		}
+		
+		return death;
 	}
 }
