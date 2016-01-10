@@ -11,7 +11,7 @@ public abstract class Mob extends Entity{
 	protected double dx, dy;
 	protected boolean collision;
 	protected double gravity = 0.5;
-	protected double terminalV = 20;
+	protected double terminalV = 15;
 	protected double friction = 0.2;
 	protected boolean falling;
 
@@ -41,8 +41,8 @@ public abstract class Mob extends Entity{
 				x -= 0.7;
 			}
 			if(getBounds().intersects(Tile.tiles.get(i).recRight) && dx < 0){
-				dx = 0;
-				x = Tile.tiles.get(i).recRight.getX();
+				dx = 0;// - Tile.tiles.get(i).recRight.getX();
+				x += 0.7;
 			}
 			if(getBounds().intersects(Tile.tiles.get(i).recBot) && dy < 0)
 				dy = 0;
