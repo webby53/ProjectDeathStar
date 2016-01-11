@@ -2,12 +2,6 @@ package Rendering;
 
 public class SpriteSheet {
 	
-/* This class is suppose to create and initialize sprite sheets
- * 
- * Based off the skype chat i am guessing we have no sprite sheets right now
- */
-	
-	
 	private Texture texture;
 	private int width, height;
 	

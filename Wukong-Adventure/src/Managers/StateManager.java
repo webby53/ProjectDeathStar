@@ -1,16 +1,17 @@
 package Managers;
 
-import java.awt.Graphics;
-import java.awt.image.BufferStrategy;
+import java.awt.Graphics2D;
 import java.util.HashMap;
 import java.util.Map;
 import states.State;
 
 public class StateManager {
 
+	//map that stores a string value (a name) with an instance 
 	private Map<String, State> map;
 	private State currentState;
 
+	//
 	public StateManager(){
 		map = new HashMap<String, State>();
 	}
@@ -35,7 +36,7 @@ public class StateManager {
 		currentState = state;
 	}
 	
-	public void render(Graphics g){
+	public void render(Graphics2D g){
 		currentState.render(g);
 	}
 	public void tick(){

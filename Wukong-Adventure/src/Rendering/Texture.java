@@ -7,50 +7,39 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.imageio.ImageIO;
-import Managers.TextureManager;
-
 /*	This class ensures only one use of textures
  * 	auto removes unused textures
  */
 public class Texture{
 
-	private final static Map<String, TextureManager> textmap = new HashMap<String, TextureManager>();
+	private final static Map<String, BufferedImage> textmap = new HashMap<String, BufferedImage>();
 	private String fileName;
-	//creatures a texture manager for a texture
-	private TextureManager manager;
+	//stores a texture
+	private BufferedImage image;
 	
 	//so creates a texture 
 	public Texture(String fileName){
 		this.fileName = fileName;
-		TextureManager oldTexture = textmap.get(fileName);
+		BufferedImage oldTexture = textmap.get(this.fileName);
 		if(oldTexture != null){
-			manager = oldTexture;
-			manager.addReference();
+			image = oldTexture;
 		}else{
 			try {
-				System.out.println("Printing file: " + fileName);
-				manager = new TextureManager(ImageIO.read(new File("./resources/textures/" + fileName + ".png")));
-				textmap.put(fileName,manager);
+				image = ImageIO.read(new File("./resources/textures/" + this.fileName + ".png"));
+				textmap.put(this.fileName,image);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 	}
 	
-	//Garbage collecting feature
-	//auto removes the texture from memory when it is finished with it
-	protected void finalize() throws Throwable{
-		if(manager.removeReference() && !fileName.isEmpty()) textmap.remove(fileName);
-		super.finalize();
-	}	
-	
 	//this will draw the texture at the specified x and y
 	 public void render(Graphics g, double x, double y){
-		 g.drawImage(manager.getImage(), (int)x, (int)y, null);
+		 g.drawImage(image, (int)x, (int)y, null);
 	 }
 	 
-	 //return the image used
 	 public BufferedImage getImage(){
-		 return manager.getImage();
+		 return image;
 	 }
+	 
 }

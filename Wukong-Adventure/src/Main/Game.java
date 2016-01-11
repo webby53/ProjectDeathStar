@@ -1,31 +1,26 @@
 package Main;
 
-import java.awt.Canvas;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.*;
-import javax.swing.JFrame;
-
 import Managers.StateManager;
-import Rendering.Texture;
+import Rendering.DrawString;
 import input.KeyInput;
 import input.MouseInput;
+import states.GameState;
 import states.MenuState;
-import Rendering.Sprite;
-import Rendering.SpriteSheet;
 
 
+@SuppressWarnings("serial")
 public class Game extends Canvas implements Runnable{
 
-	public static final String TITLE = "Wukongs Advernture Ver 1.61";
+	public static final String TITLE = "Wukong's Advernture 5.1 Alpha";
 	public static final int WIDTH = 896;
 	public static final int HEIGHT = WIDTH / 4 * 3;
 	public static Game INSTANCE;
+	public static String Help = "";
 	//boolean to test if game is running
 	private boolean running;
+	public static int FPS, TPS;
 	private StateManager stateManager;
 	
 	public Game(){
@@ -35,12 +30,15 @@ public class Game extends Canvas implements Runnable{
 		addMouseMotionListener(mouse);
 		stateManager = new StateManager();
 		stateManager.addState(new MenuState());
+		stateManager.addState(new GameState());
 		INSTANCE = this;
-
+		DrawString.addInfo("X:" + MouseInput.getX() + " Y:" + MouseInput.getY());
+		DrawString.addInfo("FPS:" + Game.FPS + " TPS:" + Game.TPS);
 	}
 	
 	//makes a new thread
 	public void start(){
+		Help += "Game Name: " + TITLE + "\nCanvas Width: " + WIDTH + "\nCanvas Height: " + HEIGHT;
 		if(running)
 			return;
 		else{
@@ -52,7 +50,6 @@ public class Game extends Canvas implements Runnable{
 	//the tick method
 	private void tick(){
 		stateManager.tick();
-		
 	}
 	
 	//this takes all graphics
@@ -73,9 +70,9 @@ public class Game extends Canvas implements Runnable{
 		
 		//this makes our buffer supply the graphics
 		Graphics g = bs.getDrawGraphics();
-		
+		Graphics2D g2D = (Graphics2D) g;
 		//////\\\\\\
-    	stateManager.render(g);
+    	stateManager.render(g2D);
 		g.dispose();//disposes last graphics
         
 		//////\\\\\\
@@ -97,7 +94,7 @@ public class Game extends Canvas implements Runnable{
 	public void run(){
 		requestFocus();
 		//this is the target frames per second
-		double target = 60.0;
+		double target = 48.0;
 		//this helps with second calculation
 		double nanoSecPerTick = 1000000000.0 /target;
 		//this is the time we haven't processed
@@ -113,12 +110,14 @@ public class Game extends Canvas implements Runnable{
 		int tps = 0;
 		//Limits frames to when we can tick
 		boolean canRender= false;
+		
 		while(running){
 			//
 			long now =System.nanoTime();
 			//this calculates the time difference
 			//from the last loop to current
 			unprocessed += (now - lastTime) / nanoSecPerTick;
+
 			lastTime = now;
 			
 			//so some time after one second
@@ -134,7 +133,7 @@ public class Game extends Canvas implements Runnable{
 			}else//this is so the frames are limited by the ticks
 				//since we don't render until we tick
 				canRender= false;
-			
+
 			//sleeps for 1 millisecond (delay)
 			try{
 				Thread.sleep(1);	
@@ -151,7 +150,8 @@ public class Game extends Canvas implements Runnable{
 			//and outputs them and resets their values
 			if(System.currentTimeMillis() - 1000 > timer){
 				timer += 1000;
-				System.out.printf("FPS: %d | TPS: %d\n", fps, tps);
+				FPS = fps;
+				TPS = tps;
 				fps = 0;
 				tps = 0;
 			}
@@ -159,32 +159,5 @@ public class Game extends Canvas implements Runnable{
 
 		System.out.println("The Game has Started!");
 	}//run
-	
-	public static void main(String[] args){
-		//creates our main frame and instance of Game
-		final Game game = new Game();
-		
-		JFrame frame =new JFrame(TITLE);
-		
-		frame.add(game);
-		frame.setSize(WIDTH, HEIGHT);
-		//so they can't change window size
-		frame.setResizable(false);
-		//so we can get key inputs
-		frame.setFocusable(true);
-		frame.addWindowListener(new WindowAdapter(){
-			
-			public void windowClosing(WindowEvent e){
-				System.err.println("The Game is now Closing...");
-				game.stop();
-			}
-		});
-		
-		//puts game frame in center of screen
-		frame.setLocationRelativeTo(null);
-		//so it can be seen
-		frame.setVisible(true);
-		game.start();
-	}
 	
 }
