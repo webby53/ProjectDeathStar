@@ -13,7 +13,7 @@ public abstract class Mob extends Entity{
 	protected double gravity = 0.5;
 	protected double terminalV = 15;
 	protected double friction = 0.2;
-	protected boolean falling;
+	protected boolean falling = true;
 
 	public Mob(double x, double y, Sprite sprite) {
 		super(x, y, sprite);
@@ -48,13 +48,11 @@ public abstract class Mob extends Entity{
 				dy = 0;
 			if(getBounds().intersects(Tile.tiles.get(i).recTop) && dy > 0){
 				dy = 0;
-				y = Tile.tiles.get(i).recTop.getY() - 64;
 				x += dx;
+				y = Tile.tiles.get(i).recTop.getY() - 64;
 				Player.canJump = true;
 				falling = false;
-			}else
-				falling = true;
-
+			}
 		}
 	}//collisionCheck
 
