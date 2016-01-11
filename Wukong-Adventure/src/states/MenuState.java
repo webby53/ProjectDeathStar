@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import GUI.Button;
 import Main.Game;
 import Managers.StateManager;
 import Rendering.DrawString;
@@ -18,6 +17,7 @@ import Rendering.Sprite;
 import Rendering.SpriteSheet;
 import Rendering.Texture;
 import input.MouseInput;
+import input.Button;
 import input.KeyInput;
 
 public class MenuState implements State{

@@ -4,10 +4,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
-import GUI.Button;
+
 import Main.Game;
 import Managers.StateManager;
 import Rendering.DrawString;
@@ -19,6 +21,8 @@ import entities.Mob;
 import entities.Player;
 import entities.Tile;
 import entities.Enemy;
+import input.Button;
+import input.KeyInput;
 import input.MouseInput;
 
 
@@ -129,7 +133,7 @@ public class GameState implements State{
 		
 		//Text and other
 		DrawString.drawInfo(g);
-		DrawString.drawStringCenterV(g, "Alpha", Color.CYAN, new Font("Arial", Font.CENTER_BASELINE, 50), 100);	
+		DrawString.drawStringCenterV(g, "Collision Testing", Color.CYAN, new Font("Arial", Font.CENTER_BASELINE, 50), 100);	
 		
 		//ignore
 		tile = new Tile(200, 100, sprite);
