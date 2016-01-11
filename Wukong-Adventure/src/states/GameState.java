@@ -28,6 +28,9 @@ public class GameState implements State{
 	private static SpriteSheet sheet = new SpriteSheet(texture, 64);
 	private static Sprite sprite = new Sprite(sheet, 1, 1);
 	private Sprite sprite2 = new Sprite(sheet, 3, 1);
+	private static Texture charTextures = new Texture("wukong sheet");
+	private static SpriteSheet charSheet = new SpriteSheet(charTextures, 64);
+	private static Sprite charSprite = new Sprite(charSheet, 1, 1);
 	public static Tile tile;
 	public static boolean debugging;
 	private ArrayList<Button> buttons;
@@ -49,7 +52,7 @@ public class GameState implements State{
 				Color.BLACK, Color.RED, 90));
 		buttons.add(new Button("Exit",  new Font("Ariel", Font.PLAIN, 25), new Font("Ariel", Font.BOLD, 35),
 				Color.BLACK, Color.GREEN, 130));
-		entities.add(new Player(Game.WIDTH / 2, Game.HEIGHT / 2, new Sprite("test", 64, 64)));
+		entities.add(new Player(Game.WIDTH / 2, Game.HEIGHT / 2, charSprite));
 		enemies.add(new Enemy(Game.WIDTH / 3, Game.HEIGHT / 2, new Sprite("test", 64, 64)));
 
 		bg.setX(0);
