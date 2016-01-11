@@ -1,9 +1,11 @@
 package entities;
 
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
 import Rendering.Sprite;
 import input.KeyInput;
+import input.MouseInput;
 
 public class Player extends Mob{
 
@@ -36,6 +38,10 @@ public class Player extends Mob{
 		if(KeyInput.isKeyDown(KeyEvent.VK_E))
 			for(int i = 0; i < Tile.tiles.size(); i++)
 				System.out.println(Tile.tiles.get(i).x + " and " + Tile.tiles.get(i).y);
+		if(MouseInput.wasPressed(MouseEvent.BUTTON1)){
+		x = MouseInput.getX();
+		y = MouseInput.getY();
+		}
 		super.tick();	
 	}
 
