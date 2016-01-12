@@ -10,7 +10,8 @@ import GUI.LoadingScreenLauncher;
 public class Main {
 	public static void main(String[] args){
 		//loading screen
-		new LoadingScreenLauncher();
+		//new LoadingScreenLauncher();
+		
 		//creates our main frame and instance of Game
 		final Game game = new Game();
 		
