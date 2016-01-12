@@ -56,7 +56,8 @@ public class TileMap {
 		for(int row = 0; row < rows; row++){
 			String s = sc.next();
 			for(int col = 0; col < cols; col++){
-				tiles[row][col] = s.charAt(col);
+				char num = s.charAt(col);
+				tiles[row][col] = Integer.parseInt(Character.toString(num));
 			}
 		}
 	}//load
@@ -70,7 +71,7 @@ public class TileMap {
 				case 0: 
 				break;
 				case 1: 
-					Tile test = new Tile(row+1 * 64, col+1 * 64, sprite);
+					Tile test = new Tile(col * 64, row * 64, sprite);
 					test.render(g);
 				break;
 				}
