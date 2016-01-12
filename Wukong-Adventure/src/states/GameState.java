@@ -57,6 +57,7 @@ public class GameState implements State{
 		entities.add(new Player(Game.WIDTH / 2, Game.HEIGHT / 2, charSprite));
 		enemies.add(new Enemy(Game.WIDTH / 3, Game.HEIGHT / 2, new Sprite("test", 64, 64)));
 		test = new TileMap("Level");
+		test.load("level1");
 
 		bg.setX(0);
 		bg.setY(0);	
@@ -114,14 +115,15 @@ public class GameState implements State{
 		DrawString.drawString(g, "Player[X:" + entities.get(0).getX() + " Y:" +entities.get(0).getY() + "]", new Font("Arial",Font.PLAIN, 13),  Color.BLUE,Game.WIDTH - 128, 11 * 2);
 
 		//rendering tiles and entities
-		for(int i= 0; i < 14; i++){
-			tile = new Tile(64 * i, 500, sprite);
-			tile.render(g);
-		}
-		for(int i= 1; i < 4; i++){
-			tile = new Tile(64, 500 - 64 * i, sprite2);
-			tile.render(g);
-		}
+//		for(int i= 0; i < 14; i++){
+//			tile = new Tile(64 * i, 500, sprite);
+//			tile.render(g);
+//		}
+//		for(int i= 1; i < 4; i++){
+//			tile = new Tile(64, 500 - 64 * i, sprite2);
+//			tile.render(g);
+//		}
+		tile.render(g);
 		entities.get(0).render(g);	
 		enemies.get(0).render(g);
 		//button selection
