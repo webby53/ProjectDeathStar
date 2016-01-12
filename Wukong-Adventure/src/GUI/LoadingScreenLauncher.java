@@ -13,7 +13,7 @@ public class LoadingScreenLauncher {
 		load.setVisible(true);
 
 		for(int i =0; i <= 100; i++){
-			for(int j = 0; j <= 8000000;j++){
+			for(int j = 0; j <= 9000000;j++){
 				int k = j * i;
 			}
 			load.setProgress(i);

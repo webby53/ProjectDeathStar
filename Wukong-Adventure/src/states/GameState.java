@@ -14,6 +14,7 @@ import Rendering.DrawString;
 import Rendering.Sprite;
 import Rendering.SpriteSheet;
 import Rendering.Texture;
+import Rendering.TileMap;
 import Rendering.Background;
 import entities.Mob;
 import entities.Player;
@@ -38,6 +39,7 @@ public class GameState implements State{
 	private ArrayList<Mob> entities = new ArrayList<Mob>();
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	private Background bg = new Background("./resources/textures/Background.png", 10);
+	TileMap test;
 
 	public void init() {
 		enter();
@@ -54,6 +56,7 @@ public class GameState implements State{
 				Color.BLACK, Color.GREEN, 130));
 		entities.add(new Player(Game.WIDTH / 2, Game.HEIGHT / 2, charSprite));
 		enemies.add(new Enemy(Game.WIDTH / 3, Game.HEIGHT / 2, new Sprite("test", 64, 64)));
+		test = new TileMap("Level");
 
 		bg.setX(0);
 		bg.setY(0);	
