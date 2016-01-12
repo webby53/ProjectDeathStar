@@ -1,5 +1,7 @@
 package entities;
 
+import java.awt.Rectangle;
+
 import Rendering.Sprite;
 
 public class Enemy extends Mob{
@@ -16,6 +18,10 @@ public class Enemy extends Mob{
 		move();
 		super.tick();
 	}
+	
+	public Rectangle getBounds(){
+		return new Rectangle((int)x, (int)y, this.getHeight(), this.getWidth());
+	}//getBounds
 	
 	
 	public void collisionCheck(){
@@ -46,9 +52,11 @@ public class Enemy extends Mob{
 	
 	public void move(){
 		collisionCheck();
-		x += dx;
+		x -= dx;
 		y += dy;
 		collisionCheck();
 	}//move
+	
+	
 	
 }

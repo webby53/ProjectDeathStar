@@ -146,6 +146,7 @@ public class GameState implements State{
 	public void exit() {
 		buttons.clear();
 		this.entities.clear();
+		this.enemies.clear();
 	}//exit
 
 	public String getName() {
