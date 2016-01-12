@@ -123,7 +123,7 @@ public class GameState implements State{
 //			tile = new Tile(64, 500 - 64 * i, sprite2);
 //			tile.render(g);
 //		}
-		tile.render(g);
+		test.render(g);
 		entities.get(0).render(g);	
 		enemies.get(0).render(g);
 		//button selection

@@ -70,7 +70,7 @@ public class TileMap {
 				case 0: 
 				break;
 				case 1: 
-					Tile test = new Tile(row * 64, col * 64, sprite);
+					Tile test = new Tile(row+1 * 64, col+1 * 64, sprite);
 					test.render(g);
 				break;
 				}
