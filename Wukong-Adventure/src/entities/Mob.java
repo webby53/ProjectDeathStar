@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import Rendering.Sprite;
 import states.GameState;
+import java.util.*;
 
 public abstract class Mob extends Entity{
 
@@ -105,5 +106,17 @@ public abstract class Mob extends Entity{
 		}
 		
 		return death;
+	}
+	
+	public boolean isCollided(ArrayList<Enemy> b){
+		boolean collision = false;
+		 
+		for(int i = 0; i < b.size(); i++){
+			if(this.getBounds().intersects(b.get(i).getBounds())){
+				collision = true;
+			}
+		}
+		
+		return collision;
 	}
 }
