@@ -58,11 +58,12 @@ public class GameState implements State{
 		if(((Player)tileMap.entity(0)).isDead()){
 			JOptionPane.showMessageDialog(null, "You have fallen to your death. You will now be sent back to the menu.");
 			Game.INSTANCE.setFocusable(true);
-			exit();
+			tileMap.load("level1");
 			stateManager.setState("menu");
 		}
 		if(tileMap.entity(0).isCollided(enemies)){
 			JOptionPane.showMessageDialog(null, "An enemy has killed you. You will now be sent back to the menu"); Game.INSTANCE.setFocusable(true);
+			tileMap.load("level1");
 			stateManager.setState("menu");
 		}
 		//mouse check
@@ -132,7 +133,6 @@ public class GameState implements State{
 
 	public void exit() {
 		buttons.clear();
-		tileMap.clear();
 		this.enemies.clear();
 	}//exit
 
