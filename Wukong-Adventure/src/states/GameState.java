@@ -28,7 +28,6 @@ public class GameState implements State{
 	public static boolean debugging;
 	private ArrayList<Button> buttons;
 	private int currentSelection;
-	private ArrayList<Mob> entities = new ArrayList<Mob>();
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	private Background bg = new Background("./resources/textures/Background.png", 10);
 	TileMap tileMap;
@@ -61,10 +60,14 @@ public class GameState implements State{
 
 	public void tick(StateManager stateManager) {
 		//checks if player is dead
-//		if(entities.get(0).isDead()){
-//			JOptionPane.showMessageDialog(null, "You have fallen to your death. You will now be sent back to the menu."); Game.INSTANCE.setFocusable(true);
-//			stateManager.setState("menu");
-//		}
+		if(((Player)tileMap.entity(0)).isDead()){
+			JOptionPane.showMessageDialog(null, "You have fallen to your death. You will now be sent back to the menu."); Game.INSTANCE.setFocusable(true);
+			stateManager.setState("menu");
+		}
+		if(tileMap.entity(0).isCollided(enemies)){
+			JOptionPane.showMessageDialog(null, "An enemy has killed you. You will now be sent back to the menu"); Game.INSTANCE.setFocusable(true);
+			stateManager.setState("menu");
+		}
 		//mouse check
 		boolean isClicked = false;
 		for(int i = 0; i < buttons.size(); i++){
@@ -126,7 +129,6 @@ public class GameState implements State{
 
 	public void exit() {
 		buttons.clear();
-		this.entities.clear();
 		this.enemies.clear();
 	}//exit
 

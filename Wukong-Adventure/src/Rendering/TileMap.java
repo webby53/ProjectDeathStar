@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import entities.Entity;
+import entities.Mob;
 import entities.Player;
 import entities.Tile;
 
@@ -14,7 +15,7 @@ public class TileMap {
 	private Texture charTextures = new Texture("wukong sheet");
 	private SpriteSheet charSheet = new SpriteSheet(charTextures, 64);
 	private Sprite charSprite = new Sprite(charSheet, 1, 1);
-	private static ArrayList<Entity> entities = new ArrayList<Entity>();
+	private static ArrayList<Mob> entities = new ArrayList<Mob>();
 	private SpriteSheet sheet;
 	private Sprite dirtSprite;
 	private Sprite playerSprite;
@@ -77,7 +78,7 @@ public class TileMap {
 			}
 		}else{
 			clear();
-			isLoaded = false;
+			isLoaded = false;	
 			load(fileName);
 		}
 	}//load
@@ -110,9 +111,12 @@ public class TileMap {
 		tilemap = null;
 	}//clear
 	
-	public void addEntity(Entity ent){
-		entities.add(ent);
-	}//addEntity
-	
+	public ArrayList<Mob> entityList(){
+		return entities;
+	}//Entities
+	public Mob entity(int x){
+		return entities.get(x);
+	}//Entities	
+
 	
 }
