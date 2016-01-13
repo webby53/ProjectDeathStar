@@ -118,5 +118,10 @@ public class TileMap {
 		return entities.get(x);
 	}//Entities	
 
+	public void refresh(){
+		Tile[][] tempMap;
+		tempMap = tilemap.clone();
+		tilemap = tempMap;
+	}
 
 }

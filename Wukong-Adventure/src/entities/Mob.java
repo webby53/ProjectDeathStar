@@ -59,7 +59,6 @@ public abstract class Mob extends Entity{
 	}//collisionCheck
 
 	public void move(){
-		collisionCheck();
 		x += dx;
 		y += dy;
 		collisionCheck();

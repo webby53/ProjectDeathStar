@@ -34,9 +34,11 @@ public class GameState implements State{
 		buttons.add(new Button("Back",  new Font("Ariel", Font.PLAIN, 25), new Font("Ariel", Font.BOLD, 35),
 				Color.BLACK, Color.GREEN, 50));
 		buttons.add(new Button("Debug",  new Font("Ariel", Font.PLAIN, 25), new Font("Ariel", Font.BOLD, 35),
-				Color.BLACK, Color.RED, 90));
+				Color.BLACK, Color.GREEN, 90));
 		buttons.add(new Button("Exit",  new Font("Ariel", Font.PLAIN, 25), new Font("Ariel", Font.BOLD, 35),
 				Color.BLACK, Color.GREEN, 130));
+		buttons.add(new Button("Refresh",  new Font("Ariel", Font.PLAIN, 25), new Font("Ariel", Font.BOLD, 35),
+				Color.BLACK, Color.GREEN, 170));
 		
 		//adds entites (remove soon)
 		enemies.add(new Enemy(Game.WIDTH / 3, Game.HEIGHT / 2, new Sprite("test", 64, 64)));
@@ -96,6 +98,7 @@ public class GameState implements State{
 		break;
 		case 2: Game.INSTANCE.stop();
 		break;
+		case 3: tileMap.refresh();
 		}
 	}
 
@@ -129,6 +132,7 @@ public class GameState implements State{
 
 	public void exit() {
 		buttons.clear();
+		tileMap.clear();
 		this.enemies.clear();
 	}//exit
 

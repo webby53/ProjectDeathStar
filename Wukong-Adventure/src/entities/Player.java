@@ -41,6 +41,7 @@ public class Player extends Mob{
 	//jump for player
 	public void jump(){
 		if(canJump){
+			x += dx;
 			dy = -10;
 			canJump = false;
 			falling = true;
@@ -48,7 +49,7 @@ public class Player extends Mob{
 	}//jump
 	
 	public double getHorSpeed(){
-		return this.dx;
+		return dx;
 	}
 	
 	

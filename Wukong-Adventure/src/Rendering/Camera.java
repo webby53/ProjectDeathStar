@@ -20,16 +20,18 @@ public class Camera {
 	}
 
 	public void tick(){
-		if(player.getX() >= maxRight){
-			x -= player.getHorSpeed();
+
+		if(player.getX() > maxRight){
+			x -= player.getHorSpeed() + 1.4;
 			maxRight = player.getX();
 			maxLeft = player.getX() - 220;
 		}
-		if(player.getX() <= maxLeft){
-			x -= player.getHorSpeed();
+		if(player.getX() < maxLeft){
+			x -= player.getHorSpeed()-1.4;
 			maxLeft = player.getX();
 			maxRight = player.getX() + 120;
 		}
+
 	}
 	public double getX() {
 		return x;
