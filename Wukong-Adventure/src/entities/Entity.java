@@ -6,9 +6,9 @@ import Rendering.Sprite;
 
 public abstract class Entity {
 
-	public double x, y;
-	public Sprite sprite;
-	public Rectangle2D recTop, recBot, recLeft, recRight;
+	protected double x, y;
+	protected Sprite sprite;
+	protected Rectangle2D recTop, recBot, recLeft, recRight;
 	
 	public Entity(double x, double y, Sprite sprite) {
 		this.x = x;

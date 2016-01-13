@@ -1,24 +1,14 @@
 package states;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import GUI.Button;
 import Main.Game;
 import Managers.StateManager;
-import Rendering.DrawString;
-import Rendering.Sprite;
-import Rendering.SpriteSheet;
-import Rendering.Texture;
-import Rendering.TileMap;
-import Rendering.Background;
-import entities.Mob;
+import Rendering.*;
 import entities.Player;
-import entities.Tile;
 import entities.Enemy;
 import input.MouseInput;
 
@@ -30,7 +20,8 @@ public class GameState implements State{
 	private int currentSelection;
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	private Background bg = new Background("./resources/textures/Background.png", 10);
-	TileMap tileMap;
+	private Camera cam;
+	private TileMap tileMap;
 
 	public void init() {
 		enter();
@@ -51,17 +42,21 @@ public class GameState implements State{
 		enemies.add(new Enemy(Game.WIDTH / 3, Game.HEIGHT / 2, new Sprite("test", 64, 64)));
 		tileMap = new TileMap();
 		tileMap.load("level1");
-
+		cam = new Camera(0, 0, tileMap.entity(0));
 		//background (also should be implemented in tilemapping)
 		bg.setX(0);
 		bg.setY(0);	
-		bg.setDx(0.6);
+		bg.setDx(-0.6);
+		cam.setX(0);
+		cam.setY(0);
 	}//enter
 
 	public void tick(StateManager stateManager) {
 		//checks if player is dead
 		if(((Player)tileMap.entity(0)).isDead()){
-			JOptionPane.showMessageDialog(null, "You have fallen to your death. You will now be sent back to the menu."); Game.INSTANCE.setFocusable(true);
+			JOptionPane.showMessageDialog(null, "You have fallen to your death. You will now be sent back to the menu.");
+			Game.INSTANCE.setFocusable(true);
+			exit();
 			stateManager.setState("menu");
 		}
 		if(tileMap.entity(0).isCollided(enemies)){
@@ -84,6 +79,8 @@ public class GameState implements State{
 		}
 		if(isClicked)
 			select(stateManager);
+		
+		cam.tick();
 	}//tick
 
 	//determines which button is currently selected
@@ -113,9 +110,12 @@ public class GameState implements State{
 		//DrawString.drawString(g, "Player[X:" + entities.get(0).getX() + " Y:" +entities.get(0).getY() + "]", new Font("Arial",Font.PLAIN, 13),  Color.BLUE,Game.WIDTH - 128, 11 * 2);
 
 		//entites and tiles
+		/////////////////////////////////////////////////////////////////
+		g.translate(cam.getX(), cam.getY());
 		tileMap.render(g);
-		enemies.get(0).render(g);
-		
+		//enemies.get(0).render(g);
+		g.translate(-cam.getX(), -cam.getY());
+		/////////////////////////////////////////////////////////////////
 		//button selection
 		for(int i = 0; i < buttons.size(); i++){
 			if(i == currentSelection)	

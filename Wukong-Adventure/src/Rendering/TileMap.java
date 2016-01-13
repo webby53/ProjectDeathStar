@@ -28,13 +28,12 @@ public class TileMap {
 		Texture tex = new Texture("SpriteCell(4x4)");
 		sheet = new SpriteSheet(tex, 64);
 		dirtSprite = new Sprite(sheet, 1, 1);
+		
 	}
 
 	public void tick(){
 		for(int i = 0; i < entities.size(); i++)
 			entities.get(i).tick();
-		//for(int i = 0; i < tiles.size(); i++)
-		//tiles.get(i).tick();
 	}
 
 	//this will load levels from a text file
@@ -93,24 +92,25 @@ public class TileMap {
 			}
 		}
 		//for(int i = 0; i < entities.size(); i++)
-			entities.get(0).render(g);
+		entities.get(0).render(g);
 	}//render
 
 	//return selected tile
 	public Tile getTile(int x, int y){
 		return tilemap[x][y];
 	}//getTile
-	
+
 	public void setTile(int x, int y, Tile tile){
 		tilemap[x][y] = tile;
 	}
-	
+
 	//clears tiles
 	public void clear(){
 		tiles = null;
 		tilemap = null;
+		entities.clear();
 	}//clear
-	
+
 	public ArrayList<Mob> entityList(){
 		return entities;
 	}//Entities
@@ -118,5 +118,5 @@ public class TileMap {
 		return entities.get(x);
 	}//Entities	
 
-	
+
 }

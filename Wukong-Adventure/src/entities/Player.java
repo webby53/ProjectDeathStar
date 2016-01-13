@@ -9,9 +9,9 @@ import input.MouseInput;
 
 public class Player extends Mob{
 
-	public static boolean canJump;
-	public double speed = 0.5;
-	public double maxSpeed = 5;
+	protected static boolean canJump;
+	protected double speed = 0.5;
+	protected double maxSpeed = 3;
 
 	public Player(double x, double y, Sprite sprite) {
 		super(x, y, sprite);
@@ -35,13 +35,6 @@ public class Player extends Mob{
 		if(KeyInput.isKeyDown(KeyEvent.VK_S)|| KeyInput.isKeyDown(KeyEvent.VK_DOWN)){
 			dy = 0;
 		}
-//		if(KeyInput.isKeyDown(KeyEvent.VK_E))
-//			for(int i = 0; i < Tile.tiles.size(); i++)
-//				System.out.println(Tile.tiles.get(i).x + " and " + Tile.tiles.get(i).y);
-		if(MouseInput.wasPressed(MouseEvent.BUTTON1)){
-		x = MouseInput.getX();
-		y = MouseInput.getY();
-		}
 		super.tick();	
 	}
 
@@ -52,6 +45,11 @@ public class Player extends Mob{
 			canJump = false;
 			falling = true;
 		}
-
 	}//jump
+	
+	public double getHorSpeed(){
+		return this.dx;
+	}
+	
+	
 }
