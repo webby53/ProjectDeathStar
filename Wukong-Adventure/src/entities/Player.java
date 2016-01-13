@@ -1,5 +1,6 @@
 package entities;
 
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
@@ -17,6 +18,10 @@ public class Player extends Mob{
 		super(x, y, sprite);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Rectangle getBounds(){
+		return new Rectangle((int)x, (int)y, this.getHeight(), this.getWidth());
+	}//getBounds
 
 	public void tick(){
 		if(KeyInput.isKeyDown(KeyEvent.VK_A) || KeyInput.isKeyDown(KeyEvent.VK_LEFT)){

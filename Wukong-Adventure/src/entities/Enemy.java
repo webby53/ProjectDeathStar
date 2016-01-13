@@ -1,7 +1,7 @@
 package entities;
 
 import java.awt.Rectangle;
-
+import entities.Player;
 import Rendering.Sprite;
 
 public class Enemy extends Mob{
@@ -48,6 +48,7 @@ public class Enemy extends Mob{
 				falling = true;
 			
 		}
+		
 	}
 	
 	public void move(){
