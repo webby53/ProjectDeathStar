@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import entities.Entity;
 import entities.Mob;
 import entities.Player;
 import entities.Tile;
@@ -118,10 +117,5 @@ public class TileMap {
 		return entities.get(x);
 	}//Entities	
 
-	public void refresh(){
-		Tile[][] tempMap;
-		tempMap = tilemap.clone();
-		tilemap = tempMap;
-	}
 
 }

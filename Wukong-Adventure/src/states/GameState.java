@@ -99,7 +99,8 @@ public class GameState implements State{
 		break;
 		case 2: Game.INSTANCE.stop();
 		break;
-		case 3: tileMap.refresh();
+		case 3: 
+				cam.updateCamera();
 		}
 	}
 
@@ -111,7 +112,7 @@ public class GameState implements State{
 		//Text and other
 		DrawString.drawInfo(g);
 		DrawString.drawStringCenterV(g, "Alpha", Color.CYAN, new Font("Arial", Font.CENTER_BASELINE, 50), 100);
-		//DrawString.drawString(g, "Player[X:" + entities.get(0).getX() + " Y:" +entities.get(0).getY() + "]", new Font("Arial",Font.PLAIN, 13),  Color.BLUE,Game.WIDTH - 128, 11 * 2);
+		DrawString.drawString(g, "Player[X:" + tileMap.entityList().get(0).getX() + " Y:" + tileMap.entityList().get(0).getY() + "]", new Font("Arial",Font.PLAIN, 13),  Color.BLUE,Game.WIDTH - 128, 11 * 2);
 
 		//entites and tiles
 		/////////////////////////////////////////////////////////////////
