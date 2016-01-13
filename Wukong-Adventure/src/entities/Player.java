@@ -15,10 +15,10 @@ public class Player extends Mob{
 
 	public Player(double x, double y, Sprite sprite) {
 		super(x, y, sprite);
-		// TODO Auto-generated constructor stub
 	}
 
 	public void tick(){
+		//key inputs
 		if(KeyInput.isKeyDown(KeyEvent.VK_A) || KeyInput.isKeyDown(KeyEvent.VK_LEFT)){
 			dx += -speed;
 			if(dx < -maxSpeed) dx = -maxSpeed;
@@ -35,9 +35,9 @@ public class Player extends Mob{
 		if(KeyInput.isKeyDown(KeyEvent.VK_S)|| KeyInput.isKeyDown(KeyEvent.VK_DOWN)){
 			dy = 0;
 		}
-		if(KeyInput.isKeyDown(KeyEvent.VK_E))
-			for(int i = 0; i < Tile.tiles.size(); i++)
-				System.out.println(Tile.tiles.get(i).x + " and " + Tile.tiles.get(i).y);
+//		if(KeyInput.isKeyDown(KeyEvent.VK_E))
+//			for(int i = 0; i < Tile.tiles.size(); i++)
+//				System.out.println(Tile.tiles.get(i).x + " and " + Tile.tiles.get(i).y);
 		if(MouseInput.wasPressed(MouseEvent.BUTTON1)){
 		x = MouseInput.getX();
 		y = MouseInput.getY();
@@ -45,6 +45,7 @@ public class Player extends Mob{
 		super.tick();	
 	}
 
+	//jump for player
 	public void jump(){
 		if(canJump){
 			dy = -10;

@@ -25,28 +25,21 @@ import input.MouseInput;
 
 public class GameState implements State{
 
-	private static Texture texture = new Texture("SpriteCell(4x4)");
-	private static SpriteSheet sheet = new SpriteSheet(texture, 64);
-	private static Sprite sprite = new Sprite(sheet, 1, 1);
-	private Sprite sprite2 = new Sprite(sheet, 3, 1);
-	private static Texture charTextures = new Texture("wukong sheet");
-	private static SpriteSheet charSheet = new SpriteSheet(charTextures, 64);
-	private static Sprite charSprite = new Sprite(charSheet, 1, 1);
-	public static Tile tile;
 	public static boolean debugging;
 	private ArrayList<Button> buttons;
 	private int currentSelection;
 	private ArrayList<Mob> entities = new ArrayList<Mob>();
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	private Background bg = new Background("./resources/textures/Background.png", 10);
-	TileMap test;
+	TileMap tileMap;
 
 	public void init() {
 		enter();
 	}
 
+	//runs on entrance
 	public void enter() {
-		currentSelection = -1;
+		//sets the buttons in Game
 		buttons = new ArrayList<Button>();
 		buttons.add(new Button("Back",  new Font("Ariel", Font.PLAIN, 25), new Font("Ariel", Font.BOLD, 35),
 				Color.BLACK, Color.GREEN, 50));
@@ -54,24 +47,24 @@ public class GameState implements State{
 				Color.BLACK, Color.RED, 90));
 		buttons.add(new Button("Exit",  new Font("Ariel", Font.PLAIN, 25), new Font("Ariel", Font.BOLD, 35),
 				Color.BLACK, Color.GREEN, 130));
-		entities.add(new Player(Game.WIDTH / 2, Game.HEIGHT / 2, charSprite));
+		
+		//adds entites (remove soon)
 		enemies.add(new Enemy(Game.WIDTH / 3, Game.HEIGHT / 2, new Sprite("test", 64, 64)));
-		test = new TileMap("Level");
-		test.load("level1");
+		tileMap = new TileMap();
+		tileMap.load("level1");
 
+		//background (also should be implemented in tilemapping)
 		bg.setX(0);
 		bg.setY(0);	
-		bg.setDx(0.3);
-
-	}
+		bg.setDx(0.6);
+	}//enter
 
 	public void tick(StateManager stateManager) {
-		
-		if(entities.get(0).isDead()){
-			JOptionPane.showMessageDialog(null, "You have fallen to your death. You will now be sent back to the menu."); Game.INSTANCE.setFocusable(true);
-			stateManager.setState("menu");
-		}
-		
+		//checks if player is dead
+//		if(entities.get(0).isDead()){
+//			JOptionPane.showMessageDialog(null, "You have fallen to your death. You will now be sent back to the menu."); Game.INSTANCE.setFocusable(true);
+//			stateManager.setState("menu");
+//		}
 		//mouse check
 		boolean isClicked = false;
 		for(int i = 0; i < buttons.size(); i++){
@@ -88,10 +81,9 @@ public class GameState implements State{
 		}
 		if(isClicked)
 			select(stateManager);
-		
-		
-	}
+	}//tick
 
+	//determines which button is currently selected
 	public void select(StateManager stateManager){
 		switch(currentSelection){
 		case 0: stateManager.setState("Menu"); exit();
@@ -107,25 +99,20 @@ public class GameState implements State{
 		}
 	}
 
+	//renders graphics
 	public void render(Graphics2D g) {
 		//background rendering
 		bg.draw(g);
 		bg.update();
-		//player coordinates
-		DrawString.drawString(g, "Player[X:" + entities.get(0).getX() + " Y:" +entities.get(0).getY() + "]", new Font("Arial",Font.PLAIN, 13),  Color.BLUE,Game.WIDTH - 128, 11 * 2);
+		//Text and other
+		DrawString.drawInfo(g);
+		DrawString.drawStringCenterV(g, "Alpha", Color.CYAN, new Font("Arial", Font.CENTER_BASELINE, 50), 100);
+		//DrawString.drawString(g, "Player[X:" + entities.get(0).getX() + " Y:" +entities.get(0).getY() + "]", new Font("Arial",Font.PLAIN, 13),  Color.BLUE,Game.WIDTH - 128, 11 * 2);
 
-		//rendering tiles and entities
-//		for(int i= 0; i < 14; i++){
-//			tile = new Tile(64 * i, 500, sprite);
-//			tile.render(g);
-//		}
-//		for(int i= 1; i < 4; i++){
-//			tile = new Tile(64, 500 - 64 * i, sprite2);
-//			tile.render(g);
-//		}
-		test.render(g);
-		entities.get(0).render(g);	
+		//entites and tiles
+		tileMap.render(g);
 		enemies.get(0).render(g);
+		
 		//button selection
 		for(int i = 0; i < buttons.size(); i++){
 			if(i == currentSelection)	
@@ -133,15 +120,7 @@ public class GameState implements State{
 			else
 				buttons.get(i).setSelected(false);
 			buttons.get(i).render(g, Game.WIDTH - 110);
-		}
-		
-		//Text and other
-		DrawString.drawInfo(g);
-		DrawString.drawStringCenterV(g, "Alpha", Color.CYAN, new Font("Arial", Font.CENTER_BASELINE, 50), 100);	
-		
-		//ignore
-		tile = new Tile(200, 100, sprite);
-		tile.render(g);		
+		}		
 			
 	}//render
 
