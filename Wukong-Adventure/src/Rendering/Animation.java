@@ -4,17 +4,25 @@ import java.awt.image.BufferedImage;
 
 public class Animation {
 
-	private ArrayList<BufferedImage> frames;
+	private ArrayList<Sprite> frames;
 
-	public BufferedImage sprite;
+	public Sprite sprite;
 
 	private volatile boolean running = false;
 	private long previousTime, speed;
 	private int frameAtPause, currentFrame;
+	private Texture charTextures = new Texture("wukong sheet");
+	private SpriteSheet charSheet = new SpriteSheet(charTextures, 64);
+	private Sprite sprite1 = new Sprite(charSheet, 1, 1);
+	private Sprite sprite2 = new Sprite(charSheet, 2, 1);
+	private Sprite sprite3 = new Sprite(charSheet, 3, 1);
 
 
-	public Animation(ArrayList<BufferedImage> frames){
+	public Animation(ArrayList<Sprite> frames){
 		this.frames = frames;
+		frames.add(sprite1);
+		frames.add(sprite2);
+		frames.add(sprite3);
 	}
 
 	public void setSpeed(long speed){
@@ -59,7 +67,10 @@ public class Animation {
 	public void resume(){
 		currentFrame = frameAtPause;
 		running = true;
-
 	}
 
+	public Sprite getFrame(){
+		return sprite;
+		
+	}
 }
