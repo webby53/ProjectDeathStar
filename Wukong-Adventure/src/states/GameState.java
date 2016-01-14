@@ -24,7 +24,17 @@ public class GameState implements State{
 	private TileMap tileMap;
 
 	public void init() {
-		enter();
+		tileMap = new TileMap();
+		tileMap.load("level1");
+		
+		cam = new Camera(tileMap.entity(0));
+		cam.setX(0);
+		cam.setY(0);
+		
+		bg.setX(0);
+		bg.setY(0);
+		//background (also should be implemented in tilemapping)	
+		bg.setDx(-0.6);
 	}
 
 	//runs on entrance
@@ -42,15 +52,8 @@ public class GameState implements State{
 		
 		//adds entites (remove soon)
 		enemies.add(new Enemy(Game.WIDTH / 3, Game.HEIGHT / 2, new Sprite("test", 64, 64)));
-		tileMap = new TileMap();
-		tileMap.load("level1");
-		cam = new Camera(tileMap.entity(0));
-		//background (also should be implemented in tilemapping)
-		bg.setX(0);
-		bg.setY(0);	
-		bg.setDx(-0.6);
-		cam.setX(0);
-		cam.setY(0);
+
+
 	}//enter
 
 	public void tick(StateManager stateManager) {
