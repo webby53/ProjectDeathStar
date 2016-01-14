@@ -9,6 +9,7 @@ import GUI.LoadingScreenLauncher;
 
 public class Main {
 	public static void main(String[] args){
+		
 		//loading screen
 		//new LoadingScreenLauncher();
 		

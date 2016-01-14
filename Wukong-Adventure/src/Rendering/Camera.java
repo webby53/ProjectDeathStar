@@ -13,31 +13,25 @@ public class Camera {
 	double startX, startY;
 	double disStartX, disStartY;
 
-	public Camera(double x, double y, Mob player){
-		this.x = x + 400;
+	public Camera(Mob player){
+		this.x = 0;
 		startX = x + 400;
 		this.y = y;
 		startY = y;
 		this.player = (Player)player;
-		maxRight = player.getX() + 120;
-		maxLeft = player.getX() - 220;
+		maxRight = player.getX() + 400;
+		maxLeft = player.getX() - 400;
 	}
 
 	public void tick(){
-
-		if(player.getX() > maxRight){
-			updateCamera();
-			maxRight = player.getX();
-			maxLeft = player.getX() - 400;
-		}
-		if(player.getX() < maxLeft){
-			updateCamera();
-			maxLeft = player.getX();
-			maxRight = player.getX() + 400;
-		}
-		
-		disStartX = startX - player.getX();
-	}
+		updateCamera();
+//		if(player.getX() > maxRight){
+//			maxRight = player.getX();
+//		}
+//		if(player.getX() < maxLeft){
+//			maxLeft = player.getX();
+//		}
+			}
 	public double getX() {
 		return x;
 	}
@@ -55,9 +49,24 @@ public class Camera {
 	}
 	
 	public void updateCamera(){
-		maxRight = player.getX() + 120;
-		maxLeft = player.getX() - 220;
-		x = disStartX;
-	}
+		disStartX = startX - player.getX();
+		maxRight = player.getX() + 400;
+		maxLeft = player.getX() - 400;
+		if(x > disStartX){
+			x += -player.getHorSpeed() - 1.4;
+			if(x-disStartX  < 1.4)
+				x = disStartX;
+		}
+		if(x < disStartX){
+			x += -player.getHorSpeed() + 1.4;
+			if(x+disStartX  > 1.4)
+				x = disStartX;
+		}
+	}//updateCamera
 
+	public void updateCameraRight(){
+		maxRight = player.getX() + 400;
+		maxLeft = player.getX() - 400;
+		x = disStartX - maxRight;
+	}//updateCamera
 }

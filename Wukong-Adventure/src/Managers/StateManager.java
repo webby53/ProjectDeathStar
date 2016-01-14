@@ -36,6 +36,11 @@ public class StateManager {
 		currentState = state;
 	}
 	
+	public void reset(){
+		currentState.init();
+		currentState.enter();
+	}
+	
 	public void render(Graphics2D g){
 		currentState.render(g);
 	}

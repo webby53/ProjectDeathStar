@@ -30,10 +30,6 @@ public class Tile extends Entity{
 	public void tick() {
 	}
 	
-	public void move(int x, int y){
-		this.x += x;
-		this.y += y;
-	}
 
 	public void render(Graphics2D g){
 		sprite.render(g, x, y);

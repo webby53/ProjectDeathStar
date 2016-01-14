@@ -12,6 +12,7 @@ public class Player extends Mob{
 	protected static boolean canJump;
 	protected double speed = 0.5;
 	protected double maxSpeed = 3;
+	protected boolean facingRight;
 
 	public Player(double x, double y, Sprite sprite) {
 		super(x, y, sprite);
@@ -22,10 +23,12 @@ public class Player extends Mob{
 		if(KeyInput.isKeyDown(KeyEvent.VK_A) || KeyInput.isKeyDown(KeyEvent.VK_LEFT)){
 			dx += -speed;
 			if(dx < -maxSpeed) dx = -maxSpeed;
+			facingRight = false;
 		}
 		if(KeyInput.isKeyDown(KeyEvent.VK_D)|| KeyInput.isKeyDown(KeyEvent.VK_RIGHT)){
 			dx += speed;
 			if(dx > maxSpeed) dx = maxSpeed;
+			facingRight = true;
 
 		}
 		if(KeyInput.isKeyDown(KeyEvent.VK_W)|| KeyInput.isKeyDown(KeyEvent.VK_UP)){
@@ -50,6 +53,10 @@ public class Player extends Mob{
 	
 	public double getHorSpeed(){
 		return dx;
+	}
+	
+	public boolean isFacingRight(){
+		return facingRight;
 	}
 	
 	

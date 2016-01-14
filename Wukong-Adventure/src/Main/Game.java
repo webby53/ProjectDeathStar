@@ -93,7 +93,7 @@ public class Game extends Canvas implements Runnable{
 	public void run(){
 		requestFocus();
 		//this is the target frames per second
-		double target = 48.0;
+		double target = 60.0;
 		//this helps with second calculation
 		double nanoSecPerTick = 1000000000.0 /target;
 		//this is the time we haven't processed

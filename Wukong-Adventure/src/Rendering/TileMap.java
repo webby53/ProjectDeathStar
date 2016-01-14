@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import javax.swing.JOptionPane;
+
 import entities.Mob;
 import entities.Player;
 import entities.Tile;
@@ -14,12 +17,16 @@ public class TileMap {
 	private Texture charTextures = new Texture("wukong sheet");
 	private SpriteSheet charSheet = new SpriteSheet(charTextures, 64);
 	private Sprite charSprite = new Sprite(charSheet, 1, 1);
-	private static ArrayList<Mob> entities = new ArrayList<Mob>();
 	private SpriteSheet sheet;
 	private Sprite dirtSprite;
+	private Sprite groundSprite;
 	private Sprite playerSprite;
+
+	private static ArrayList<Mob> entities = new ArrayList<Mob>();
+	private static ArrayList<Sprite> sprites = new ArrayList<Sprite>();
 	private int tiles[][];
 	private Tile tilemap[][];
+
 	//checks to makes sure another level is loaded
 	private boolean isLoaded = false;
 
@@ -27,7 +34,7 @@ public class TileMap {
 		Texture tex = new Texture("SpriteCell(4x4)");
 		sheet = new SpriteSheet(tex, 64);
 		dirtSprite = new Sprite(sheet, 1, 1);
-		
+		groundSprite = new Sprite(sheet, 2, 1);
 	}
 
 	public void tick(){
@@ -71,6 +78,9 @@ public class TileMap {
 						break;
 					case 2:
 						entities.add(new Player(col * 64, row * 64, charSprite));
+						break;
+					case 3:
+						sprites.add(groundSprite);
 					}
 				}
 			}
@@ -83,15 +93,18 @@ public class TileMap {
 
 	//renders tilemap
 	public void render(Graphics2D g){
-		for(int row = 0; row < tilemap.length; row++){
-			for(int col = 0; col < tilemap[row].length; col++){
-				if(tilemap[row][col] != null){
-					tilemap[row][col].render(g);
+		if(tilemap != null && tiles != null){
+			for(int row = 0; row < tilemap.length; row++){
+				for(int col = 0; col < tilemap[row].length; col++){
+					if(tilemap[row][col] != null){
+						tilemap[row][col].render(g);
+					}
 				}
 			}
-		}
-		//for(int i = 0; i < entities.size(); i++)
-		entities.get(0).render(g);
+			//for(int i = 0; i < entities.size(); i++)
+			entities.get(0).render(g);
+		}else
+			JOptionPane.showMessageDialog(null, "TileMap Error!");
 	}//render
 
 	//return selected tile

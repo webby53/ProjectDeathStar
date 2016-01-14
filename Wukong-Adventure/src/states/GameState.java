@@ -15,7 +15,7 @@ import input.MouseInput;
 
 public class GameState implements State{
 
-	public static boolean debugging;
+	public static boolean debugging, refreshing;
 	private ArrayList<Button> buttons;
 	private int currentSelection;
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
@@ -44,7 +44,7 @@ public class GameState implements State{
 		enemies.add(new Enemy(Game.WIDTH / 3, Game.HEIGHT / 2, new Sprite("test", 64, 64)));
 		tileMap = new TileMap();
 		tileMap.load("level1");
-		cam = new Camera(0, 0, tileMap.entity(0));
+		cam = new Camera(tileMap.entity(0));
 		//background (also should be implemented in tilemapping)
 		bg.setX(0);
 		bg.setY(0);	
@@ -100,12 +100,24 @@ public class GameState implements State{
 		case 2: Game.INSTANCE.stop();
 		break;
 		case 3: 
+			if(refreshing)
+				refreshing = false;
+			else{
+				refreshing = true;
+				stateManager.reset();
 				cam.updateCamera();
+			}
 		}
 	}
 
 	//renders graphics
 	public void render(Graphics2D g) {
+		//used to reset graphics
+		if(refreshing){
+			g.dispose();
+			refreshing = false;
+		}
+		
 		//background rendering
 		bg.draw(g);
 		bg.update();
