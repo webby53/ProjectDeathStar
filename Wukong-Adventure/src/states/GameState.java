@@ -66,6 +66,9 @@ public class GameState implements State{
 			tileMap.load("level1");
 			stateManager.setState("menu");
 		}
+		if(((Player)tileMap.entity(0)).isAttacking(enemies)){
+			
+		}
 		//mouse check
 		boolean isClicked = false;
 		for(int i = 0; i < buttons.size(); i++){
@@ -94,8 +97,9 @@ public class GameState implements State{
 		case 1:
 			if(debugging)
 				debugging = false;
-			else
+			else{
 				debugging = true;
+			}
 		break;
 		case 2: Game.INSTANCE.stop();
 		break;

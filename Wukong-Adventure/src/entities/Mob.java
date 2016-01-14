@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import Rendering.Sprite;
 import states.GameState;
 import java.util.*;
+import entities.Player;
 
 public abstract class Mob extends Entity{
 
@@ -93,8 +94,9 @@ public abstract class Mob extends Entity{
 	public void render(Graphics2D g){
 		super.render(g);
 		g.setColor(Color.MAGENTA);
-		if(GameState.debugging)
+		if(GameState.debugging){
 			g.draw(getBounds());
+		}
 	}
 	
 	public boolean isDead(){
@@ -109,7 +111,7 @@ public abstract class Mob extends Entity{
 	
 	public boolean isCollided(ArrayList<Enemy> b){
 		boolean collision = false;
-		 
+		
 		for(int i = 0; i < b.size(); i++){
 			if(this.getBounds().intersects(b.get(i).getBounds())){
 				collision = true;
@@ -118,4 +120,5 @@ public abstract class Mob extends Entity{
 		
 		return collision;
 	}
+	
 }
