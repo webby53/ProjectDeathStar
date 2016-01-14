@@ -26,6 +26,7 @@ public class TileMap {
 	private static ArrayList<Sprite> sprites = new ArrayList<Sprite>();
 	private int tiles[][];
 	private Tile tilemap[][];
+	private Animation test = new Animation();
 
 	//checks to makes sure another level is loaded
 	private boolean isLoaded = false;
@@ -35,6 +36,7 @@ public class TileMap {
 		sheet = new SpriteSheet(tex, 64);
 		dirtSprite = new Sprite(sheet, 1, 1);
 		groundSprite = new Sprite(sheet, 2, 1);
+		test.update();
 	}
 
 	public void tick(){
@@ -45,6 +47,7 @@ public class TileMap {
 	//this will load levels from a text file
 	//number correspond to tiles
 	public void load(String fileName){
+		test.play();
 		if(!isLoaded){
 			File file = new File("./resources/levels/" + fileName + ".dat");
 			Scanner sc = null;
@@ -77,7 +80,7 @@ public class TileMap {
 						tilemap[row][col] = new Tile(col * 64, row * 64, dirtSprite);
 						break;
 					case 2:
-						entities.add(new Player(col * 64, row * 64, charSprite));
+						entities.add(new Player(col * 64, row * 64,test.getFrame()));
 						break;
 					case 3:
 						sprites.add(groundSprite);

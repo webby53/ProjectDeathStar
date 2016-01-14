@@ -14,33 +14,34 @@ public class Animation {
 	private Texture charTextures = new Texture("wukong sheet");
 	private SpriteSheet charSheet = new SpriteSheet(charTextures, 64);
 	private Sprite sprite1 = new Sprite(charSheet, 1, 1);
-	private Sprite sprite2 = new Sprite(charSheet, 2, 1);
-	private Sprite sprite3 = new Sprite(charSheet, 3, 1);
+	private Sprite sprite2 = new Sprite(charSheet, 1, 2);
+	private Sprite sprite3 = new Sprite(charSheet, 1, 3);
 
 
-	public Animation(ArrayList<Sprite> frames){
-		this.frames = frames;
+	public Animation(){
+		frames = new ArrayList<Sprite>();
 		frames.add(sprite1);
 		frames.add(sprite2);
 		frames.add(sprite3);
+		speed = 100;
 	}
 
 	public void setSpeed(long speed){
 		this.speed = speed;
 	}
-	public void update(long time){
+	public void update(){
 		while(running){
-			if(time - previousTime >= speed){
+			if(speed - previousTime >= speed){
 				//update the animation
-				currentFrame++;
+
 				try{
 					sprite = frames.get(currentFrame);
 				}catch(IndexOutOfBoundsException e){
 					currentFrame = 0;
 					sprite = frames.get(currentFrame);
 				}
-				
-				previousTime = time;
+				currentFrame++;
+				previousTime = speed;
 			}
 		}
 	}
