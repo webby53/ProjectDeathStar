@@ -66,7 +66,7 @@ public class Game extends Canvas implements Runnable{
 		if(bs == null){
 			//3 buffers are better since 2 flicker
 			//and 4 may be slow for slower computers
-			createBufferStrategy(4);
+			createBufferStrategy(3);
 			return;
 		}
 		//this makes our buffer supply the graphics
@@ -74,7 +74,8 @@ public class Game extends Canvas implements Runnable{
 		Graphics2D g2D = (Graphics2D) g;
 		//////\\\\\\
     	stateManager.render(g2D);
-		g.dispose();//disposes last graphics
+		g2D.dispose();//disposes last graphics
+		g.dispose();
 		//////\\\\\\
 		
 		bs.show();

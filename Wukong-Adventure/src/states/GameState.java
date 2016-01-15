@@ -112,7 +112,7 @@ public class GameState implements State{
 		case 2: Game.INSTANCE.stop();
 		break;
 		case 3: 
-			refresh();
+			Game.INSTANCE.repaint();
 		}
 	}
 
