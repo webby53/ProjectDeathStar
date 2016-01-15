@@ -23,7 +23,7 @@ public class TileMap {
 	private Tile tilemap[][];
 
 	public TileMap(){
-		test = new Animation(10);
+		test = new Animation(6);
 		sprites = new ArrayList<Sprite>();
 		entities = new ArrayList<Mob>();
 		Texture tex = new Texture("SpriteCell(4x4)");

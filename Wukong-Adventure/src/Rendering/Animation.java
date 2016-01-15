@@ -14,20 +14,22 @@ public class Animation implements Runnable {
 	private Texture charTextures = new Texture("wukong sheet");
 	private SpriteSheet charSheet = new SpriteSheet(charTextures, 64);;
 	
-	private Sprite sprite1;
-	private Sprite sprite2;
-	private Sprite sprite3;
+	private Sprite sprite1, sprite2, sprite3, sprite4, sprite5;
 
 	public Animation(long speed){
 		frames = new ArrayList<Sprite>();
 
 		sprite1 = new Sprite(charSheet, 1, 1);
-		sprite2 = new Sprite(charSheet, 1, 2);
-		sprite3 = new Sprite(charSheet, 1, 3);
-		
+		sprite2 = new Sprite(charSheet, 2, 1);
+		sprite3 = new Sprite(charSheet, 3, 1);
+		sprite4 = new Sprite(charSheet, 4, 1);
+		sprite5 = new Sprite(charSheet, 5, 1);
+
 		frames.add(sprite1);
 		frames.add(sprite2);
 		frames.add(sprite3);
+		frames.add(sprite4);
+		frames.add(sprite5);
 		this.speed = speed * 10;
 	}//constructor
 	

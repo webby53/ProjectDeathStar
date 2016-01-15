@@ -91,6 +91,7 @@ public class GameState implements State{
 			select(stateManager);
 
 		cam.tick();
+		bg.update();
 	}//tick
 
 	//determines which button is currently selected
@@ -119,7 +120,6 @@ public class GameState implements State{
 
 		//background rendering
 		bg.draw(g);
-		bg.update();
 		//Text and other
 		DrawString.drawInfo(g);
 		DrawString.drawStringCenterV(g, "Alpha", Color.CYAN, new Font("Arial", Font.CENTER_BASELINE, 50), 100);

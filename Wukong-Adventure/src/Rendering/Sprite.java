@@ -3,6 +3,8 @@ package Rendering;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import Main.Game;
+
 public class Sprite {
 
 	private BufferedImage image;
@@ -34,7 +36,8 @@ public class Sprite {
 
 	//renders the graphics
 	public void render(Graphics2D g, double x, double y){
-		g.drawImage(image, (int)x, (int)y, null);
+		if(image != null)
+			g.drawImage(image, (int)x, (int)y, Game.INSTANCE);
 	}
 	
 	public int getHeight(){

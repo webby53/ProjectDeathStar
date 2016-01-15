@@ -17,14 +17,14 @@ public class Game extends Canvas implements Runnable{
 	public static final int WIDTH = 896;
 	public static final int HEIGHT = WIDTH / 4 * 3;
 	public static Game INSTANCE;
-	
+
 	public static String Help = "";
 	private boolean running;
 	public static int FPS, TPS;
-	
+
 	private BufferStrategy bs;
 	private StateManager stateManager;
-	
+
 	public Game(){
 		addKeyListener(new KeyInput());
 		MouseInput mouse = new MouseInput();
@@ -37,7 +37,7 @@ public class Game extends Canvas implements Runnable{
 		DrawString.addInfo("X:" + MouseInput.getX() + " Y:" + MouseInput.getY());
 		DrawString.addInfo("FPS:" + Game.FPS + " TPS:" + Game.TPS);
 	}
-	
+
 	//makes a new thread
 	public void start(){
 		Help += "Game Name: " + TITLE + "\nCanvas Width: " + WIDTH + "\nCanvas Height: " + HEIGHT;
@@ -48,12 +48,12 @@ public class Game extends Canvas implements Runnable{
 			new Thread(this, "Main-Thread").start();
 		}
 	}
-	
+
 	//the tick method
 	private void tick(){
 		stateManager.tick();
 	}
-	
+
 	//this takes all graphics
 	//and displays it
 	private void render(){
@@ -61,8 +61,9 @@ public class Game extends Canvas implements Runnable{
 		//into memory so there is a certain amount 
 		//loaded before hand instead of only
 		//loading one frame at a time.
-		bs = getBufferStrategy();
 		
+		bs = getBufferStrategy();
+
 		if(bs == null){
 			//3 buffers are better since 2 flicker
 			//and 4 may be slow for slower computers
@@ -70,17 +71,31 @@ public class Game extends Canvas implements Runnable{
 			return;
 		}
 		//this makes our buffer supply the graphics
-		Graphics g = bs.getDrawGraphics();
-		Graphics2D g2D = (Graphics2D) g;
-		//////\\\\\\
-    	stateManager.render(g2D);
-		g2D.dispose();//disposes last graphics
-		g.dispose();
-		//////\\\\\\
-		
-		bs.show();
+		Graphics g = null;
+		Graphics2D g2D = null;
+
+			try{
+				g = bs.getDrawGraphics();
+				g2D = (Graphics2D) g;
+				g.clearRect(0, 0, Game.WIDTH, Game.HEIGHT);
+				stateManager.render(g2D);
+				
+			}finally{
+				//this changes rendering options and makes
+				//the rending smmother
+				RenderingHints rh = new RenderingHints(
+						RenderingHints.KEY_TEXT_ANTIALIASING,
+						RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+				g2D.setRenderingHints(rh);
+				if(GameState.debugging)
+					g.clearRect(0, 0, Game.WIDTH, Game.HEIGHT);
+				AlphaComposite ac =  AlphaComposite.getInstance(AlphaComposite.SRC_IN);
+				g2D.setComposite(ac);
+				bs.show();
+				g.dispose();
+			}
 	}
-	
+
 	//stops the game
 	public void stop(){
 		if(! running)
@@ -105,13 +120,13 @@ public class Game extends Canvas implements Runnable{
 		long lastTime = System.nanoTime();
 		//used for fps and tps calculations
 		long timer = System.currentTimeMillis();
-		
+
 		//these are the frames and ticks per second
 		int fps = 0;
 		int tps = 0;
 		//Limits frames to when we can tick
 		boolean canRender= false;
-		
+
 		while(running){
 			//
 			long now = System.nanoTime();
@@ -120,7 +135,7 @@ public class Game extends Canvas implements Runnable{
 			unprocessed += (now - lastTime) / nanoSecPerTick;
 
 			lastTime = now;
-			
+
 			//so some time after one second
 			//it ticks and increases tps
 			//and then resets unprocessed and canRender
@@ -134,12 +149,15 @@ public class Game extends Canvas implements Runnable{
 			}else//this is so the frames are limited by the ticks
 				//since we don't render until we tick
 				canRender= false;
-			
+
 			if(canRender){
 				render();
 				fps++;
 			}
-			
+			try{
+				Thread.sleep(1);
+			}catch(InterruptedException e){}
+
 			//calculates how much ticks and frames have gone by
 			//and outputs them and resets their values
 			if(System.currentTimeMillis() - 1000 > timer){
@@ -151,5 +169,5 @@ public class Game extends Canvas implements Runnable{
 			}
 		}
 	}//run
-	
+
 }

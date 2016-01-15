@@ -16,7 +16,7 @@ public class Main {
 		//creates our main frame and instance of Game
 		final Game game = new Game();
 		
-		JFrame frame =new JFrame(Game.TITLE);
+		JFrame frame = new JFrame(Game.TITLE);
 		
 		frame.add(game);
 		frame.setSize(Game.WIDTH, Game.HEIGHT);

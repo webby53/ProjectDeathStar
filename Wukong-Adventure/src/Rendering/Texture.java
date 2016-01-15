@@ -35,7 +35,8 @@ public class Texture{
 	
 	//this will draw the texture at the specified x and y
 	 public void render(Graphics g, double x, double y){
-		 g.drawImage(image, (int)x, (int)y, null);
+		 if(image != null)
+			 g.drawImage(image, (int)x, (int)y, null);
 	 }
 	 
 	 public BufferedImage getImage(){
