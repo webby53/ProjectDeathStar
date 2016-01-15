@@ -52,7 +52,7 @@ public class GameState implements State{
 				Color.RED, Color.RED, 170));
 
 		//adds entites (remove soon)
-		enemies.add(new Enemy(Game.WIDTH / 3, Game.HEIGHT / 2, new Sprite("test", 64, 64)));
+		enemies.add(new Enemy(Game.WIDTH, Game.HEIGHT / 2, new Sprite("test", 64, 64)));
 
 
 	}//enter
@@ -70,8 +70,8 @@ public class GameState implements State{
 			tileMap.load("level1");
 			stateManager.setState("menu");
 		}
-		if(((Player)tileMap.entity(0)).isAttacking(enemies)){
-			
+		if(((Player)tileMap.entity(0)).isAttacking(enemies) != -1){
+			enemies.remove(((Player)tileMap.entity(0)).isAttacking(enemies));
 		}
 		//mouse check
 		boolean isClicked = false;
@@ -129,7 +129,8 @@ public class GameState implements State{
 		/////////////////////////////////////////////////////////////////
 		g.translate(cam.getX(), cam.getY());
 		tileMap.render(g);
-		//enemies.get(0).render(g);
+		for(int i = 0; i < enemies.size(); i++)
+			enemies.get(i).render(g);
 		g.translate(-cam.getX(), -cam.getY());
 		/////////////////////////////////////////////////////////////////
 		//button selection

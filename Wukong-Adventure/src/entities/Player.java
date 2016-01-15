@@ -33,6 +33,8 @@ public class Player extends Mob{
 	}
 	
 	public void tick(){
+		attacking = false;
+		
 		//Corrects the facing of the attack box
 		if(facingRight){
 			recAttackBox = new Rectangle((int)x, (int)y + 16, this.getHeight() + 32, this.getWidth() - 32);
@@ -101,16 +103,16 @@ public class Player extends Mob{
 		}
 	}
 	
-	public boolean isAttacking(ArrayList<Enemy> b){
-		boolean attack = false;
+	public int isAttacking(ArrayList<Enemy> b){
+		int enemy = -1;
 		
 		for(int i = 0; i < b.size(); i++){
 			if(recAttackBox.intersects(b.get(i).getBounds()) && attacking){
-				attack = true;
+				enemy = i;
 			}
 		}
 		
-		return attack;
+		return enemy;
 	}
 
 }
