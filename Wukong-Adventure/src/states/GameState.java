@@ -28,7 +28,7 @@ public class GameState implements State{
 		bg.setX(0);
 		bg.setY(0);
 		//background (also should be implemented in tilemapping)	
-		bg.setDx(-0.6);
+		bg.setCx(-0.6);
 		enemies = new ArrayList<Enemy>();
 		tileMap = new TileMap();
 		tileMap.load("level1");
@@ -37,8 +37,7 @@ public class GameState implements State{
 	//runs on entrance
 	public void enter() {
 		cam = new Camera(tileMap.entity(0));
-		cam.setX(0);
-		cam.setY(0);
+		cam.setX(tileMap.entity(0).getX() + Game.WIDTH / 2 - 300);
 
 		//sets the buttons in Game
 		buttons = new ArrayList<Button>();
@@ -48,8 +47,6 @@ public class GameState implements State{
 				Color.BLACK, Color.GREEN, 90));
 		buttons.add(new Button("Exit",  new Font("Ariel", Font.PLAIN, 25), new Font("Ariel", Font.BOLD, 35),
 				Color.BLACK, Color.GREEN, 130));
-		buttons.add(new Button("Refresh",  new Font("Ariel", Font.PLAIN, 25), new Font("Ariel", Font.BOLD, 35),
-				Color.RED, Color.RED, 170));
 
 		//adds entites (remove soon)
 		enemies.add(new Enemy(Game.WIDTH, Game.HEIGHT / 2, new Sprite("test", 64, 64)));
@@ -108,11 +105,8 @@ public class GameState implements State{
 		break;
 		case 2: Game.INSTANCE.stop();
 		break;
-		case 3: 
-			stateManager.setState("Game");
-			Game.INSTANCE.repaint();
 		}
-	}
+	}//select
 
 	//renders graphics
 	public void render(Graphics2D g) {
@@ -152,12 +146,5 @@ public class GameState implements State{
 	public String getName() {
 		return "Game";
 	}//getName
-
-	public void refresh() {
-		if(!refreshing)
-			refreshing = true;
-
-	}//refresh
-
 
 }

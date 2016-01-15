@@ -13,7 +13,7 @@ public class Background {
 	private double x;
 	private int y;
 	private double move;
-	private double dx;
+	private double cx;
 	
 	public Background(String s, double move){
 		this.move = move;
@@ -40,13 +40,13 @@ public class Background {
 		this.y = y;
 	}
 	
-	public void setDx(double dx){
-		this.dx = dx;
+	public void setCx(double dx){
+		this.cx = dx;
 	}
 	
 //updates the location of background
 	public void update(){
-		x += dx;
+		x += cx;
 	}
 	
 	//draws the background

@@ -61,7 +61,7 @@ public class Game extends Canvas implements Runnable{
 		//into memory so there is a certain amount 
 		//loaded before hand instead of only
 		//loading one frame at a time.
-		
+
 		bs = getBufferStrategy();
 
 		if(bs == null){
@@ -73,27 +73,26 @@ public class Game extends Canvas implements Runnable{
 		//this makes our buffer supply the graphics
 		Graphics g = null;
 		Graphics2D g2D = null;
+		g = bs.getDrawGraphics();
+		g2D = (Graphics2D) g;
+		
+		//clears game before rendering(THANK GOD)
+		g.clearRect(0, 0, Game.WIDTH, Game.HEIGHT);
+		stateManager.render(g2D);
 
-			try{
-				g = bs.getDrawGraphics();
-				g2D = (Graphics2D) g;
-				g.clearRect(0, 0, Game.WIDTH, Game.HEIGHT);
-				stateManager.render(g2D);
-				
-			}finally{
-				//this changes rendering options and makes
-				//the rending smmother
-				RenderingHints rh = new RenderingHints(
-						RenderingHints.KEY_TEXT_ANTIALIASING,
-						RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-				g2D.setRenderingHints(rh);
-				if(GameState.debugging)
-					g.clearRect(0, 0, Game.WIDTH, Game.HEIGHT);
-				AlphaComposite ac =  AlphaComposite.getInstance(AlphaComposite.SRC_IN);
-				g2D.setComposite(ac);
-				bs.show();
-				g.dispose();
-			}
+		//rending optimization
+		RenderingHints rh = new RenderingHints(
+				RenderingHints.KEY_TEXT_ANTIALIASING,
+				RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		g2D.setRenderingHints(rh);
+		
+		//sets how to render oberjects over other objects
+		AlphaComposite ac =  AlphaComposite.getInstance(AlphaComposite.SRC_OVER);
+		g2D.setComposite(ac);
+		
+		bs.show();
+		g.dispose();
+
 	}
 
 	//stops the game
