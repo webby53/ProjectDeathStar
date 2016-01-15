@@ -103,15 +103,12 @@ public class GameState implements State{
 				debugging = false;
 			else{
 				debugging = true;
-<<<<<<< HEAD
 			}
 		break;
-=======
-			break;
->>>>>>> branch 'master' of https://github.com/webby53/ProjectDeathStar.git
 		case 2: Game.INSTANCE.stop();
 		break;
 		case 3: 
+			stateManager.setState("Game");
 			Game.INSTANCE.repaint();
 		}
 	}

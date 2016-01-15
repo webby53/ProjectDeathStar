@@ -101,14 +101,10 @@ public abstract class Mob extends Entity{
 		g.setColor(Color.MAGENTA);
 		if(GameState.debugging){
 			g.draw(getBounds());
-<<<<<<< HEAD
 		}
-	}
-=======
 		if(animate != null)
 			this.sprite = animate.getFrame();
 	}//render
->>>>>>> branch 'master' of https://github.com/webby53/ProjectDeathStar.git
 	
 	//checks if player is dead (off screen)
 	public boolean isDead(){
@@ -134,9 +130,5 @@ public abstract class Mob extends Entity{
 	public void setAnimation(Animation animate){
 		this.animate = animate;
 	}
-<<<<<<< HEAD
-	
-}
-=======
+
 }//Mob
->>>>>>> branch 'master' of https://github.com/webby53/ProjectDeathStar.git
