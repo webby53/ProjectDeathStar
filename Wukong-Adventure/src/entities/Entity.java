@@ -2,12 +2,15 @@ package entities;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
+
+import Rendering.Animation;
 import Rendering.Sprite;
 
 public abstract class Entity {
 
 	protected double x, y;
 	protected Sprite sprite;
+	protected Animation animate;
 	protected Rectangle2D recTop, recBot, recLeft, recRight;
 	
 	public Entity(double x, double y, Sprite sprite) {
@@ -15,7 +18,12 @@ public abstract class Entity {
 		this.y = y;
 		this.sprite = sprite;
 	}
-
+	public Entity(double x, double y, Animation animate) {
+		this.x = x;
+		this.y = y;
+		this.animate = animate;
+		this.sprite = animate.getFrame();
+	}
 
 	public void render(Graphics2D g){
 		this.tick();
@@ -23,7 +31,6 @@ public abstract class Entity {
 	}
 
 	public abstract void tick();
-
 
 	public int getWidth(){
 		return sprite.getWidth();

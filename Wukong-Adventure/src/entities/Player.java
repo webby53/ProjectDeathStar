@@ -3,6 +3,7 @@ package entities;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import Rendering.Animation;
 import Rendering.Sprite;
 import input.KeyInput;
 import input.MouseInput;
@@ -13,11 +14,15 @@ public class Player extends Mob{
 	protected double speed = 0.5;
 	protected double maxSpeed = 3;
 	protected boolean facingRight;
-
+	
 	public Player(double x, double y, Sprite sprite) {
 		super(x, y, sprite);
 	}
 
+	public Player(double x, double y, Animation animate) {
+		super(x,y,animate);
+	}
+	
 	public void tick(){
 		//key inputs
 		if(KeyInput.isKeyDown(KeyEvent.VK_A) || KeyInput.isKeyDown(KeyEvent.VK_LEFT)){
@@ -55,9 +60,9 @@ public class Player extends Mob{
 		return dx;
 	}
 	
+	//checks if player is facing right
 	public boolean isFacingRight(){
 		return facingRight;
 	}
-	
 	
 }

@@ -18,27 +18,28 @@ public class GameState implements State{
 	public static boolean debugging, refreshing;
 	private ArrayList<Button> buttons;
 	private int currentSelection;
-	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+	private ArrayList<Enemy> enemies;
 	private Background bg = new Background("./resources/textures/Background.png", 10);
 	private Camera cam;
 	private TileMap tileMap;
 
 	public void init() {
-		tileMap = new TileMap();
-		tileMap.load("level1");
-		
-		cam = new Camera(tileMap.entity(0));
-		cam.setX(0);
-		cam.setY(0);
-		
+		bg = new Background("./resources/textures/Background.png", 10);
 		bg.setX(0);
 		bg.setY(0);
 		//background (also should be implemented in tilemapping)	
 		bg.setDx(-0.6);
-	}
+		enemies = new ArrayList<Enemy>();
+		tileMap = new TileMap();
+		tileMap.load("level1");
+	}//init
 
 	//runs on entrance
 	public void enter() {
+		cam = new Camera(tileMap.entity(0));
+		cam.setX(0);
+		cam.setY(0);
+
 		//sets the buttons in Game
 		buttons = new ArrayList<Button>();
 		buttons.add(new Button("Back",  new Font("Ariel", Font.PLAIN, 25), new Font("Ariel", Font.BOLD, 35),
@@ -48,8 +49,8 @@ public class GameState implements State{
 		buttons.add(new Button("Exit",  new Font("Ariel", Font.PLAIN, 25), new Font("Ariel", Font.BOLD, 35),
 				Color.BLACK, Color.GREEN, 130));
 		buttons.add(new Button("Refresh",  new Font("Ariel", Font.PLAIN, 25), new Font("Ariel", Font.BOLD, 35),
-				Color.BLACK, Color.GREEN, 170));
-		
+				Color.RED, Color.RED, 170));
+
 		//adds entites (remove soon)
 		enemies.add(new Enemy(Game.WIDTH / 3, Game.HEIGHT / 2, new Sprite("test", 64, 64)));
 
@@ -81,11 +82,11 @@ public class GameState implements State{
 			}
 			if(!buttons.get(i).intersects(new Rectangle(MouseInput.getX(), MouseInput.getY(), 1, 1)))
 				if(MouseInput.wasReleased(MouseEvent.BUTTON1))
-				currentSelection = -1;
+					currentSelection = -1;
 		}
 		if(isClicked)
 			select(stateManager);
-		
+
 		cam.tick();
 	}//tick
 
@@ -99,28 +100,18 @@ public class GameState implements State{
 				debugging = false;
 			else
 				debugging = true;
-		break;
+			break;
 		case 2: Game.INSTANCE.stop();
 		break;
 		case 3: 
-			if(refreshing)
-				refreshing = false;
-			else{
-				refreshing = true;
-				stateManager.reset();
-				cam.updateCamera();
-			}
+			refresh();
 		}
 	}
 
 	//renders graphics
 	public void render(Graphics2D g) {
 		//used to reset graphics
-		if(refreshing){
-			g.dispose();
-			refreshing = false;
-		}
-		
+
 		//background rendering
 		bg.draw(g);
 		bg.update();
@@ -144,7 +135,7 @@ public class GameState implements State{
 				buttons.get(i).setSelected(false);
 			buttons.get(i).render(g, Game.WIDTH - 110);
 		}		
-			
+
 	}//render
 
 	public void exit() {
@@ -155,6 +146,12 @@ public class GameState implements State{
 	public String getName() {
 		return "Game";
 	}//getName
+
+	public void refresh() {
+		if(!refreshing)
+			refreshing = true;
+
+	}//refresh
 
 
 }

@@ -13,14 +13,16 @@ import states.MenuState;
 @SuppressWarnings("serial")
 public class Game extends Canvas implements Runnable{
 
-	public static final String TITLE = "Wukong's Advernture Ver:6.0-Alpha";
+	public static final String TITLE = "Wukong's Advernture Ver:6.3-Alpha";
 	public static final int WIDTH = 896;
 	public static final int HEIGHT = WIDTH / 4 * 3;
 	public static Game INSTANCE;
+	
 	public static String Help = "";
-	//boolean to test if game is running
 	private boolean running;
 	public static int FPS, TPS;
+	
+	private BufferStrategy bs;
 	private StateManager stateManager;
 	
 	public Game(){
@@ -59,15 +61,14 @@ public class Game extends Canvas implements Runnable{
 		//into memory so there is a certain amount 
 		//loaded before hand instead of only
 		//loading one frame at a time.
-		BufferStrategy bs = getBufferStrategy();
+		bs = getBufferStrategy();
 		
 		if(bs == null){
 			//3 buffers are better since 2 flicker
 			//and 4 may be slow for slower computers
-			createBufferStrategy(3);
+			createBufferStrategy(4);
 			return;
 		}
-		
 		//this makes our buffer supply the graphics
 		Graphics g = bs.getDrawGraphics();
 		Graphics2D g2D = (Graphics2D) g;
@@ -112,7 +113,7 @@ public class Game extends Canvas implements Runnable{
 		
 		while(running){
 			//
-			long now =System.nanoTime();
+			long now = System.nanoTime();
 			//this calculates the time difference
 			//from the last loop to current
 			unprocessed += (now - lastTime) / nanoSecPerTick;
@@ -132,13 +133,6 @@ public class Game extends Canvas implements Runnable{
 			}else//this is so the frames are limited by the ticks
 				//since we don't render until we tick
 				canRender= false;
-
-			//sleeps for 1 millisecond (delay)
-			try{
-				Thread.sleep(1);	
-			}catch(InterruptedException e){
-				e.printStackTrace();
-			}
 			
 			if(canRender){
 				render();
@@ -155,8 +149,6 @@ public class Game extends Canvas implements Runnable{
 				tps = 0;
 			}
 		}
-
-		System.out.println("The Game has Started!");
 	}//run
 	
 }
