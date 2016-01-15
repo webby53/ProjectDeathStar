@@ -53,20 +53,21 @@ public class Camera {
 		maxRight = player.getX() + 400;
 		maxLeft = player.getX() - 400;
 		if(x > disStartX){
-			x += -player.getHorSpeed() - 1.4;
-			if(x-disStartX  < 1.4)
+			if(x-disStartX  > 10)
+				x += -player.getHorSpeed() - 10;
+			else
+				x += -player.getHorSpeed() - 1.5;
+			if(x-disStartX  < 2)
 				x = disStartX;
 		}
 		if(x < disStartX){
-			x += -player.getHorSpeed() + 1.4;
-			if(x+disStartX  > 1.4)
+			if(x+disStartX  > 10)
+				x += -player.getHorSpeed() + 10;
+			else
+				x += -player.getHorSpeed() + 1.5;
+			if(x+disStartX  > 1.5)
 				x = disStartX;
 		}
 	}//updateCamera
 
-	public void updateCameraRight(){
-		maxRight = player.getX() + 400;
-		maxLeft = player.getX() - 400;
-		x = disStartX - maxRight;
-	}//updateCamera
 }

@@ -3,6 +3,8 @@ package entities;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+
+import Rendering.Animation;
 import Rendering.Sprite;
 import states.GameState;
 import java.util.*;
@@ -19,25 +21,25 @@ public abstract class Mob extends Entity{
 
 	public Mob(double x, double y, Sprite sprite) {
 		super(x, y, sprite);
-	}
-
+	}//constructor with sprite
+	public Mob(double x, double y, Animation animate) {
+		super(x, y, animate);
+	}//constructor with animations
+	
 	public void tick(){
 		friction();
 		fall();
 		move();
-	}
+	}//tick
 
+	//returns entire boundry of Entity (not sides)
 	public Rectangle getBounds(){
 		return new Rectangle((int)x, (int)y, this.getHeight(), this.getWidth());
 	}//getBounds
 
+	//checks all tiles if player is colliding with them
 	public void collisionCheck(){
 		for(int i = 0; i < Tile.tiles.size(); i++){
-//			if(getBounds().intersects(Tile.tiles.get(i).recTop) && (getBounds().intersects(Tile.tiles.get(i).recLeft)) || 
-//					getBounds().intersects(Tile.tiles.get(i).recTop) && (getBounds().intersects(Tile.tiles.get(i).recRight))){
-//				x += dx;
-//				dy = 0;
-//			}
 			if(getBounds().intersects(Tile.tiles.get(i).recLeft) && dx > 0){
 				dx = 0;
 				x -= 0.7;
@@ -59,6 +61,7 @@ public abstract class Mob extends Entity{
 		}
 	}//collisionCheck
 
+	//updates x and y and calls collision check
 	public void move(){
 		x += dx;
 		y += dy;
@@ -77,38 +80,46 @@ public abstract class Mob extends Entity{
 				dx = 0;
 			else	
 				dx -= friction;
-	}
+	}//friction
 
+	//jumps
 	public void jump(){
 		dy = -4;
 	}//jump
 
+	//affects player gravity when not on ground
 	public void fall(){
 		if(falling){
 			dy += gravity;
 			if(dy > terminalV)
 				dy = terminalV;
 		}
-	}
+	}//fall
 
 	public void render(Graphics2D g){
 		super.render(g);
 		g.setColor(Color.MAGENTA);
 		if(GameState.debugging){
 			g.draw(getBounds());
+<<<<<<< HEAD
 		}
 	}
+=======
+		if(animate != null)
+			this.sprite = animate.getFrame();
+	}//render
+>>>>>>> branch 'master' of https://github.com/webby53/ProjectDeathStar.git
 	
+	//checks if player is dead (off screen)
 	public boolean isDead(){
 		boolean death = false;
-		
 		if(y > 800){
 			death = true;
 		}
-		
 		return death;
 	}
 	
+	//this checks for collision with other enemies
 	public boolean isCollided(ArrayList<Enemy> b){
 		boolean collision = false;
 		
@@ -117,8 +128,15 @@ public abstract class Mob extends Entity{
 				collision = true;
 			}
 		}
-		
 		return collision;
+	}//isCollided
+	
+	public void setAnimation(Animation animate){
+		this.animate = animate;
 	}
+<<<<<<< HEAD
 	
 }
+=======
+}//Mob
+>>>>>>> branch 'master' of https://github.com/webby53/ProjectDeathStar.git

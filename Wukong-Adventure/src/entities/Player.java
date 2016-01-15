@@ -9,6 +9,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 import states.GameState;
+import Rendering.Animation;
 import Rendering.Sprite;
 import input.KeyInput;
 import input.MouseInput;
@@ -27,6 +28,10 @@ public class Player extends Mob{
 		recAttackBox = new Rectangle((int)x, (int)y + 16, this.getHeight() + 22, this.getWidth() - 32);
 	}
 
+	public Player(double x, double y, Animation animate) {
+		super(x,y,animate);
+	}
+	
 	public void tick(){
 		//Corrects the facing of the attack box
 		if(facingRight){
@@ -79,9 +84,11 @@ public class Player extends Mob{
 		return dx;
 	}
 	
+	//checks if player is facing right
 	public boolean isFacingRight(){
 		return facingRight;
 	}
+
 	
 	public void render(Graphics2D g){
 		super.render(g);
@@ -105,5 +112,5 @@ public class Player extends Mob{
 		
 		return attack;
 	}
-	
+
 }
