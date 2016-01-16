@@ -72,4 +72,8 @@ public class Animation implements Runnable {
 	public Sprite getFrame(){
 		return sprite;
 	}//getFrame
+	
+	public void addFrame(Sprite temp){
+		frames.add(temp);
+	}
 }//Animation

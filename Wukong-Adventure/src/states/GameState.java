@@ -42,9 +42,9 @@ public class GameState implements State{
 		//sets the buttons in Game
 		buttons = new ArrayList<Button>();
 		buttons.add(new Button("Back",  new Font("Ariel", Font.PLAIN, 25), new Font("Ariel", Font.BOLD, 35),
-				Color.BLACK, Color.GREEN, 50));
+				Color.BLACK, Color.ORANGE, 50));
 		buttons.add(new Button("Debug",  new Font("Ariel", Font.PLAIN, 25), new Font("Ariel", Font.BOLD, 35),
-				Color.BLACK, Color.GREEN, 90));
+				Color.BLACK, Color.ORANGE, 90));
 		buttons.add(new Button("Exit",  new Font("Ariel", Font.PLAIN, 25), new Font("Ariel", Font.BOLD, 35),
 				Color.BLACK, Color.GREEN, 130));
 
@@ -94,7 +94,7 @@ public class GameState implements State{
 	//determines which button is currently selected
 	public void select(StateManager stateManager){
 		switch(currentSelection){
-		case 0: stateManager.setState("Menu"); exit();
+		case 0: stateManager.setState("Menu");
 		break;
 		case 1:
 			if(debugging)

@@ -18,6 +18,11 @@ public abstract class Entity {
 		this.y = y;
 		this.sprite = sprite;
 	}
+	public Entity(double x, double y) {
+		this.x = x;
+		this.y = y;
+		sprite = null;
+	}
 	public Entity(double x, double y, Animation animate) {
 		this.x = x;
 		this.y = y;
@@ -27,7 +32,8 @@ public abstract class Entity {
 
 	public void render(Graphics2D g){
 		this.tick();
-		sprite.render(g, x, y);
+		if(sprite != null)
+			sprite.render(g, x, y);
 	}
 
 	public abstract void tick();

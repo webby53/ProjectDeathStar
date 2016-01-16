@@ -4,24 +4,25 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-
 import states.GameState;
 import Rendering.Animation;
 import Rendering.Sprite;
 import input.KeyInput;
-import input.MouseInput;
 
 public class Player extends Mob{
 
 	protected static boolean canJump;
-	protected double speed = 0.5;
-	protected double maxSpeed = 3;
+	protected double speed = 0.6;
+	protected double maxSpeed = 4
+			;
 	protected boolean facingRight;
 	private Rectangle2D recAttackBox;
 	private boolean attacking = false;
+	private Animation currentAnimate, rightAnimate,
+					  leftAnimate, standAnimate,
+					  jumpAnimate;
 
 	public Player(double x, double y, Sprite sprite) {
 		super(x, y, sprite);
@@ -30,6 +31,11 @@ public class Player extends Mob{
 
 	public Player(double x, double y, Animation animate) {
 		super(x,y,animate);
+	}
+	
+	public Player(double x, double y){
+		super(x,y);
+		
 	}
 	
 	public void tick(){
@@ -71,7 +77,7 @@ public class Player extends Mob{
 	public void jump(){
 		if(canJump){
 			x += dx;
-			dy = -10;
+			dy = -11.5;
 			canJump = false;
 			falling = true;
 		}

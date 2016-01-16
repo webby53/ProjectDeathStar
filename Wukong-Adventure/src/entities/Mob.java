@@ -25,6 +25,9 @@ public abstract class Mob extends Entity{
 	public Mob(double x, double y, Animation animate) {
 		super(x, y, animate);
 	}//constructor with animations
+	public Mob(double x, double y) {
+		super(x, y);
+	}//constructor with neither
 	
 	public void tick(){
 		friction();

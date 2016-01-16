@@ -13,7 +13,7 @@ import states.MenuState;
 @SuppressWarnings("serial")
 public class Game extends Canvas implements Runnable{
 
-	public static final String TITLE = "Wukong's Advernture Ver:6.3-Alpha";
+	public static final String TITLE = "Wukong's Advernture Ver:6.4-Alpha";
 	public static final int WIDTH = 896;
 	public static final int HEIGHT = WIDTH / 4 * 3;
 	public static Game INSTANCE;
