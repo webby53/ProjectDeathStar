@@ -9,20 +9,24 @@ import java.util.ArrayList;
 import states.GameState;
 import Rendering.Animation;
 import Rendering.Sprite;
+import Rendering.SpriteSheet;
+import Rendering.Texture;
 import input.KeyInput;
 
 public class Player extends Mob{
 
 	protected static boolean canJump;
 	protected double speed = 0.6;
-	protected double maxSpeed = 4
-			;
+	protected double maxSpeed = 4;
 	protected boolean facingRight;
 	private Rectangle2D recAttackBox;
 	private boolean attacking = false;
-	private Animation currentAnimate, rightAnimate,
-					  leftAnimate, standAnimate,
-					  jumpAnimate;
+	private ArrayList<Sprite> rightAnimate,
+	leftAnimate, standAnimate,
+	jumpAnimate, attackAnimate;
+	private Animation current;
+	private Texture charTextures = new Texture("wukong sheet");
+	private SpriteSheet charSheet = new SpriteSheet(charTextures, 64);
 
 	public Player(double x, double y, Sprite sprite) {
 		super(x, y, sprite);
@@ -32,29 +36,71 @@ public class Player extends Mob{
 	public Player(double x, double y, Animation animate) {
 		super(x,y,animate);
 	}
-	
+
 	public Player(double x, double y){
 		super(x,y);
-		
+
+		//These are animations for differnt actions
+		//right
+		rightAnimate = new ArrayList<Sprite>();
+		rightAnimate.add(new Sprite(charSheet, 1, 1));
+		rightAnimate.add(new Sprite(charSheet, 2, 1));
+		rightAnimate.add(new Sprite(charSheet, 3, 1));
+		rightAnimate.add(new Sprite(charSheet, 4, 1));
+		rightAnimate.add(new Sprite(charSheet, 5, 1));
+		//left
+		leftAnimate = new ArrayList<Sprite>();
+		leftAnimate.add(new Sprite(charSheet, 1, 4));
+		leftAnimate.add(new Sprite(charSheet, 2, 4));
+		leftAnimate.add(new Sprite(charSheet, 3, 4));
+		leftAnimate.add(new Sprite(charSheet, 4, 4));
+		leftAnimate.add(new Sprite(charSheet, 5, 4));
+		//standing
+		standAnimate = new ArrayList<Sprite>();
+		standAnimate.add(new Sprite(charSheet, 1, 5));
+		standAnimate.add(new Sprite(charSheet, 2, 5));
+		standAnimate.add(new Sprite(charSheet, 3, 5));
+		standAnimate.add(new Sprite(charSheet, 4, 5));
+		//attacking
+		attackAnimate = new ArrayList<Sprite>();
+		attackAnimate.add(new Sprite(charSheet, 1, 2));
+		attackAnimate.add(new Sprite(charSheet, 2, 2));
+		attackAnimate.add(new Sprite(charSheet, 3, 2));
+		attackAnimate.add(new Sprite(charSheet, 4, 2));
+		attackAnimate.add(new Sprite(charSheet, 4, 2));
+		attackAnimate.add(new Sprite(charSheet, 1, 2));
+		attackAnimate.add(new Sprite(charSheet, 2, 2));
+		attackAnimate.add(new Sprite(charSheet, 3, 2));
+		attackAnimate.add(new Sprite(charSheet, 4, 2));
+		attackAnimate.add(new Sprite(charSheet, 4, 2));
+
+		current = new Animation(7, standAnimate);
+		current.start();
 	}
-	
+
 	public void tick(){
+		current.run();
+		this.sprite = current.getFrame();
+		if(dx == 0 && !attacking && canJump)
+			current.setAnimation(standAnimate);
 		attacking = false;
-		
+
 		//Corrects the facing of the attack box
 		if(facingRight){
 			recAttackBox = new Rectangle((int)x, (int)y + 16, this.getHeight() + 32, this.getWidth() - 32);
 		}else{
 			recAttackBox = new Rectangle((int)x - 32, (int)y + 16, this.getHeight() + 32, this.getWidth() - 32);
 		}
-		
+
 		//key inputs
 		if(KeyInput.isKeyDown(KeyEvent.VK_A) || KeyInput.isKeyDown(KeyEvent.VK_LEFT)){
+			current.setAnimation(leftAnimate);
 			dx += -speed;
 			if(dx < -maxSpeed) dx = -maxSpeed;
 			facingRight = false;
 		}
 		if(KeyInput.isKeyDown(KeyEvent.VK_D)|| KeyInput.isKeyDown(KeyEvent.VK_RIGHT)){
+			current.setAnimation(rightAnimate);
 			dx += speed;
 			if(dx > maxSpeed) dx = maxSpeed;
 			facingRight = true;
@@ -63,13 +109,40 @@ public class Player extends Mob{
 		if(KeyInput.isKeyDown(KeyEvent.VK_W)|| KeyInput.isKeyDown(KeyEvent.VK_UP)){
 			jump();
 		}
-
 		if(KeyInput.isKeyDown(KeyEvent.VK_S)|| KeyInput.isKeyDown(KeyEvent.VK_DOWN)){
 			dy = 0;
 		}
 		if(KeyInput.isKeyDown(KeyEvent.VK_SPACE)){
+			current.setAnimation(attackAnimate);
 			attacking = true;
+			try {
+				Thread.sleep(20);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		if(KeyInput.isKeyDown(KeyEvent.VK_BACK_SPACE)){
+			if(GameState.options){
+				GameState.options = false;
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			else{
+				GameState.options = true;
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+
 		super.tick();	
 	}
 
@@ -82,22 +155,22 @@ public class Player extends Mob{
 			falling = true;
 		}
 	}//jump
-	
-	
+
+
 	public Rectangle2D showAttack(){
 		return recAttackBox;
 	}
-	
+
 	public double getHorSpeed(){
 		return dx;
 	}
-	
+
 	//checks if player is facing right
 	public boolean isFacingRight(){
 		return facingRight;
 	}
 
-	
+
 	public void render(Graphics2D g){
 		super.render(g);
 		if(attacking)
@@ -108,16 +181,16 @@ public class Player extends Mob{
 			g.draw(recAttackBox);
 		}
 	}
-	
+
 	public int isAttacking(ArrayList<Enemy> b){
 		int enemy = -1;
-		
+
 		for(int i = 0; i < b.size(); i++){
 			if(recAttackBox.intersects(b.get(i).getBounds()) && attacking){
 				enemy = i;
 			}
 		}
-		
+
 		return enemy;
 	}
 

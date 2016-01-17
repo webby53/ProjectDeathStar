@@ -86,9 +86,9 @@ public class MenuState implements State{
 		case 0:	stateManager.setState("Game");
 				exit();
 		break;
-		case 1:	JOptionPane.showMessageDialog(null, "This Feature is Unavailable"); Game.INSTANCE.setFocusable(true);
+		case 1:	JOptionPane.showMessageDialog(null, "Please Buy the full version!"); Game.INSTANCE.setFocusable(true);
 		break;
-		case 2: JOptionPane.showMessageDialog(null, "This Feature is Unavailable"); Game.INSTANCE.setFocusable(true);
+		case 2: JOptionPane.showMessageDialog(null, "Please Buy the full version!"); Game.INSTANCE.setFocusable(true);
 		break;
 		case 3: Game.INSTANCE.stop();
 		break;

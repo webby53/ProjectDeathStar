@@ -15,7 +15,7 @@ import input.MouseInput;
 
 public class GameState implements State{
 
-	public static boolean debugging, refreshing;
+	public static boolean debugging, options;
 	private ArrayList<Button> buttons;
 	private int currentSelection;
 	private ArrayList<Enemy> enemies;
@@ -67,22 +67,25 @@ public class GameState implements State{
 			tileMap.load("level1");
 			stateManager.setState("menu");
 		}
+		//checks if a player atacksan enemy
 		if(((Player)tileMap.entity(0)).isAttacking(enemies) != -1){
 			enemies.remove(((Player)tileMap.entity(0)).isAttacking(enemies));
 		}
 		//mouse check
 		boolean isClicked = false;
-		for(int i = 0; i < buttons.size(); i++){
-			if(buttons.get(i).intersects(new Rectangle(MouseInput.getX(), MouseInput.getY(), 1, 1))){
-				currentSelection = i;
-				if(MouseInput.wasPressed(MouseEvent.BUTTON1))
-					isClicked = true;
-				else
-					isClicked = false;
+		if(options){
+			for(int i = 0; i < buttons.size(); i++){
+				if(buttons.get(i).intersects(new Rectangle(MouseInput.getX(), MouseInput.getY(), 1, 1))){
+					currentSelection = i;
+					if(MouseInput.wasPressed(MouseEvent.BUTTON1))
+						isClicked = true;
+					else
+						isClicked = false;
+				}
+				if(!buttons.get(i).intersects(new Rectangle(MouseInput.getX(), MouseInput.getY(), 1, 1)))
+					if(MouseInput.wasReleased(MouseEvent.BUTTON1))
+						currentSelection = -1;
 			}
-			if(!buttons.get(i).intersects(new Rectangle(MouseInput.getX(), MouseInput.getY(), 1, 1)))
-				if(MouseInput.wasReleased(MouseEvent.BUTTON1))
-					currentSelection = -1;
 		}
 		if(isClicked)
 			select(stateManager);
@@ -102,7 +105,7 @@ public class GameState implements State{
 			else{
 				debugging = true;
 			}
-		break;
+			break;
 		case 2: Game.INSTANCE.stop();
 		break;
 		}
@@ -115,10 +118,11 @@ public class GameState implements State{
 		//background rendering
 		bg.draw(g);
 		//Text and other
-		DrawString.drawInfo(g);
-		DrawString.drawStringCenterV(g, "Alpha", Color.CYAN, new Font("Arial", Font.CENTER_BASELINE, 50), 100);
-		DrawString.drawString(g, "Player[X:" + tileMap.entityList().get(0).getX() + " Y:" + tileMap.entityList().get(0).getY() + "]", new Font("Arial",Font.PLAIN, 13),  Color.BLUE,Game.WIDTH - 128, 11 * 2);
-
+		if(debugging){
+			DrawString.drawInfo(g);
+			DrawString.drawStringCenterV(g, Game.TITLE, Color.CYAN, new Font("Arial", Font.CENTER_BASELINE, 20), 25);
+			DrawString.drawString(g, "Player[X:" + tileMap.entityList().get(0).getX() + " Y:" + tileMap.entityList().get(0).getY() + "]", new Font("Arial",Font.PLAIN, 13),  Color.BLUE,Game.WIDTH - 128, 11 * 2);
+		}
 		//entites and tiles
 		/////////////////////////////////////////////////////////////////
 		g.translate(cam.getX(), cam.getY());
@@ -128,13 +132,15 @@ public class GameState implements State{
 		g.translate(-cam.getX(), -cam.getY());
 		/////////////////////////////////////////////////////////////////
 		//button selection
-		for(int i = 0; i < buttons.size(); i++){
-			if(i == currentSelection)	
-				buttons.get(i).setSelected(true);
-			else
-				buttons.get(i).setSelected(false);
-			buttons.get(i).render(g, Game.WIDTH - 110);
-		}		
+		if(options){
+			for(int i = 0; i < buttons.size(); i++){
+				if(i == currentSelection)	
+					buttons.get(i).setSelected(true);
+				else
+					buttons.get(i).setSelected(false);
+				buttons.get(i).render(g, Game.WIDTH - 110);
+			}		
+		}
 
 	}//render
 

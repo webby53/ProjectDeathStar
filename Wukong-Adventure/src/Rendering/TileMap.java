@@ -18,12 +18,10 @@ public class TileMap {
 	private Sprite groundSprite;
 	private static ArrayList<Mob> entities;
 	private static ArrayList<Sprite> sprites;
-	public Animation test;
 	private int tiles[][];
 	private Tile tilemap[][];
 
 	public TileMap(){
-		test = new Animation(6);
 		sprites = new ArrayList<Sprite>();
 		entities = new ArrayList<Mob>();
 		Texture tex = new Texture("SpriteCell(4x4)");
@@ -33,16 +31,12 @@ public class TileMap {
 	}//constructor
 
 	public void tick(){
-		test.run();
 		for(int i = 0; i < entities.size(); i++)
 			entities.get(i).tick();
 	}//tick
 
 	//this will load levels from a dat file
-	public void load(String fileName){
-		//start animation thread
-		test.start();
-		
+	public void load(String fileName){		
 		//checks if games has been loaded first
 		if(!isLoaded){
 			File file = new File("./resources/levels/" + fileName + ".dat");
@@ -80,7 +74,7 @@ public class TileMap {
 						tilemap[row][col] = new Tile(col * 64, row * 64, dirtSprite);
 						break;
 					case 2:
-						entities.add(new Player(col * 64, row * 64,test));
+						entities.add(new Player(col * 64, row * 64));
 						break;
 					case 3:
 						sprites.add(groundSprite);
@@ -125,7 +119,6 @@ public class TileMap {
 		tilemap = null;
 		sprites.clear();
 		entities.clear();
-		test.stop();
 	}//clear
 
 	public ArrayList<Mob> entityList(){

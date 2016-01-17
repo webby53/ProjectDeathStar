@@ -73,6 +73,7 @@ public abstract class Mob extends Entity{
 
 	//slows down when moving
 	public void friction(){
+		if(falling){
 		if(dx < 0)
 			if(dx > -friction)
 				dx = 0;
@@ -83,6 +84,7 @@ public abstract class Mob extends Entity{
 				dx = 0;
 			else	
 				dx -= friction;
+		}
 	}//friction
 
 	//jumps

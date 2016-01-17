@@ -7,11 +7,11 @@ import Rendering.Sprite;
 public class Enemy extends Mob{
 
 	private double speed = 2;
-	private double dx = 0.25;
+	private int life;
 	
 	public Enemy(double x, double y, Sprite sprite) {
 		super(x, y, sprite);
-		// TODO Auto-generated constructor stub
+		dx = 0.25;
 	}
 	
 	public void tick(){
