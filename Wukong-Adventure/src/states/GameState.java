@@ -71,7 +71,10 @@ public class GameState implements State{
 			if(tileMap.entity(enemyNum).isDead() == true){
 				tileMap.entityList().remove(enemyNum);
 			}else
-				tileMap.entity(enemyNum).takeLife(1);
+				if(tileMap.entity(enemyNum).getLife() <= 0)
+					tileMap.entity(enemyNum).setDead(true);
+				else	
+					tileMap.entity(enemyNum).takeLife(1);
 		}
 		//mouse check
 		boolean isClicked = false;

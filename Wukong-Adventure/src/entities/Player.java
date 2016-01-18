@@ -76,7 +76,7 @@ public class Player extends Mob{
 		attackAnimate.add(new Sprite(charSheet, 4, 2));
 		attackAnimate.add(new Sprite(charSheet, 4, 2));
 
-		current = new Animation(7, standAnimate);
+		current = new Animation(9, standAnimate);
 		current.start();
 	}
 

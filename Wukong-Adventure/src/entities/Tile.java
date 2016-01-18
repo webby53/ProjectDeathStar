@@ -18,6 +18,7 @@ public class Tile extends Entity{
 		super(x, y, sprite);
 		this.x = x;
 		this.y = y;
+		boolean touched = false;
 		tiles.add(this);
 		recLeft = new Rectangle((int)this.x, (int)this.y + 5, 1, sprite.getHeight() - 6);
 		recRight = new Rectangle((int)this.x + sprite.getWidth(), (int)this.y + 5, 1, sprite.getWidth() - 6);
@@ -28,6 +29,7 @@ public class Tile extends Entity{
 
 	@Override
 	public void tick() {
+		//touched = 
 	}
 
 	public void render(Graphics2D g){
@@ -42,5 +44,5 @@ public class Tile extends Entity{
 			g.setColor(Color.ORANGE);
 			g.draw(recRight);
 		}
-	}
+	}//render
 }

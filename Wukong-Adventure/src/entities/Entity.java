@@ -11,7 +11,7 @@ public abstract class Entity {
 	protected double x, y;
 	protected Sprite sprite;
 	protected Animation animate;
-	//protected boolean dead = false;
+	protected boolean dead = false;
 	protected Rectangle2D recTop, recBot, recLeft, recRight;
 
 	public Entity(double x, double y, Sprite sprite) {
@@ -32,14 +32,18 @@ public abstract class Entity {
 	}
 
 	public void render(Graphics2D g){
-		//if(!dead){
+		if(!dead){
 			this.tick();
 			if(sprite != null)
 				sprite.render(g, x, y);
-		//}
+		}
 	}
 	public boolean isDead(){
-		return true;
+		return dead;
+	}
+	
+	public void setDead(boolean bool){
+		dead = bool;
 	}
 
 	public abstract void tick();

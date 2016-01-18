@@ -75,7 +75,7 @@ public abstract class Mob extends Entity{
 
 	//slows down when moving
 	public void friction(){
-		if(falling || Player.canJump){
+		if(falling){
 		if(dx < 0)
 			if(dx > -friction)
 				dx = 0;
@@ -131,7 +131,7 @@ public abstract class Mob extends Entity{
 		
 		for(int i = 0; i < b.size(); i++){
 			if(this.getBounds().intersects(b.get(i).getBounds())){
-				collision = false;
+				collision = true;
 			}
 		}
 		return collision;

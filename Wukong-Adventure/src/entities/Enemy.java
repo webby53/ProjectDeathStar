@@ -28,7 +28,7 @@ public class Enemy extends Mob{
 		frames.add(new Sprite(charSheet, 3, 5));
 		frames.add(new Sprite(charSheet, 4, 5));
 		
-		animate = new Animation(6, frames);
+		animate = new Animation(20, frames);
 		animate.start();
 	}
 	
