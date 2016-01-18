@@ -42,14 +42,18 @@ public class Camera {
 		disStartX = startX - player.getX();
 
 		if(x > disStartX + 100){
-			x += -player.getHorSpeed() - 1.75;
+			x += -player.getHorSpeed() - 1.8;
 			if(x-disStartX  < 2)
 				x = disStartX;
+			if(x-disStartX  > 100)
+				x -= 3;
 		}
 		if(x < disStartX - 100){
-			x += -player.getHorSpeed() + 1.75;
+			x += -player.getHorSpeed() + 1.8;
 			if(x+disStartX  > 1.5)
 				x = disStartX;
+			if(x+disStartX  < 100)
+				x += 3;
 		}
 	}//updateCamera
 

@@ -36,8 +36,8 @@ public class GameState implements State{
 
 	//runs on entrance
 	public void enter() {
-		cam = new Camera(tileMap.entity(0));
-		cam.setX(tileMap.entity(0).getX() + Game.WIDTH / 2 - 300);
+		cam = new Camera(tileMap.player);
+		cam.setX(tileMap.player.getX() + Game.WIDTH / 2 - 300);
 
 		//sets the buttons in Game
 		buttons = new ArrayList<Button>();
@@ -48,28 +48,30 @@ public class GameState implements State{
 		buttons.add(new Button("Exit",  new Font("Ariel", Font.PLAIN, 25), new Font("Ariel", Font.BOLD, 35),
 				Color.BLACK, Color.GREEN, 130));
 
-		//adds entites (remove soon)
-		enemies.add(new Enemy(Game.WIDTH, Game.HEIGHT / 2, new Sprite("test", 64, 64)));
-
-
 	}//enter
 
 	public void tick(StateManager stateManager) {
 		//checks if player is dead
-		if(((Player)tileMap.entity(0)).isDead()){
+		tileMap.tick();
+
+		if(tileMap.player.isOffScreen()){
 			JOptionPane.showMessageDialog(null, "You have fallen to your death. You will now be sent back to the menu.");
 			Game.INSTANCE.setFocusable(true);
 			tileMap.load("level1");
 			stateManager.setState("menu");
 		}
-		if(tileMap.entity(0).isCollided(enemies)){
-			JOptionPane.showMessageDialog(null, "An enemy has killed you. You will now be sent back to the menu"); Game.INSTANCE.setFocusable(true);
-			tileMap.load("level1");
-			stateManager.setState("menu");
-		}
-		//checks if a player atacksan enemy
-		if(((Player)tileMap.entity(0)).isAttacking(enemies) != -1){
-			enemies.remove(((Player)tileMap.entity(0)).isAttacking(enemies));
+			if(tileMap.player.isCollided(tileMap.entityList())){
+				JOptionPane.showMessageDialog(null, "An enemy has killed you. You will now be sent back to the menu"); Game.INSTANCE.setFocusable(true);
+				tileMap.load("level1");
+				stateManager.setState("menu");
+			}
+		//checks if a player atacks an enemy
+		int enemyNum = tileMap.player.isAttacking(tileMap.entityList());
+		if(enemyNum != -1){
+			if(tileMap.entity(enemyNum).isDead() == true){
+				tileMap.entityList().remove(enemyNum);
+			}else
+				tileMap.entity(enemyNum).takeLife(1);
 		}
 		//mouse check
 		boolean isClicked = false;
@@ -121,14 +123,12 @@ public class GameState implements State{
 		if(debugging){
 			DrawString.drawInfo(g);
 			DrawString.drawStringCenterV(g, Game.TITLE, Color.CYAN, new Font("Arial", Font.CENTER_BASELINE, 20), 25);
-			DrawString.drawString(g, "Player[X:" + tileMap.entityList().get(0).getX() + " Y:" + tileMap.entityList().get(0).getY() + "]", new Font("Arial",Font.PLAIN, 13),  Color.BLUE,Game.WIDTH - 128, 11 * 2);
+			DrawString.drawString(g, "Player[X:" + tileMap.player.getX() + " Y:" + tileMap.player.getY() + "]", new Font("Arial",Font.PLAIN, 13),  Color.BLUE,Game.WIDTH - 128, 11 * 2);
 		}
 		//entites and tiles
 		/////////////////////////////////////////////////////////////////
 		g.translate(cam.getX(), cam.getY());
 		tileMap.render(g);
-		for(int i = 0; i < enemies.size(); i++)
-			enemies.get(i).render(g);
 		g.translate(-cam.getX(), -cam.getY());
 		/////////////////////////////////////////////////////////////////
 		//button selection
@@ -146,7 +146,6 @@ public class GameState implements State{
 
 	public void exit() {
 		buttons.clear();
-		this.enemies.clear();
 	}//exit
 
 	public String getName() {

@@ -6,6 +6,8 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+
+import Main.Game;
 import states.GameState;
 import Rendering.Animation;
 import Rendering.Sprite;
@@ -16,8 +18,8 @@ import input.KeyInput;
 public class Player extends Mob{
 
 	protected static boolean canJump;
-	protected double speed = 0.6;
-	protected double maxSpeed = 4;
+	protected double speed = 0.35;
+	protected double maxSpeed = 3.5;
 	protected boolean facingRight;
 	private Rectangle2D recAttackBox;
 	private boolean attacking = false;
@@ -87,9 +89,9 @@ public class Player extends Mob{
 
 		//Corrects the facing of the attack box
 		if(facingRight){
-			recAttackBox = new Rectangle((int)x, (int)y + 16, this.getHeight() + 32, this.getWidth() - 32);
+			recAttackBox = new Rectangle((int)x, (int)y + 16, this.getHeight() + 45, this.getWidth() - 32);
 		}else{
-			recAttackBox = new Rectangle((int)x - 32, (int)y + 16, this.getHeight() + 32, this.getWidth() - 32);
+			recAttackBox = new Rectangle((int)x - 45, (int)y + 16, this.getHeight() + 32, this.getWidth() - 32);
 		}
 
 		//key inputs
@@ -118,9 +120,17 @@ public class Player extends Mob{
 			try {
 				Thread.sleep(20);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
+		if(KeyInput.isKeyDown(KeyEvent.VK_1)){
+			Game.INSTANCE.target = 40;
+		}
+		if(KeyInput.isKeyDown(KeyEvent.VK_2)){
+			Game.INSTANCE.target = 50;
+		}
+		if(KeyInput.isKeyDown(KeyEvent.VK_3)){
+			Game.INSTANCE.target = 60;
 		}
 		if(KeyInput.isKeyDown(KeyEvent.VK_BACK_SPACE)){
 			if(GameState.options){
@@ -128,7 +138,6 @@ public class Player extends Mob{
 				try {
 					Thread.sleep(100);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -137,7 +146,6 @@ public class Player extends Mob{
 				try {
 					Thread.sleep(100);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -168,7 +176,7 @@ public class Player extends Mob{
 	//checks if player is facing right
 	public boolean isFacingRight(){
 		return facingRight;
-	}
+	}//isFacingRight
 
 
 	public void render(Graphics2D g){
@@ -180,18 +188,16 @@ public class Player extends Mob{
 		if(GameState.debugging){
 			g.draw(recAttackBox);
 		}
-	}
+	}//render
 
-	public int isAttacking(ArrayList<Enemy> b){
+	public int isAttacking(ArrayList<Mob> b){
 		int enemy = -1;
-
 		for(int i = 0; i < b.size(); i++){
 			if(recAttackBox.intersects(b.get(i).getBounds()) && attacking){
 				enemy = i;
 			}
 		}
-
 		return enemy;
-	}
+	}//isAttacking
 
 }

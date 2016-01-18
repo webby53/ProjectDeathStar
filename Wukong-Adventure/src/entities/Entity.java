@@ -11,8 +11,9 @@ public abstract class Entity {
 	protected double x, y;
 	protected Sprite sprite;
 	protected Animation animate;
+	//protected boolean dead = false;
 	protected Rectangle2D recTop, recBot, recLeft, recRight;
-	
+
 	public Entity(double x, double y, Sprite sprite) {
 		this.x = x;
 		this.y = y;
@@ -31,9 +32,14 @@ public abstract class Entity {
 	}
 
 	public void render(Graphics2D g){
-		this.tick();
-		if(sprite != null)
-			sprite.render(g, x, y);
+		//if(!dead){
+			this.tick();
+			if(sprite != null)
+				sprite.render(g, x, y);
+		//}
+	}
+	public boolean isDead(){
+		return true;
 	}
 
 	public abstract void tick();

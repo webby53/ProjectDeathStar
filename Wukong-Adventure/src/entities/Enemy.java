@@ -1,22 +1,43 @@
 package entities;
 
 import java.awt.Rectangle;
-import entities.Player;
+import java.util.ArrayList;
+
+import Rendering.Animation;
 import Rendering.Sprite;
+import Rendering.SpriteSheet;
+import Rendering.Texture;
 
 public class Enemy extends Mob{
 
 	private double speed = 2;
-	private int life;
+	private double dx = 0.25;
+	private Animation animate;
+	private Texture charTextures = new Texture("wukong sheet");
+	private SpriteSheet charSheet = new SpriteSheet(charTextures, 64);
 	
 	public Enemy(double x, double y, Sprite sprite) {
 		super(x, y, sprite);
-		dx = 0.25;
+	}
+	public Enemy(double x, double y) {
+		super(x, y);
+		
+		ArrayList<Sprite> frames = new ArrayList<Sprite>();
+		frames.add(new Sprite(charSheet, 1, 5));
+		frames.add(new Sprite(charSheet, 2, 5));
+		frames.add(new Sprite(charSheet, 3, 5));
+		frames.add(new Sprite(charSheet, 4, 5));
+		
+		animate = new Animation(6, frames);
+		animate.start();
 	}
 	
 	public void tick(){
-		move();
+		//if(!dead){
+		animate.run();
+		this.sprite = animate.getFrame();
 		super.tick();
+		//}
 	}
 	
 	public Rectangle getBounds(){
@@ -50,7 +71,7 @@ public class Enemy extends Mob{
 		}
 		
 	}
-	
+
 	public void move(){
 		collisionCheck();
 		x -= dx;

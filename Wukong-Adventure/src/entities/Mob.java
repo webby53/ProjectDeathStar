@@ -14,9 +14,10 @@ public abstract class Mob extends Entity{
 
 	protected double dx, dy;
 	protected boolean collision;
-	protected double gravity = 0.5;
-	protected double terminalV = 15;
-	protected double friction = 0.2;
+	protected double gravity = 0.45;
+	protected double terminalV = 13;
+	protected double friction = 0.15;
+	private int life = 4;
 	protected boolean falling = true;
 
 	public Mob(double x, double y, Sprite sprite) {
@@ -102,6 +103,7 @@ public abstract class Mob extends Entity{
 	}//fall
 
 	public void render(Graphics2D g){
+	//	if(!dead){
 		super.render(g);
 		g.setColor(Color.MAGENTA);
 		if(GameState.debugging){
@@ -109,24 +111,26 @@ public abstract class Mob extends Entity{
 		}
 		if(animate != null)
 			this.sprite = animate.getFrame();
+	//	}
 	}//render
 	
 	//checks if player is dead (off screen)
-	public boolean isDead(){
-		boolean death = false;
+	public boolean isOffScreen(){
+		boolean fell = false;
 		if(y > 800){
-			death = true;
+			fell = true;
 		}
-		return death;
+		//dead = true;
+		return fell;
 	}
 	
 	//this checks for collision with other enemies
-	public boolean isCollided(ArrayList<Enemy> b){
+	public boolean isCollided(ArrayList<Mob> b){
 		boolean collision = false;
 		
 		for(int i = 0; i < b.size(); i++){
 			if(this.getBounds().intersects(b.get(i).getBounds())){
-				collision = true;
+				collision = false;
 			}
 		}
 		return collision;
@@ -135,5 +139,13 @@ public abstract class Mob extends Entity{
 	public void setAnimation(Animation animate){
 		this.animate = animate;
 	}
+	
+	public int getLife() {
+		return life;
+	}//getLife
+
+	public void takeLife(int life) {
+		this.life -= life;
+	}//takeLife
 
 }//Mob

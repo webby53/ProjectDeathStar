@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
+
+import entities.Enemy;
 import entities.Mob;
 import entities.Player;
 import entities.Tile;
@@ -13,6 +15,7 @@ import entities.Tile;
 public class TileMap {
 
 	private boolean isLoaded;
+	public Player player;
 	private SpriteSheet sheet;
 	private Sprite dirtSprite;
 	private Sprite groundSprite;
@@ -31,6 +34,7 @@ public class TileMap {
 	}//constructor
 
 	public void tick(){
+		player.tick();
 		for(int i = 0; i < entities.size(); i++)
 			entities.get(i).tick();
 	}//tick
@@ -74,10 +78,10 @@ public class TileMap {
 						tilemap[row][col] = new Tile(col * 64, row * 64, dirtSprite);
 						break;
 					case 2:
-						entities.add(new Player(col * 64, row * 64));
+						player = new Player(col * 64, row * 64);
 						break;
 					case 3:
-						sprites.add(groundSprite);
+						entities.add(new Enemy(col * 64, row * 64));
 					}
 				}
 			}
@@ -98,7 +102,9 @@ public class TileMap {
 					}
 				}
 			}
-			entities.get(0).render(g);
+			for(int i = 0; i < entities.size(); i++)
+				entities.get(i).render(g);
+			player.render(g);
 		}else
 			JOptionPane.showMessageDialog(null, "TileMap Error!");
 	}//render
