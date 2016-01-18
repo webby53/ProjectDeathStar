@@ -118,11 +118,13 @@ public class Player extends Mob{
 			current.setAnimation(attackAnimate);
 			attacking = true;
 			try {
-				Thread.sleep(20);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
+		
+		//////////Extra options//////////
 		if(KeyInput.isKeyDown(KeyEvent.VK_1)){
 			Game.INSTANCE.target = 40;
 		}
@@ -131,6 +133,10 @@ public class Player extends Mob{
 		}
 		if(KeyInput.isKeyDown(KeyEvent.VK_3)){
 			Game.INSTANCE.target = 60;
+		}
+		if(KeyInput.isKeyDown(KeyEvent.VK_Q)){
+			falling = false;
+			dy = 0;
 		}
 		if(KeyInput.isKeyDown(KeyEvent.VK_BACK_SPACE)){
 			if(GameState.options){
@@ -150,13 +156,14 @@ public class Player extends Mob{
 				}
 			}
 		}
-
+		///////////////////////////////////
 		super.tick();	
 	}
 
 	//jump for player
 	public void jump(){
 		if(canJump){
+			collisionCheck();
 			x += dx;
 			dy = -11.5;
 			canJump = false;

@@ -67,6 +67,7 @@ public abstract class Mob extends Entity{
 
 	//updates x and y and calls collision check
 	public void move(){
+		collisionCheck();
 		x += dx;
 		y += dy;
 		collisionCheck();
@@ -74,7 +75,7 @@ public abstract class Mob extends Entity{
 
 	//slows down when moving
 	public void friction(){
-		if(falling){
+		if(falling || Player.canJump){
 		if(dx < 0)
 			if(dx > -friction)
 				dx = 0;
