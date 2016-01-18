@@ -32,11 +32,9 @@ public abstract class Entity {
 	}
 
 	public void render(Graphics2D g){
-		if(!dead){
 			this.tick();
 			if(sprite != null)
 				sprite.render(g, x, y);
-		}
 	}
 	public boolean isDead(){
 		return dead;

@@ -54,17 +54,6 @@ public class GameState implements State{
 		//checks if player is dead
 		tileMap.tick();
 
-		if(tileMap.player.isOffScreen()){
-			JOptionPane.showMessageDialog(null, "You have fallen to your death. You will now be sent back to the menu.");
-			Game.INSTANCE.setFocusable(true);
-			tileMap.load("level1");
-			stateManager.setState("menu");
-		}
-			if(tileMap.player.isCollided(tileMap.entityList())){
-				JOptionPane.showMessageDialog(null, "An enemy has killed you. You will now be sent back to the menu"); Game.INSTANCE.setFocusable(true);
-				tileMap.load("level1");
-				stateManager.setState("menu");
-			}
 		//checks if a player atacks an enemy
 		int enemyNum = tileMap.player.isAttacking(tileMap.entityList());
 		if(enemyNum != -1){
@@ -75,7 +64,22 @@ public class GameState implements State{
 					tileMap.entity(enemyNum).setDead(true);
 				else	
 					tileMap.entity(enemyNum).takeLife(1);
+			return;
 		}
+		if(tileMap.player.isOffScreen()){
+			JOptionPane.showMessageDialog(null, "You have fallen to your death. You will now be sent back to the menu.");
+			Game.INSTANCE.setFocusable(true);
+			tileMap.load("level1");
+			stateManager.setState("menu");
+			return;
+		}
+		if(tileMap.player.isCollided(tileMap.entityList())){
+			JOptionPane.showMessageDialog(null, "An enemy has killed you. You will now be sent back to the menu"); Game.INSTANCE.setFocusable(true);
+			tileMap.load("level1");
+			stateManager.setState("menu");
+			return;
+		}
+
 		//mouse check
 		boolean isClicked = false;
 		if(options){

@@ -46,7 +46,7 @@ public class Background {
 	
 //updates the location of background
 	public void update(){
-		x += cx;
+		//x += cx;
 	}
 	
 	//draws the background

@@ -30,6 +30,8 @@ public class Enemy extends Mob{
 		
 		animate = new Animation(20, frames);
 		animate.start();
+		this.sprite = animate.getFrame();
+
 	}
 	
 	public void tick(){

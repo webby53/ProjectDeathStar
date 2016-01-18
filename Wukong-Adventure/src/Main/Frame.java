@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 
 import GUI.LoadingScreenLauncher;
 
-public class Main {
+public class Frame {
 	public static void main(String[] args){
 		
 		//loading screen
