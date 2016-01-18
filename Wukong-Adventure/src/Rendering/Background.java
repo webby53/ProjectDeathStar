@@ -42,9 +42,7 @@ public class Background {
 	
 	public void setCx(double dx){
 		this.cx = dx;
-	}
-	
-//updates the location of background
+	}//updates the location of background
 	public void update(){
 		x += cx;
 	}

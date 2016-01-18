@@ -29,7 +29,7 @@ public class Tile extends Entity{
 
 	@Override
 	public void tick() {
-		//touched = 
+		
 	}
 
 	public void render(Graphics2D g){
