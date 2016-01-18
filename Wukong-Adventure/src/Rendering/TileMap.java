@@ -1,5 +1,10 @@
 package Rendering;
 
+/**@author Joshua Prpic, Kishon Webb, Simon Yacoub
+ * @version 7.4
+ * @since 2016-01-18
+ */
+
 import java.awt.Graphics2D;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,6 +29,8 @@ public class TileMap {
 	private int tiles[][];
 	private Tile tilemap[][];
 
+	/**Constructor
+	 */
 	public TileMap(){
 		sprites = new ArrayList<Sprite>();
 		entities = new ArrayList<Mob>();
@@ -33,13 +40,18 @@ public class TileMap {
 		groundSprite = new Sprite(sheet, 2, 1);
 	}//constructor
 
+	/**Tick
+	 */
 	public void tick(){
 		player.tick();
 		for(int i = 0; i < entities.size(); i++)
 			entities.get(i).tick();
 	}//tick
 
-	//this will load levels from a dat file
+	/**This will load levels from a dat file
+	 * 
+	 * @param fileName
+	 */
 	public void load(String fileName){		
 		//checks if games has been loaded first
 		if(!isLoaded){
@@ -93,6 +105,10 @@ public class TileMap {
 		}
 	}//load
 
+	/**Renders the tiles, entities and players that are found on the text file
+	 * 
+	 * @param g
+	 */
 	public void render(Graphics2D g){
 		if(tilemap != null && tiles != null && entities != null){
 			for(int row = 0; row < tilemap.length; row++){
@@ -109,17 +125,29 @@ public class TileMap {
 			JOptionPane.showMessageDialog(null, "TileMap Error!");
 	}//render
 
-	//return selected tile
+	/**Return selected tile
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public Tile getTile(int x, int y){
 		return tilemap[x][y];
 	}//getTile
 
-	//sets tile at x and y value
+	/**Sets tile at x and y value
+	 * 
+	 * @param x
+	 * @param y
+	 * @param tile
+	 */
 	public void setTile(int x, int y, Tile tile){
 		tilemap[x][y] = tile;
 	}
 
-	//clears loaded level and all other stored values
+	/**clears loaded level and all other stored values
+	 * 
+	 */
 	public void clear(){
 		tiles = null;
 		tilemap = null;
@@ -127,9 +155,18 @@ public class TileMap {
 		entities.clear();
 	}//clear
 
+	/**
+	 * 
+	 * @return 
+	 */
 	public ArrayList<Mob> entityList(){
 		return entities;
 	}//Entities
+	
+	/**
+	 * @param x
+	 * @return
+	 */
 	public Mob entity(int x){
 		return entities.get(x);
 	}//Entities	
