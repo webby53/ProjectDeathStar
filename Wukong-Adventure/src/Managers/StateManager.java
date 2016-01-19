@@ -1,5 +1,10 @@
 package Managers;
 
+/**@author Joshua Prpic, Kishon Webb, Simon Yacoub
+ * @version 7.5
+ * @since 2016-01-19
+ */ 
+
 import java.awt.Graphics2D;
 import java.util.HashMap;
 import java.util.Map;

@@ -1,5 +1,10 @@
 package Main;
 
+/**@author Joshua Prpic, Kishon Webb, Simon Yacoub
+ * @version 7.5
+ * @since 2016-01-19
+ */ 
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 

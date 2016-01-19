@@ -16,11 +16,19 @@ public class Animation implements Runnable {
 	
 	private Sprite sprite1, sprite2, sprite3, sprite4, sprite5;
 
+	/**Constructor
+	 * 
+	 * @param speed
+	 * @param frames
+	 */
 	public Animation(long speed, ArrayList<Sprite> frames){
 		this.frames = frames;
 		this.speed = speed * 10;
 	}//constructor
 	
+	/**
+	 * 
+	 */
 	public void run(){
 		Thread thisThread = Thread.currentThread();
 		while(running && run == thisThread){
