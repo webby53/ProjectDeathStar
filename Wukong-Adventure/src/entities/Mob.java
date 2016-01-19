@@ -29,7 +29,7 @@ public abstract class Mob extends Entity{
 	public Mob(double x, double y) {
 		super(x, y);
 	}//constructor with neither
-	
+
 	public void tick(){
 		friction();
 		fall();
@@ -44,25 +44,25 @@ public abstract class Mob extends Entity{
 	//checks all tiles if player is colliding with them
 	public void collisionCheck(){
 		for(int i = 0; i < Tile.tiles.size(); i++){
-			if(getBounds().intersects(Tile.tiles.get(i).recLeft) && dx > 0){
-				dx = 0;
-				x -= 0.7;
+				if(Tile.tiles.get(i).isTouchedLeft(this) && dx > 0){
+					dx = 0;
+					x -= 0.7;
+				}
+				if(Tile.tiles.get(i).isTouchedRight(this) && dx < 0){
+					dx = 0;
+					x += 0.7;
+				}
+				if(Tile.tiles.get(i).isTouchedBot(this) && dy < 0)
+					dy = 0;
+				if(Tile.tiles.get(i).isTouchedTop(this) && dy > 0){
+					dy = 0;
+					x += dx;
+					y = Tile.tiles.get(i).recTop.getY() - 64;
+					Player.canJump = true;
+					falling = false;
+				}else
+					falling = true;
 			}
-			if(getBounds().intersects(Tile.tiles.get(i).recRight) && dx < 0){
-				dx = 0;// - Tile.tiles.get(i).recRight.getX();
-				x += 0.7;
-			}
-			if(getBounds().intersects(Tile.tiles.get(i).recBot) && dy < 0)
-				dy = 0;
-			if(getBounds().intersects(Tile.tiles.get(i).recTop) && dy > 0){
-				dy = 0;
-				x += dx;
-				y = Tile.tiles.get(i).recTop.getY() - 64;
-				Player.canJump = true;
-				falling = false;
-			}else
-				falling = true;
-		}
 	}//collisionCheck
 
 	//updates x and y and calls collision check
@@ -76,16 +76,16 @@ public abstract class Mob extends Entity{
 	//slows down when moving
 	public void friction(){
 		if(falling){
-		if(dx < 0)
-			if(dx > -friction)
-				dx = 0;
-			else	
-				dx += friction;
-		if(dx > 0)
-			if(dx < friction)
-				dx = 0;
-			else	
-				dx -= friction;
+			if(dx < 0)
+				if(dx > -friction)
+					dx = 0;
+				else	
+					dx += friction;
+			if(dx > 0)
+				if(dx < friction)
+					dx = 0;
+				else	
+					dx -= friction;
 		}
 	}//friction
 
@@ -104,7 +104,7 @@ public abstract class Mob extends Entity{
 	}//fall
 
 	public void render(Graphics2D g){
-	//	if(!dead){
+		//	if(!dead){
 		super.render(g);
 		g.setColor(Color.MAGENTA);
 		if(GameState.debugging){
@@ -112,9 +112,9 @@ public abstract class Mob extends Entity{
 		}
 		if(animate != null)
 			this.sprite = animate.getFrame();
-	//	}
+		//	}
 	}//render
-	
+
 	//checks if player is dead (off screen)
 	public boolean isOffScreen(){
 		boolean fell = false;
@@ -124,11 +124,11 @@ public abstract class Mob extends Entity{
 		//dead = true;
 		return fell;
 	}
-	
+
 	//this checks for collision with other enemies
 	public boolean isCollided(ArrayList<Mob> b){
 		boolean collision = false;
-		
+
 		for(int i = 0; i < b.size(); i++){
 			if(this.getBounds().intersects(b.get(i).getBounds())){
 				collision = true;
@@ -136,11 +136,11 @@ public abstract class Mob extends Entity{
 		}
 		return collision;
 	}//isCollided
-	
+
 	public void setAnimation(Animation animate){
 		this.animate = animate;
 	}
-	
+
 	public int getLife() {
 		return life;
 	}//getLife

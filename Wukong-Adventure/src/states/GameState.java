@@ -18,10 +18,10 @@ public class GameState implements State{
 	public static boolean debugging, options;
 	private ArrayList<Button> buttons;
 	private int currentSelection;
-	private ArrayList<Enemy> enemies;
 	private Background bg = new Background("./resources/textures/Background.png", 10);
 	private Camera cam;
-	private TileMap tileMap;
+	private String[] currentlevel;
+	private static TileMap tileMap;
 
 	public void init() {
 		bg = new Background("./resources/textures/Background.png", 10);
@@ -29,9 +29,7 @@ public class GameState implements State{
 		bg.setY(0);
 		//background (also should be implemented in tilemapping)	
 		bg.setCx(-0.6);
-		enemies = new ArrayList<Enemy>();
-		tileMap = new TileMap();
-		tileMap.load("level1");
+		tileMap = new TileMap("level1");
 	}//init
 
 	//runs on entrance
@@ -97,6 +95,11 @@ public class GameState implements State{
 
 		cam.tick();
 		bg.update();
+		if(tileMap.endTile.isTouched(tileMap.player)){
+			tileMap.load("level2");	
+			enter();
+			return;
+		}
 	}//tick
 
 	//determines which button is currently selected

@@ -13,6 +13,8 @@ public abstract class Entity {
 	protected Animation animate;
 	protected boolean dead = false;
 	protected Rectangle2D recTop, recBot, recLeft, recRight;
+	
+	public Entity(){}
 
 	public Entity(double x, double y, Sprite sprite) {
 		this.x = x;
