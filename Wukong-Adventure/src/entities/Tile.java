@@ -1,5 +1,10 @@
 package entities;
 
+/**@author Joshua Prpic, Kishon Webb, Simon Yacoub
+ * @version 7.4
+ * @since 2016-01-18
+ */ 
+
 import Rendering.Sprite;
 import states.GameState;
 
@@ -13,7 +18,12 @@ public class Tile extends Entity{
 	protected static ArrayList<Tile> tiles = new ArrayList<Tile>();
 	protected double x, y;
 	
-
+	/**Constructor
+	 * 
+	 * @param x
+	 * @param y
+	 * @param sprite
+	 */
 	public Tile(double x, double y, Sprite sprite) {
 		super(x, y, sprite);
 		this.x = x;
@@ -32,6 +42,9 @@ public class Tile extends Entity{
 		
 	}
 
+	/**Renders the hit boxes of the tile it is being called by
+	 * 
+	 */
 	public void render(Graphics2D g){
 		sprite.render(g, x, y);
 		if(GameState.debugging){

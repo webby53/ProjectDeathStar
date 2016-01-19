@@ -1,5 +1,10 @@
 package entities;
 
+/**@author Joshua Prpic, Kishon Webb, Simon Yacoub
+ * @version 7.4
+ * @since 2016-01-18
+ */ 
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -30,15 +35,32 @@ public class Player extends Mob{
 	private Texture charTextures = new Texture("wukong sheet");
 	private SpriteSheet charSheet = new SpriteSheet(charTextures, 64);
 
+	/**Constructor with a default attack rectangle and only a sprite
+	 * 
+	 * @param x
+	 * @param y
+	 * @param sprite
+	 */
 	public Player(double x, double y, Sprite sprite) {
 		super(x, y, sprite);
 		recAttackBox = new Rectangle((int)x, (int)y + 16, this.getHeight() + 22, this.getWidth() - 32);
 	}
 
+	/**Constructor with a no default attack rectangle and animations
+	 * 
+	 * @param x
+	 * @param y
+	 * @param animate
+	 */
 	public Player(double x, double y, Animation animate) {
 		super(x,y,animate);
 	}
 
+	/**Constructor with default animations
+	 * 
+	 * @param x
+	 * @param y
+	 */
 	public Player(double x, double y){
 		super(x,y);
 
@@ -80,6 +102,9 @@ public class Player extends Mob{
 		current.start();
 	}
 
+	/**Method that runs every tick reads key input
+	 * 
+	 */
 	public void tick(){
 		current.run();
 		this.sprite = current.getFrame();
@@ -160,7 +185,9 @@ public class Player extends Mob{
 		super.tick();	
 	}
 
-	//jump for player
+	/**Jump method for the player(has adjusted jump height)
+	 * 
+	 */
 	public void jump(){
 		if(canJump){
 			collisionCheck();
@@ -172,20 +199,34 @@ public class Player extends Mob{
 	}//jump
 
 
+	/**Returns the attack rectangle to the calling method
+	 * 
+	 * @return The a rectangle that represents the attack area of the player
+	 */
 	public Rectangle2D showAttack(){
 		return recAttackBox;
 	}
 
+	/**A method that returns the player instances horizontal movement speed to calling statement
+	 * 
+	 * @return The horizontal movement speed
+	 */
 	public double getHorSpeed(){
 		return dx;
 	}
 
-	//checks if player is facing right
+	/**Checks and returns the direction the player is facing
+	 * 
+	 * @return A boolean representing the direction of the player being left or right
+	 */
 	public boolean isFacingRight(){
 		return facingRight;
 	}//isFacingRight
 
 
+	/**Renders the player objects and the players hit box and attack hit box if debugging is enabled
+	 * @param g
+	 */
 	public void render(Graphics2D g){
 		super.render(g);
 		if(attacking)
@@ -197,6 +238,11 @@ public class Player extends Mob{
 		}
 	}//render
 
+	/**Checks if when the player is clicking the attack key, is any mob intersecting with the attack box
+	 * 
+	 * @param b
+	 * @return The place on the array of the enemy that is intersecting with the attack box is otherwise it returns -1 to represent that nothing was hit
+	 */
 	public int isAttacking(ArrayList<Mob> b){
 		int enemy = -1;
 		for(int i = 0; i < b.size(); i++){
