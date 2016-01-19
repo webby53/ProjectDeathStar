@@ -1,5 +1,10 @@
 package states;
 
+/**@author Joshua Prpic, Kishon Webb, Simon Yacoub
+ * @version 7.5
+ * @since 2016-01-19
+ */ 
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -23,6 +28,9 @@ public class GameState implements State{
 	private String[] currentlevel;
 	private static TileMap tileMap;
 
+	/**Initializes the default variables in the game state
+	 * 
+	 */
 	public void init() {
 		bg = new Background("./resources/textures/Background.png", 10);
 		bg.setX(0);
@@ -31,7 +39,10 @@ public class GameState implements State{
 		bg.setCx(-0.6);
 		tileMap = new TileMap("level1");
 	}//init
-
+	
+	/**Method that runs each time the level is entered, refreshes the level after death
+	 * 
+	 */
 	//runs on entrance
 	public void enter() {
 		cam = new Camera(tileMap.player);
@@ -48,6 +59,9 @@ public class GameState implements State{
 
 	}//enter
 
+	/**Method that runs each tick, used to run methods that must be constantly checked
+	 * 
+	 */
 	public void tick(StateManager stateManager) {
 		//checks if player is dead
 		tileMap.tick();
@@ -103,7 +117,10 @@ public class GameState implements State{
 		}
 	}//tick
 
-	//determines which button is currently selected
+	/**Determines which button in the debugging menu is clicked
+	 * 
+	 * @param stateManager
+	 */
 	public void select(StateManager stateManager){
 		switch(currentSelection){
 		case 0: stateManager.setState("Menu");
@@ -119,8 +136,10 @@ public class GameState implements State{
 		break;
 		}
 	}//select
-
-	//renders graphics
+	
+	/**Renders the graphics of the game
+	 * 
+	 */
 	public void render(Graphics2D g) {
 		//used to reset graphics
 
@@ -151,10 +170,16 @@ public class GameState implements State{
 
 	}//render
 
+	/**Clears the game when killed, or returning to the menu
+	 * 
+	 */
 	public void exit() {
 		buttons.clear();
 	}//exit
 
+	/**Returns the name of the state when called
+	 * 
+	 */
 	public String getName() {
 		return "Game";
 	}//getName

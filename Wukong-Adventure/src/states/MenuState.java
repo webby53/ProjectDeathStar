@@ -1,5 +1,10 @@
 package states;
 
+/**@author Joshua Prpic, Kishon Webb, Simon Yacoub
+ * @version 7.5
+ * @since 2016-01-19
+ */ 
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -29,11 +34,16 @@ public class MenuState implements State{
 	private Sprite sprite = new Sprite(sheet, 1, 1);
 	private Sprite sprite2 = new Sprite(sheet, 3, 1);
 
+	/**Auto runs the enter method whent he game is started
+	 * 
+	 */
 	@Override
 	public void init() {
 		enter();
 	}
 
+	/**Initializes all the buttons on the menu when the menu state is opened
+	 */
 	@Override
 	public void enter() {
 		currentSelection = -1;
@@ -48,6 +58,8 @@ public class MenuState implements State{
 				Color.BLACK, Color.BLUE, 400 + 50));
 	}
 
+	/**Runs everything in the method every tick of the game while menu is open
+	 */
 	public void tick(StateManager stateManager){
 		//key check
 		if(KeyInput.wasKeyPressed(KeyEvent.VK_UP) || KeyInput.wasKeyPressed(KeyEvent.VK_W))
@@ -81,6 +93,11 @@ public class MenuState implements State{
 			select(stateManager);
 	}
 	
+	/**Checks for the selection of a button on the menu form
+	 * When a button is selected it runs whatever task it is suppose to complete
+	 * 
+	 * @param stateManager
+	 */
 	public void select(StateManager stateManager){
 		switch(currentSelection){
 		case 0:	stateManager.setState("Game");
@@ -101,6 +118,8 @@ public class MenuState implements State{
 		}
 	}
 
+	/**Render the menu
+	 */
 	public void render(Graphics2D g){
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
@@ -121,12 +140,18 @@ public class MenuState implements State{
         }
 	}
 
+	/**Clears the screen of all the buttons
+	 * 
+	 */
 	@Override
 	public void exit() {
 		// TODO Auto-generated method stub
 		buttons.clear();
 	}
 
+	/**Return the name of the state
+	 * 
+	 */
 	@Override
 	public String getName() {
 		return "Menu";

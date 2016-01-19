@@ -8,6 +8,7 @@ package entities;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import entities.Tile;
 import Rendering.Animation;
 import Rendering.Sprite;
 import Rendering.SpriteSheet;
@@ -96,7 +97,7 @@ public class Enemy extends Mob{
 		
 	}
 
-	/**Moves the enemy sprites according to thier movement speed when called
+	/**Moves the enemy sprites according to their movement speed when called
 	 * 
 	 */
 	public void move(){
