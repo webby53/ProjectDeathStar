@@ -135,9 +135,9 @@ public class Player extends Mob{
 
 		//Corrects the facing of the attack box
 		if(facingRight){
-			recAttackBox = new Rectangle((int)x, (int)y + 16, this.getHeight() + 45, this.getWidth() - 32);
+			recAttackBox = new Rectangle((int)x, (int)y + 16, this.getHeight() + 55, this.getWidth() - 32);
 		}else{
-			recAttackBox = new Rectangle((int)x - 45, (int)y + 16, this.getHeight() + 32, this.getWidth() - 32);
+			recAttackBox = new Rectangle((int)x - 55, (int)y + 16, this.getHeight() + 55, this.getWidth() - 32);
 		}
 
 		//key inputs

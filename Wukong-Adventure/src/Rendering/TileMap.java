@@ -113,7 +113,7 @@ public class TileMap {
 					tilemap[row][col] = endTile;
 					break;
 				case 5:
-					tilemap[row][col] = new Tile(col * 64, row * 64, dirtSprite, true);
+					tilemap[row][col] = new Tile(col * 64, row * 64,groundSprite, true);
 					break;
 				case 6:
 					tilemap[row][col] = new Tile(col * 64, row * 64, groundSprite, false);
