@@ -86,7 +86,7 @@ public class MenuState implements State{
 		case 0:	stateManager.setState("Game");
 				exit();
 		break;
-		case 1:	JOptionPane.showMessageDialog(null, "Controls: 	 \n Moving left:       'a' or left arrow key "
+		case 1:	JOptionPane.showMessageDialog(null, "                       Controls: 	 \n Moving left:       'a' or left arrow key "
 												+ 				"\n Moving right:    'd' or right arrow key "
 												+ 				"\n Jumping:           'w' or up arrow key"
 												+ 				"\n Gliding:              's' or down arrow key"
