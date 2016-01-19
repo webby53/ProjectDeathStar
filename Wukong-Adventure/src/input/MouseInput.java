@@ -1,5 +1,10 @@
 package input;
 
+/**@author Joshua Prpic, Kishon Webb, Simon Yacoub
+ * @version 7.5
+ * @since 2016-01-19
+ */ 
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
