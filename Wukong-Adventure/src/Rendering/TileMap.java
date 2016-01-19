@@ -40,7 +40,7 @@ public class TileMap {
 		Texture tex = new Texture("SpriteCell(4x4)");
 		sheet = new SpriteSheet(tex, 64);
 		dirtSprite = new Sprite(sheet, 1, 1);
-		rockSprite = new Sprite(sheet, 3, 1);
+		rockSprite = new Sprite(sheet, 1, 3);
 		load();
 	}//constructor
 
@@ -109,6 +109,13 @@ public class TileMap {
 				case 4:
 					endTile = new Tile(col * 64, row * 64, rockSprite, true);
 					tilemap[row][col] = endTile;
+					break;
+				case 5:
+					tilemap[row][col] = new Tile(col * 64, row * 64, dirtSprite, true);
+					break;
+				case 6:
+					tilemap[row][col] = new Tile(col * 64, row * 64, dirtSprite, false);
+					break;
 				}
 			}
 		}
