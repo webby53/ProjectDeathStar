@@ -53,14 +53,10 @@ public abstract class Mob extends Entity{
 	public Mob(double x, double y) {
 		super(x, y);
 	}//constructor with neither
-<<<<<<< HEAD
-
-=======
 	
 	/**Ticks
 	 * 
 	 */
->>>>>>> origin/master
 	public void tick(){
 		friction();
 		fall();
@@ -162,16 +158,11 @@ public abstract class Mob extends Entity{
 			this.sprite = animate.getFrame();
 		//	}
 	}//render
-<<<<<<< HEAD
-
-=======
 	
 	/**Sends a boolean that indicates if the player is on screen
 	 * 
 	 * @return A boolean that indicates is the player is off of the screen
 	 */
->>>>>>> origin/master
-	//checks if player is dead (off screen)
 	public boolean isOffScreen(){
 		boolean fell = false;
 		if(y > 800){
@@ -180,17 +171,13 @@ public abstract class Mob extends Entity{
 		//dead = true;
 		return fell;
 	}
-<<<<<<< HEAD
 
-	//this checks for collision with other enemies
-=======
 	
 	/**Checks if a mob is colliding with any other mob
 	 * 
 	 * @param b
 	 * @return A boolean that indicates if the calling object is intersecting with any other mob
 	 */
->>>>>>> origin/master
 	public boolean isCollided(ArrayList<Mob> b){
 		boolean collision = false;
 
@@ -201,13 +188,6 @@ public abstract class Mob extends Entity{
 		}
 		return collision;
 	}//isCollided
-<<<<<<< HEAD
-
-	public void setAnimation(Animation animate){
-		this.animate = animate;
-	}
-
-=======
 	
 	/**Displays and runs the animations
 	 * 
@@ -221,7 +201,6 @@ public abstract class Mob extends Entity{
 	 * 
 	 * @return The amount of lives left on the calling object
 	 */
->>>>>>> origin/master
 	public int getLife() {
 		return life;
 	}//getLife

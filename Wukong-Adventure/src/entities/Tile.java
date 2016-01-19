@@ -21,11 +21,8 @@ import java.util.Map;
 public class Tile extends Entity{
 	public static ArrayList<Tile> tiles = new ArrayList<Tile>();
 	protected double x, y;
-<<<<<<< HEAD
 	protected boolean solid;
 
-	public Tile(double x, double y, Sprite sprite, boolean solid) {
-=======
 	
 	/**Constructor
 	 * 
@@ -33,8 +30,7 @@ public class Tile extends Entity{
 	 * @param y
 	 * @param sprite
 	 */
-	public Tile(double x, double y, Sprite sprite) {
->>>>>>> origin/master
+	public Tile(double x, double y, Sprite sprite, boolean solid) {
 		super(x, y, sprite);
 		this.solid = solid;
 		this.x = x;
