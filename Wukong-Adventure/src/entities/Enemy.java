@@ -1,5 +1,10 @@
 package entities;
 
+/**@author Joshua Prpic, Kishon Webb, Simon Yacoub
+ * @version 7.4
+ * @since 2016-01-18
+ */
+
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
@@ -16,9 +21,21 @@ public class Enemy extends Mob{
 	private Texture charTextures = new Texture("wukong sheet");
 	private SpriteSheet charSheet = new SpriteSheet(charTextures, 64);
 	
+	/**Constructor
+	 * 
+	 * @param x
+	 * @param y
+	 * @param sprite
+	 */
 	public Enemy(double x, double y, Sprite sprite) {
 		super(x, y, sprite);
 	}
+	
+	/**Constructor
+	 * 
+	 * @param x
+	 * @param y
+	 */
 	public Enemy(double x, double y) {
 		super(x, y);
 		
@@ -32,6 +49,9 @@ public class Enemy extends Mob{
 		animate.start();
 	}
 	
+	/**Tick
+	 * 
+	 */
 	public void tick(){
 		//if(!dead){
 		animate.run();
@@ -40,11 +60,15 @@ public class Enemy extends Mob{
 		//}
 	}
 	
+	/**Creates the rectangle which is the hit box all enemies
+	 */
 	public Rectangle getBounds(){
 		return new Rectangle((int)x, (int)y, this.getHeight(), this.getWidth());
 	}//getBounds
 	
-	
+	/**Checks if a tile is intersecting with a enemy entity and based on that sets the movement speed, direction of movement and prevents them from passing through tiles
+	 * 
+	 */
 	public void collisionCheck(){
 		for(int i = 0; i < Tile.tiles.size(); i++){
 			if(getBounds().intersects(Tile.tiles.get(i).recLeft) && dx > 0){
@@ -72,6 +96,9 @@ public class Enemy extends Mob{
 		
 	}
 
+	/**Moves the enemy sprites according to thier movement speed when called
+	 * 
+	 */
 	public void move(){
 		collisionCheck();
 		x -= dx;

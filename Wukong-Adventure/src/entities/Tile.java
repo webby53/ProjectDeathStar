@@ -1,5 +1,10 @@
 package entities;
 
+/**@author Joshua Prpic, Kishon Webb, Simon Yacoub
+ * @version 7.4
+ * @since 2016-01-18
+ */ 
+
 import Rendering.Sprite;
 import states.GameState;
 
@@ -16,9 +21,20 @@ import java.util.Map;
 public class Tile extends Entity{
 	public static ArrayList<Tile> tiles = new ArrayList<Tile>();
 	protected double x, y;
+<<<<<<< HEAD
 	protected boolean solid;
 
 	public Tile(double x, double y, Sprite sprite, boolean solid) {
+=======
+	
+	/**Constructor
+	 * 
+	 * @param x
+	 * @param y
+	 * @param sprite
+	 */
+	public Tile(double x, double y, Sprite sprite) {
+>>>>>>> 73442b4... UPDATE Javadoc the classes within the entities package
 		super(x, y, sprite);
 		this.solid = solid;
 		this.x = x;
@@ -33,6 +49,9 @@ public class Tile extends Entity{
 	public void tick() {
 	}
 
+	/**Renders the hit boxes of the tile it is being called by
+	 * 
+	 */
 	public void render(Graphics2D g){
 		tick();
 		sprite.render(g, x, y);
