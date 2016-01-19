@@ -27,6 +27,9 @@ public class Game extends Canvas implements Runnable{
 	private BufferStrategy bs;
 	private StateManager stateManager;
 
+	/**Constructor
+	 * 
+	 */
 	public Game(){
 		addKeyListener(new KeyInput());
 		MouseInput mouse = new MouseInput();
@@ -40,7 +43,9 @@ public class Game extends Canvas implements Runnable{
 		DrawString.addInfo("FPS:" + Game.FPS + " TPS:" + Game.TPS);
 	}
 
-	//makes a new thread
+	/**Creates a new thread when called
+	 * 
+	 */
 	public void start(){
 		Help += "Game Name: " + TITLE + "\nCanvas Width: " + WIDTH + "\nCanvas Height: " + HEIGHT;
 		if(running)
@@ -50,14 +55,17 @@ public class Game extends Canvas implements Runnable{
 			new Thread(this, "Main-Thread").start();
 		}
 	}
-
-	//the tick method
+	
+	/**Registers screen events and refreshed
+	 * 
+	 */
 	private void tick(){
 		stateManager.tick();
 	}
 
-	//this takes all graphics
-	//and displays it
+	/**Displays all of the graphics in the game
+	 * 
+	 */
 	private void render(){
 		//This is a buffer. It loads multiple frames
 		//into memory so there is a certain amount 
@@ -97,7 +105,9 @@ public class Game extends Canvas implements Runnable{
 
 	}
 
-	//stops the game
+	/**Closes the game and displays message when closing the game
+	 * 
+	 */
 	public void stop(){
 		if(! running)
 			return;
@@ -107,7 +117,9 @@ public class Game extends Canvas implements Runnable{
 		}
 	}//stop
 
-	//used to start a thread of our game
+	/**Start a thread of the game
+	 * 
+	 */
 	public void run(){
 		if(target == 0)
 			target = 40;

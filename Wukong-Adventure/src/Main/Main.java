@@ -8,6 +8,10 @@ import javax.swing.JFrame;
 import GUI.LoadingScreenLauncher;
 
 public class Main {
+	/**Main method of the game
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args){
 		
 		//loading screen

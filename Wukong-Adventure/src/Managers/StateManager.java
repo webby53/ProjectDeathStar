@@ -11,11 +11,17 @@ public class StateManager {
 	private Map<String, State> map;
 	private State currentState;
 
-	//
+	/**Constructor
+	 * 
+	 */
 	public StateManager(){
 		map = new HashMap<String, State>();
 	}
 
+	/**Add a new state to the hashMap containing all of the states
+	 * 
+	 * @param state
+	 */
 	public void addState(State state){
 		map.put(state.getName().toUpperCase(), state);
 		state.init();
@@ -25,6 +31,10 @@ public class StateManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param name
+	 */
 	public void setState(String name){
 		State state = map.get(name.toUpperCase());
 		if(state==null){
@@ -36,9 +46,17 @@ public class StateManager {
 		currentState = state;
 	}
 	
+	/**Renders the current state
+	 * 
+	 * @param g
+	 */
 	public void render(Graphics2D g){
 		currentState.render(g);
 	}
+	
+	/**Ticks the game, updates the screen and any methods or events in tick
+	 * 
+	 */
 	public void tick(){
 		currentState.tick(this);
 	}
