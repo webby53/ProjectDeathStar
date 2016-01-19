@@ -9,7 +9,7 @@ import java.awt.*;
 import javax.swing.*;
 import Rendering.Texture;
 
-//this class (should) load recources and show the loading to the user
+//this class (should) load resources and show the loading to the user
 public class LoadingScreen extends JWindow{
 
 	private BorderLayout borderLayout;
@@ -19,8 +19,8 @@ public class LoadingScreen extends JWindow{
 	private JProgressBar progressBar;
 	private ImageIcon imageIcon;
 
-	//constructor to intilize parts of loding screen
-	//dont really understand as it is using Swing to create
+	//constructor to initialize parts of loading screen
+	//don't really understand as it is using Swing to create
 	//graphics
 	/**Constructor
 	 * 
