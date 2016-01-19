@@ -19,25 +19,29 @@ import entities.Tile;
 
 public class TileMap {
 
-	private boolean isLoaded;
-	public Player player;
+	public Player player;	
 	private SpriteSheet sheet;
 	private Sprite dirtSprite;
-	private Sprite groundSprite;
+	private Sprite rockSprite;
 	private static ArrayList<Mob> entities;
 	private static ArrayList<Sprite> sprites;
+
+	private String fileName;
+	public Tile endTile;
 	private int tiles[][];
 	private Tile tilemap[][];
 
 	/**Constructor
 	 */
-	public TileMap(){
+	public TileMap(String fileName){
+		this.fileName = fileName;
 		sprites = new ArrayList<Sprite>();
 		entities = new ArrayList<Mob>();
 		Texture tex = new Texture("SpriteCell(4x4)");
 		sheet = new SpriteSheet(tex, 64);
 		dirtSprite = new Sprite(sheet, 1, 1);
-		groundSprite = new Sprite(sheet, 2, 1);
+		rockSprite = new Sprite(sheet, 3, 1);
+		load();
 	}//constructor
 
 	/**Tick
@@ -45,63 +49,68 @@ public class TileMap {
 	public void tick(){
 		player.tick();
 		for(int i = 0; i < entities.size(); i++)
-			entities.get(i).tick();
+			entities.get(i).tick();		
 	}//tick
 
 	/**This will load levels from a dat file
 	 * 
 	 * @param fileName
 	 */
+
+	public void load(){
+		load(fileName);
+	}
+
 	public void load(String fileName){		
-		//checks if games has been loaded first
-		if(!isLoaded){
-			File file = new File("./resources/levels/" + fileName + ".dat");
-			Scanner sc = null;
-			try{
-				sc = new Scanner(file);
-			}catch(FileNotFoundException e){
-				e.printStackTrace();
+		this.fileName = fileName;
+		clear();
+		File file = new File("./resources/levels/" + fileName + ".dat");
+		Scanner sc = null;
+		try{
+			sc = new Scanner(file);
+		}catch(FileNotFoundException e){
+			e.printStackTrace();
+		}
+
+		int rows = sc.nextInt();
+		int cols = sc.nextInt();
+
+		tiles = new int[rows][cols];
+		tilemap = new Tile[rows][cols];
+
+		//assigns number to a 2d array based of level loaded
+		for(int row = 0; row < rows; row++){
+			String s = sc.next();
+			for(int col = 0; col < cols; col++){
+				char num = s.charAt(col);
+				tiles[row][col] = Integer.parseInt(Character.toString(num));
 			}
-			
-			isLoaded = true;
-			int rows = sc.nextInt();
-			int cols = sc.nextInt();
+		}
+		sc.close();
 
-			tiles = new int[rows][cols];
-			tilemap = new Tile[rows][cols];
-
-			//assigns number to a 2d array based of level loaded
-			for(int row = 0; row < rows; row++){
-				String s = sc.next();
-				for(int col = 0; col < cols; col++){
-					char num = s.charAt(col);
-					tiles[row][col] = Integer.parseInt(Character.toString(num));
+		//depending on numbers in array, updates
+		//2D array of tiles, sprites or entites(Mobs)
+		for(int row = 0; row < tiles.length; row++){
+			for(int col = 0; col < tiles[row].length; col++){
+				if(tilemap[row][col] != null)
+					tilemap[row][col].setSolid(false);
+				switch(tiles[row][col]){
+				case 0: 
+					break;
+				case 1: 
+					tilemap[row][col] = new Tile(col * 64, row * 64, dirtSprite, true);
+					break;
+				case 2:
+					player = new Player(col * 64, row * 64);
+					break;
+				case 3:
+					entities.add(new Enemy(col * 64, row * 64));
+					break;
+				case 4:
+					endTile = new Tile(col * 64, row * 64, rockSprite, true);
+					tilemap[row][col] = endTile;
 				}
 			}
-			
-			//depending on numbers in array, updates
-			//2D array of tiles, sprites or entites(Mobs)
-			for(int row = 0; row < tiles.length; row++){
-				for(int col = 0; col < tiles[row].length; col++){
-					switch(tiles[row][col]){
-					case 0: 
-						break;
-					case 1: 
-						tilemap[row][col] = new Tile(col * 64, row * 64, dirtSprite);
-						break;
-					case 2:
-						player = new Player(col * 64, row * 64);
-						break;
-					case 3:
-						entities.add(new Enemy(col * 64, row * 64));
-					}
-				}
-			}
-		//if a file is loaded clear it and load again;
-		}else{
-			clear();
-			isLoaded = false;	
-			load(fileName);
 		}
 	}//load
 
@@ -119,7 +128,8 @@ public class TileMap {
 				}
 			}
 			for(int i = 0; i < entities.size(); i++)
-				entities.get(i).render(g);
+				if(entities.size() != 0)
+					entities.get(i).render(g);
 			player.render(g);
 		}else
 			JOptionPane.showMessageDialog(null, "TileMap Error!");
@@ -149,10 +159,13 @@ public class TileMap {
 	 * 
 	 */
 	public void clear(){
+		Tile.tiles.clear();
 		tiles = null;
 		tilemap = null;
-		sprites.clear();
-		entities.clear();
+		if(!entities.isEmpty()){
+			sprites.clear();
+			entities.clear();
+		}
 	}//clear
 
 	/**
@@ -162,7 +175,7 @@ public class TileMap {
 	public ArrayList<Mob> entityList(){
 		return entities;
 	}//Entities
-	
+
 	/**
 	 * @param x
 	 * @return

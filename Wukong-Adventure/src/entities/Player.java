@@ -18,7 +18,7 @@ import input.KeyInput;
 public class Player extends Mob{
 
 	protected static boolean canJump;
-	protected double speed = 0.35;
+	protected double speed = 0.3;
 	protected double maxSpeed = 3.5;
 	protected boolean facingRight;
 	private Rectangle2D recAttackBox;
