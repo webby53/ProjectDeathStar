@@ -22,6 +22,7 @@ public class TileMap {
 	public Player player;	
 	private SpriteSheet sheet;
 	private Sprite dirtSprite;
+	private Sprite groundSprite;
 	private Sprite rockSprite;
 	private static ArrayList<Mob> entities;
 	private static ArrayList<Sprite> sprites;
@@ -40,6 +41,7 @@ public class TileMap {
 		Texture tex = new Texture("SpriteCell(4x4)");
 		sheet = new SpriteSheet(tex, 64);
 		dirtSprite = new Sprite(sheet, 1, 1);
+		groundSprite = new Sprite(sheet, 3, 1);
 		rockSprite = new Sprite(sheet, 1, 3);
 		load();
 	}//constructor
@@ -114,7 +116,7 @@ public class TileMap {
 					tilemap[row][col] = new Tile(col * 64, row * 64, dirtSprite, true);
 					break;
 				case 6:
-					tilemap[row][col] = new Tile(col * 64, row * 64, dirtSprite, false);
+					tilemap[row][col] = new Tile(col * 64, row * 64, groundSprite, false);
 					break;
 				}
 			}
