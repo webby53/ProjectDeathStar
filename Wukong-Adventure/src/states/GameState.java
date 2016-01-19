@@ -57,12 +57,14 @@ public class GameState implements State{
 			Game.INSTANCE.setFocusable(true);
 			tileMap.load("level1");
 			stateManager.setState("menu");
+			return;
 		}
-			if(tileMap.player.isCollided(tileMap.entityList())){
-				JOptionPane.showMessageDialog(null, "An enemy has killed you. You will now be sent back to the menu"); Game.INSTANCE.setFocusable(true);
-				tileMap.load("level1");
-				stateManager.setState("menu");
-			}
+		if(tileMap.player.isCollided(tileMap.entityList())){
+			JOptionPane.showMessageDialog(null, "An enemy has killed you. You will now be sent back to the menu"); Game.INSTANCE.setFocusable(true);
+			tileMap.load("level1");
+			stateManager.setState("menu");
+			return;
+		}
 		//checks if a player atacks an enemy
 		int enemyNum = tileMap.player.isAttacking(tileMap.entityList());
 		if(enemyNum != -1){
@@ -94,7 +96,6 @@ public class GameState implements State{
 			select(stateManager);
 
 		cam.tick();
-		bg.update();
 		if(tileMap.endTile.isTouched(tileMap.player)){
 			tileMap.load("level2");	
 			enter();

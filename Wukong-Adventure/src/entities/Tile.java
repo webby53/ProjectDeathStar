@@ -7,25 +7,15 @@ package entities;
 
 import Rendering.Sprite;
 import states.GameState;
-
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.IdentityHashMap;
-import java.util.Map;
-
 
 public class Tile extends Entity{
 	public static ArrayList<Tile> tiles = new ArrayList<Tile>();
 	protected double x, y;
-<<<<<<< HEAD
 	protected boolean solid;
-
-	public Tile(double x, double y, Sprite sprite, boolean solid) {
-=======
 	
 	/**Constructor
 	 * 
@@ -33,8 +23,7 @@ public class Tile extends Entity{
 	 * @param y
 	 * @param sprite
 	 */
-	public Tile(double x, double y, Sprite sprite) {
->>>>>>> 73442b4... UPDATE Javadoc the classes within the entities package
+	public Tile(double x, double y, Sprite sprite, boolean solid) {
 		super(x, y, sprite);
 		this.solid = solid;
 		this.x = x;
