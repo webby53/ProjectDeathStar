@@ -13,7 +13,7 @@ public class Camera {
 
 	public Camera(Mob player){
 		this.x = player.getX();
-		startX = x + 400;
+		startX = x + 250;
 		//this.y = y;
 		//startY = y;
 		this.player = (Player)player;

@@ -41,7 +41,7 @@ public class MenuState implements State{
 		buttons.add(new Button("PLAY", new Font("Ariel", Font.CENTER_BASELINE, 35), new Font("Ariel", Font.CENTER_BASELINE, 45),
 				Color.BLACK, Color.BLUE, 100 + 50));
 		buttons.add(new Button("HELP", new Font("Ariel", Font.ITALIC, 35), new Font("Ariel", Font.ITALIC, 45),
-				Color.BLACK, Color.RED, 200 + 50));
+				Color.BLACK, Color.GREEN, 200 + 50));
 		buttons.add(new Button("OPTIONS", new Font("Ariel", Font.ITALIC, 35), new Font("Ariel", Font.ITALIC, 45),
 				Color.BLACK, Color.RED, 300 + 50));
 		buttons.add(new Button("EXIT", new Font("Ariel", Font.CENTER_BASELINE, 35), new Font("Ariel", Font.CENTER_BASELINE, 45),
