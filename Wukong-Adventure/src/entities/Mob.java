@@ -91,6 +91,7 @@ public abstract class Mob extends Entity{
 					x += dx;
 					y = Tile.tiles.get(i).recTop.getY() - 64;
 					Player.canJump = true;
+					Player.gliding = 0;
 					falling = false;
 				}else
 					falling = true;

@@ -25,17 +25,19 @@ public class Player extends Mob{
 	protected static boolean canJump;
 	protected double speed = 0.3;
 	protected double maxSpeed = 3.5;
+	protected static int gliding = 0;
 	protected boolean facingRight;
 	private Rectangle2D recAttackBox;
 	private boolean attacking = false;
 	private ArrayList<Sprite> rightAnimate,
-	leftAnimate, standAnimate,
-	jumpAnimate, attackAnimate;
+	leftAnimate, standRightAnimate, standLeftAnimate,
+	jumpRightAnimate, attackRightAnimate,attackLeftAnimate,
+	jumpLeftAnimate;
 	private Animation current;
 	private Texture charTextures = new Texture("wukong sheet");
 	private SpriteSheet charSheet = new SpriteSheet(charTextures, 64);
 
-	/**Constructor with a default attack rectangle and only a sprite
+	/**Constructor with only a sprite
 	 * 
 	 * @param x
 	 * @param y
@@ -43,7 +45,6 @@ public class Player extends Mob{
 	 */
 	public Player(double x, double y, Sprite sprite) {
 		super(x, y, sprite);
-		recAttackBox = new Rectangle((int)x, (int)y + 16, this.getHeight() + 22, this.getWidth() - 32);
 	}
 
 	/**Constructor with a no default attack rectangle and animations
@@ -80,25 +81,42 @@ public class Player extends Mob{
 		leftAnimate.add(new Sprite(charSheet, 4, 4));
 		leftAnimate.add(new Sprite(charSheet, 5, 4));
 		//standing
-		standAnimate = new ArrayList<Sprite>();
-		standAnimate.add(new Sprite(charSheet, 1, 5));
-		standAnimate.add(new Sprite(charSheet, 2, 5));
-		standAnimate.add(new Sprite(charSheet, 3, 5));
-		standAnimate.add(new Sprite(charSheet, 4, 5));
-		//attacking
-		attackAnimate = new ArrayList<Sprite>();
-		attackAnimate.add(new Sprite(charSheet, 1, 2));
-		attackAnimate.add(new Sprite(charSheet, 2, 2));
-		attackAnimate.add(new Sprite(charSheet, 3, 2));
-		attackAnimate.add(new Sprite(charSheet, 4, 2));
-		attackAnimate.add(new Sprite(charSheet, 4, 2));
-		attackAnimate.add(new Sprite(charSheet, 1, 2));
-		attackAnimate.add(new Sprite(charSheet, 2, 2));
-		attackAnimate.add(new Sprite(charSheet, 3, 2));
-		attackAnimate.add(new Sprite(charSheet, 4, 2));
-		attackAnimate.add(new Sprite(charSheet, 4, 2));
+		standRightAnimate = new ArrayList<Sprite>();
+		standRightAnimate.add(new Sprite(charSheet, 1, 6));
+		standRightAnimate.add(new Sprite(charSheet, 2, 6));
+		standLeftAnimate = new ArrayList<Sprite>();
+		standLeftAnimate.add(new Sprite(charSheet, 1, 7));
+		standLeftAnimate.add(new Sprite(charSheet, 2, 7));
 
-		current = new Animation(9, standAnimate);
+		//attacking
+		attackRightAnimate = new ArrayList<Sprite>();
+		attackRightAnimate.add(new Sprite(charSheet, 1, 2));
+		attackRightAnimate.add(new Sprite(charSheet, 2, 2));
+		attackRightAnimate.add(new Sprite(charSheet, 3, 2));
+		attackRightAnimate.add(new Sprite(charSheet, 4, 2));
+		attackRightAnimate.add(new Sprite(charSheet, 5, 2));
+		attackLeftAnimate = new ArrayList<Sprite>();
+		attackLeftAnimate.add(new Sprite(charSheet, 1, 11));
+		attackLeftAnimate.add(new Sprite(charSheet, 2, 11));
+		attackLeftAnimate.add(new Sprite(charSheet, 3, 11));
+		attackLeftAnimate.add(new Sprite(charSheet, 4, 11));
+		attackLeftAnimate.add(new Sprite(charSheet, 5, 11));
+		//jumping
+		jumpLeftAnimate = new ArrayList<Sprite>();
+		jumpLeftAnimate.add(new Sprite(charSheet, 1, 10));
+		jumpLeftAnimate.add(new Sprite(charSheet, 2, 10));
+		jumpLeftAnimate.add(new Sprite(charSheet, 3, 10));
+		jumpLeftAnimate.add(new Sprite(charSheet, 4, 10));
+		jumpLeftAnimate.add(new Sprite(charSheet, 5, 10));
+		jumpRightAnimate = new ArrayList<Sprite>();
+		jumpRightAnimate.add(new Sprite(charSheet, 1, 3));
+		jumpRightAnimate.add(new Sprite(charSheet, 2, 3));
+		jumpRightAnimate.add(new Sprite(charSheet, 3, 3));
+		jumpRightAnimate.add(new Sprite(charSheet, 4, 3));
+		jumpRightAnimate.add(new Sprite(charSheet, 5, 3));
+
+		current = new Animation(12, standRightAnimate);
+		facingRight = true;
 		current.start();
 	}
 
@@ -109,7 +127,10 @@ public class Player extends Mob{
 		current.run();
 		this.sprite = current.getFrame();
 		if(dx == 0 && !attacking && canJump)
-			current.setAnimation(standAnimate);
+			if(facingRight)
+				current.setAnimation(standRightAnimate);
+			else
+				current.setAnimation(standLeftAnimate);
 		attacking = false;
 
 		//Corrects the facing of the attack box
@@ -135,12 +156,23 @@ public class Player extends Mob{
 		}
 		if(KeyInput.isKeyDown(KeyEvent.VK_W)|| KeyInput.isKeyDown(KeyEvent.VK_UP)){
 			jump();
+			if(facingRight)
+				current.setAnimation(jumpRightAnimate);
+			else
+				current.setAnimation(jumpLeftAnimate);
 		}
 		if(KeyInput.isKeyDown(KeyEvent.VK_S)|| KeyInput.isKeyDown(KeyEvent.VK_DOWN)){
-			dy = 0;
+			if(gliding <= 200){
+				dy = 0;
+				gliding += 1;
+			}
+			
 		}
 		if(KeyInput.isKeyDown(KeyEvent.VK_SPACE)){
-			current.setAnimation(attackAnimate);
+			if(facingRight)
+				current.setAnimation(attackRightAnimate);
+			else
+				current.setAnimation(attackLeftAnimate);
 			attacking = true;
 			try {
 				Thread.sleep(10);
