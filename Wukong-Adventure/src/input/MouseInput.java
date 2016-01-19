@@ -17,18 +17,27 @@ public class MouseInput extends MouseAdapter{
 	private static int lastx = x, lasty = y;
 	private static boolean moving;
 	
-	/**
-	 * 
+	/**Registers if a mouse event occurred and record the event
+	 * @param e
 	 */
 	public void mousePressed(MouseEvent e) {
 		buttons[e.getButton()] = true;
 	}
+	/**Registers when the mouse pressed event ends and recored the end of the event
+	 * @param e
+	 */
 	public void mouseReleased(MouseEvent e) {
         buttons[e.getButton()] = false;
 	}
+	/**Empty
+	 * 
+	 */
 	public void mouseDragged(MouseEvent e) {
 		
 	}
+	/**Registers the location of the mouse when it moves
+	 * @param e
+	 */
 	public void mouseMoved(MouseEvent e) {
 		x = e.getX();
 		y = e.getY();
@@ -36,12 +45,27 @@ public class MouseInput extends MouseAdapter{
 		moving = true;
 	}
 	
+	/**Checks if the button in question is being pressed
+	 * 
+	 * @param button
+	 * @return
+	 */
 	public static boolean isDown(int button){
 		return buttons[button];
 	}
+	/**Checks if the button in question was pressed at some point
+	 * 
+	 * @param button
+	 * @return Boolean that represents if the button in question was released at some point
+	 */
 	public static boolean wasPressed(int button){
 		return isDown(button) && !lastButtons[button];
 	}
+	/**Checks if the button in question was released at some point
+	 * 
+	 * @param button
+	 * @return Boolean that represents if the button was released
+	 */
 	public static boolean wasReleased(int button){
 		return !isDown(button) && lastButtons[button];
 	}
