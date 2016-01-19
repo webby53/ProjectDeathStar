@@ -12,7 +12,9 @@ public class MouseInput extends MouseAdapter{
 	private static int lastx = x, lasty = y;
 	private static boolean moving;
 	
-	
+	/**
+	 * 
+	 */
 	public void mousePressed(MouseEvent e) {
 		buttons[e.getButton()] = true;
 	}

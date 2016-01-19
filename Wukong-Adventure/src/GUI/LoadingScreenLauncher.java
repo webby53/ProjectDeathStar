@@ -1,11 +1,19 @@
 package GUI;
 
+/**@author Joshua Prpic, Kishon Webb, Simon Yacoub
+ * @version 7.5
+ * @since 2016-01-19
+ */ 
+
 import Rendering.Texture;
 
 public class LoadingScreenLauncher {
 
 	LoadingScreen load;
 
+	/**Constructor default
+	 *  
+	 */
 	public LoadingScreenLauncher(){
 		load = new LoadingScreen(new Texture("sky"));
 		load.setLocationRelativeTo(null);

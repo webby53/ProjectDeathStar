@@ -1,5 +1,10 @@
 package GUI;
 
+/**@author Joshua Prpic, Kishon Webb, Simon Yacoub
+ * @version 7.5
+ * @since 2016-01-19
+ */ 
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -21,6 +26,15 @@ public class Button extends Rectangle{
 	private int texty;//y value of where to draw string since text strings are drawn in lower left rather than top left
 	private boolean isSelected;
 	
+	/**Constructor default
+	 * 
+	 * @param text
+	 * @param currentFont
+	 * @param selectedFont
+	 * @param currentColor
+	 * @param selectedColor
+	 * @param texty
+	 */
 	public Button(String text, Font currentFont, Font selectedFont, Color currentColor, Color selectedColor,
 			int texty) {
 		super();
@@ -31,6 +45,17 @@ public class Button extends Rectangle{
 		this.selectedColor = selectedColor;
 		this.texty = texty;
 	}
+	
+	/**Constructor with adjustable placement
+	 * 
+	 * @param text
+	 * @param currentFont
+	 * @param selectedFont
+	 * @param currentColor
+	 * @param selectedColor
+	 * @param texty
+	 * @param x
+	 */
 	public Button(String text, Font currentFont, Font selectedFont, Color currentColor, Color selectedColor,
 			int texty, int x) {
 		super();
@@ -42,11 +67,17 @@ public class Button extends Rectangle{
 		this.texty = texty;
 	}
 	
-	//this is to set if a button is being selected
+	/**This method is to set if a button is being selected
+	 * 
+	 * @param selected
+	 */
 	public void setSelected(boolean selected){
 		isSelected = selected;
 	}
-	//button rendering
+	/**Button rendering
+	 * 
+	 * @param g
+	 */
 	public void render(Graphics2D g){
 		//draws the text first and bold if they are selected (and changes color)
 		if(isSelected)
@@ -65,6 +96,12 @@ public class Button extends Rectangle{
 		this.width = fm.stringWidth(text);
 		//draws the text first and bold if they are selected (and changes color)
 	}
+	
+	/**Renders the button at a specified x coordinate
+	 * 
+	 * @param g
+	 * @param x
+	 */
 	public void render(Graphics2D g, int x){
 		//draws the text first and bold if they are selected (and changes color)
 		this.x = x;
