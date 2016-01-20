@@ -177,7 +177,7 @@ public class GameState implements State{
 				buttons.get(i).render(g, Game.WIDTH - 110);
 			}		
 		}
-
+		//DrawString.drawStringCenterV(g, "Score: " + tileMap.player.level * 25);
 	}//render
 
 	/**Clears the game when killed, or returning to the menu

@@ -171,9 +171,9 @@ public class Player extends Mob{
 				current.setAnimation(jumpLeftAnimate);
 		}
 		if(KeyInput.isKeyDown(KeyEvent.VK_S)|| KeyInput.isKeyDown(KeyEvent.VK_DOWN)){
-			if(gliding <= 10 + level * 0.8){
-				if(gliding <= 10 + level / 4)
-					dy = -3;
+			if(gliding <= 50){
+				if(gliding <= 5)
+					dy = -2;
 				else
 					dy = 0;
 				gliding += 1;
@@ -243,7 +243,7 @@ public class Player extends Mob{
 		if(canJump){
 			collisionCheck();
 			x += dx;
-			dy = -11.5;
+			dy = -8;
 			canJump = false;
 			falling = true;
 		}
