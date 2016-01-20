@@ -109,8 +109,8 @@ public class TileMap {
 					entities.add(new Enemy(col * 64, row * 64));
 					break;
 				case 4:
-					endTile = new Tile(col * 64, row * 64, rockSprite, true);
-					tilemap[row][col] = endTile;
+					tilemap[row][col] = new Tile(col * 64, row * 64, rockSprite, true);
+					 endTile = tilemap[row][col];
 					break;
 				case 5:
 					tilemap[row][col] = new Tile(col * 64, row * 64,groundSprite, true);

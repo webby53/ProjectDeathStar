@@ -10,14 +10,9 @@ public class Animation implements Runnable {
 	private boolean running;
 	private int current; 
 	private long speed;
-	
-	private Texture charTextures = new Texture("wukong sheet");
-	private SpriteSheet charSheet = new SpriteSheet(charTextures, 64);
-	
-	private Sprite sprite1, sprite2, sprite3, sprite4, sprite5;
+		
 
 	/**Constructor
-	 * 
 	 * @param speed
 	 * @param frames
 	 */
@@ -26,7 +21,7 @@ public class Animation implements Runnable {
 		this.speed = speed * 10;
 	}//constructor
 	
-	/**
+	/**changes the current frame when current thread time is equal to rendering thread
 	 * 
 	 */
 	public void run(){
@@ -42,7 +37,10 @@ public class Animation implements Runnable {
 			}catch(InterruptedException e){}
 		}
 	}//run
-
+	
+	/**Starts the running thread
+	 * 
+	 */
 	public void start(){
 		if(!running){
 			running = true;
@@ -51,6 +49,9 @@ public class Animation implements Runnable {
 		}
 	}//start
 	
+	/**Stops running thread
+	 * 
+	 */
 	public void stop(){
 		if(running){
 			run = null;
@@ -58,22 +59,38 @@ public class Animation implements Runnable {
 		}
 	}//stop
 
+	/**Sets current frame
+	 * @param x
+	 */
 	public void setFrame(int x){
 		current = x;
 	}
 	
+	/**Sets frame list (Array list of frames)
+	 * @param frames
+	 */
 	public void setAnimation(ArrayList<Sprite> frames){
 		this.frames = frames;
 	}
+	
+	/**Sets speed
+	 * @param x
+	 */
 	public void setSpeed(int x){
 		speed = x;
 	}
 	
+	/**Gets current frame
+	 * @return sprite
+	 */
 	public Sprite getFrame(){
 		return sprite;
 	}//getFrame
 	
-	public void addFrame(Sprite temp){
-		frames.add(temp);
+	/**Adds a frame
+	 * @param sprite
+	 */
+	public void addFrame(Sprite sprite){
+		frames.add(sprite);
 	}
 }//Animation
