@@ -42,10 +42,10 @@ public class Enemy extends Mob{
 		super(x, y);
 		
 		frames = new ArrayList<Sprite>();
-		frames.add(new Sprite(charSheet, 1, 5));
-		frames.add(new Sprite(charSheet, 2, 5));
-		frames.add(new Sprite(charSheet, 3, 5));
-		frames.add(new Sprite(charSheet, 4, 5));
+		frames.add(new Sprite(charSheet, 1, 8));
+		frames.add(new Sprite(charSheet, 2, 8));
+		frames.add(new Sprite(charSheet, 3, 8));
+		frames.add(new Sprite(charSheet, 4, 8));
 		death = new ArrayList<Sprite>();
 		death.add(new Sprite(charSheet, 1, 9));
 		death.add(new Sprite(charSheet, 2, 9));
