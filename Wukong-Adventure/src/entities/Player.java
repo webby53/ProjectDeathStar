@@ -171,16 +171,19 @@ public class Player extends Mob{
 				current.setAnimation(jumpLeftAnimate);
 		}
 		if(KeyInput.isKeyDown(KeyEvent.VK_S)|| KeyInput.isKeyDown(KeyEvent.VK_DOWN)){
-			if(gliding <= 5 + level * 10){
-				dy = 0;
+			if(gliding <= 10 + level * 15){
+				if(gliding <= 10 + level / 4)
+					dy = -3;
+				else
+					dy = 0;
 				gliding += 1;
 				if(facingRight){
 					current.setAnimation(flyRightAnimate);
-					dx += 0.1 + level / 200;
+					dx += 0.1;
 				}
 				else{
 					current.setAnimation(flyLeftAnimate);
-					dx -= 0.1 + level / 200;
+					dx -= 0.1;
 				}
 			}
 		}
