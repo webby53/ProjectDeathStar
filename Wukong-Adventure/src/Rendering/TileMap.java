@@ -110,7 +110,8 @@ public class TileMap {
 					break;
 				case 4:
 					tilemap[row][col] = new Tile(col * 64, row * 64, rockSprite, true);
-					 endTile = tilemap[row][col];
+					endTile = tilemap[row][col];
+					endTile.setSolid(true);
 					break;
 				case 5:
 					tilemap[row][col] = new Tile(col * 64, row * 64,groundSprite, true);
@@ -175,6 +176,8 @@ public class TileMap {
 			sprites.clear();
 			entities.clear();
 		}
+		if(endTile != null)
+			endTile.setSolid(false);
 	}//clear
 
 	/**
