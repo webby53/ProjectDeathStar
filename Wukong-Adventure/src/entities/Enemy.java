@@ -76,7 +76,7 @@ public class Enemy extends Mob{
 	 */
 	public void collisionCheck(){
 		for(int i = 0; i < Tile.tiles.size(); i++){
-			if(getBounds().intersects(Tile.tiles.get(i).recLeft) && dx > 0){
+			if(Tile.tiles.get(i).isTouchedLeft(this)&& dx > 0){
 				dx = 0;
 				x -= 0.7;
 				dx = -0.25 * speed;

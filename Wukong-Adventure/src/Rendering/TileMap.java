@@ -28,11 +28,12 @@ public class TileMap {
 	private static ArrayList<Sprite> sprites;
 
 	public String fileName;
-	public Tile endTile;
+	public Tile endTile1, endTile2, endTile3;
 	private int tiles[][];
 	private Tile tilemap[][];
 
 	/**Constructor
+	 * 
 	 */
 	public TileMap(String fileName){
 		this.fileName = fileName;
@@ -47,6 +48,7 @@ public class TileMap {
 	}//constructor
 
 	/**Tick
+	 * 
 	 */
 	public void tick(){
 		player.tick();
@@ -110,8 +112,8 @@ public class TileMap {
 					break;
 				case 4:
 					tilemap[row][col] = new Tile(col * 64, row * 64, rockSprite, true);
-					endTile = tilemap[row][col];
-					endTile.setSolid(true);
+					endTile1 = tilemap[row][col];
+					endTile1.setSolid(true);
 					break;
 				case 5:
 					tilemap[row][col] = new Tile(col * 64, row * 64,groundSprite, true);
@@ -122,8 +124,8 @@ public class TileMap {
 
 				case 7:
 					tilemap[row][col] = new Tile(col * 64, row * 64, rockSprite, true);
-					endTile = tilemap[row][col];
-					endTile.setSolid(true);
+					endTile2 = tilemap[row][col];
+					endTile2.setSolid(true);
 				}
 			}
 		}
@@ -181,8 +183,8 @@ public class TileMap {
 			sprites.clear();
 			entities.clear();
 		}
-		if(endTile != null)
-			endTile.setSolid(false);
+		if(endTile1 != null)
+			endTile1.setSolid(false);
 	}//clear
 
 	/**

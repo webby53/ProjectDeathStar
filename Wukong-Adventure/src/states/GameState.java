@@ -111,12 +111,17 @@ public class GameState implements State{
 			select(stateManager);
 
 		cam.tick();
-		if(tileMap.endTile.isTouched(tileMap.player)){
-			if(tileMap.fileName == "level1")
-				tileMap.load("level2");	
+		if(tileMap.endTile1.isTouched(tileMap.player)){
+			tileMap.load("level2");	
 			enter();
 			return;
 		}
+		if(tileMap.fileName == "level2")
+			if(tileMap.endTile2.isTouched(tileMap.player)){
+				tileMap.load("level3");	
+				enter();
+				return;
+			}
 	}//tick
 
 	/**Determines which button in the debugging menu is clicked

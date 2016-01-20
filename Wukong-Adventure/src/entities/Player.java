@@ -171,7 +171,7 @@ public class Player extends Mob{
 				current.setAnimation(jumpLeftAnimate);
 		}
 		if(KeyInput.isKeyDown(KeyEvent.VK_S)|| KeyInput.isKeyDown(KeyEvent.VK_DOWN)){
-			if(gliding <= 10 + level * 15){
+			if(gliding <= 10 + level * 0.8){
 				if(gliding <= 10 + level / 4)
 					dy = -3;
 				else

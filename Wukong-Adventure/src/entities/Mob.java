@@ -18,7 +18,7 @@ public abstract class Mob extends Entity{
 
 	protected double dx, dy;
 	protected boolean collision;
-	protected double gravity = 0.45;
+	protected double gravity = 0.5;
 	protected double terminalV = 13;
 	protected double friction = 0.18;
 	private int life = 3;
