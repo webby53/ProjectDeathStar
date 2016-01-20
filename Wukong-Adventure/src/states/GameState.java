@@ -124,6 +124,9 @@ public class GameState implements State{
 	public void select(StateManager stateManager){
 		switch(currentSelection){
 		case 0: stateManager.setState("Menu");
+		cam = new Camera(tileMap.player);
+		cam.setX(tileMap.player.getX());
+		cam.updateCamera();
 		break;
 		case 1:
 			if(debugging)
