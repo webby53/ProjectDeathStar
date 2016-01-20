@@ -7,7 +7,6 @@ package entities;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
-
 import entities.Tile;
 import Rendering.Animation;
 import Rendering.Sprite;
@@ -21,6 +20,8 @@ public class Enemy extends Mob{
 	private Animation animate;
 	private Texture charTextures = new Texture("wukong sheet");
 	private SpriteSheet charSheet = new SpriteSheet(charTextures, 64);
+	ArrayList<Sprite> frames;
+	ArrayList<Sprite> death;
 	
 	/**Constructor
 	 * 
@@ -40,11 +41,16 @@ public class Enemy extends Mob{
 	public Enemy(double x, double y) {
 		super(x, y);
 		
-		ArrayList<Sprite> frames = new ArrayList<Sprite>();
+		frames = new ArrayList<Sprite>();
 		frames.add(new Sprite(charSheet, 1, 5));
 		frames.add(new Sprite(charSheet, 2, 5));
 		frames.add(new Sprite(charSheet, 3, 5));
 		frames.add(new Sprite(charSheet, 4, 5));
+		death = new ArrayList<Sprite>();
+		death.add(new Sprite(charSheet, 1, 9));
+		death.add(new Sprite(charSheet, 2, 9));
+		death.add(new Sprite(charSheet, 3, 9));
+		death.add(new Sprite(charSheet, 4, 9));
 		
 		animate = new Animation(20, frames);
 		animate.start();
@@ -54,11 +60,9 @@ public class Enemy extends Mob{
 	 * 
 	 */
 	public void tick(){
-		//if(!dead){
 		animate.run();
 		this.sprite = animate.getFrame();
 		super.tick();
-		//}
 	}
 	
 	/**Creates the rectangle which is the hit box all enemies
@@ -107,6 +111,13 @@ public class Enemy extends Mob{
 		collisionCheck();
 	}//move
 	
-	
+	/**Kills enemy
+	 * 
+	 */
+	public void die(){
+		animate.setAnimation(death);
+		animate.setSpeed(2);
+		this.setDead(true);
+	}
 	
 }

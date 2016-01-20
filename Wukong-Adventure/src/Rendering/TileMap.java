@@ -27,7 +27,7 @@ public class TileMap {
 	private static ArrayList<Mob> entities;
 	private static ArrayList<Sprite> sprites;
 
-	private String fileName;
+	public String fileName;
 	public Tile endTile;
 	private int tiles[][];
 	private Tile tilemap[][];
@@ -42,7 +42,7 @@ public class TileMap {
 		sheet = new SpriteSheet(tex, 64);
 		dirtSprite = new Sprite(sheet, 1, 1);
 		groundSprite = new Sprite(sheet, 3, 1);
-		rockSprite = new Sprite(sheet, 1, 3);
+		rockSprite = new Sprite(sheet, 2, 3);
 		load();
 	}//constructor
 
@@ -119,6 +119,11 @@ public class TileMap {
 				case 6:
 					tilemap[row][col] = new Tile(col * 64, row * 64, groundSprite, false);
 					break;
+
+				case 7:
+					tilemap[row][col] = new Tile(col * 64, row * 64, rockSprite, true);
+					endTile = tilemap[row][col];
+					endTile.setSolid(true);
 				}
 			}
 		}

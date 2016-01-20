@@ -11,7 +11,6 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-
 import Main.Game;
 import states.GameState;
 import Rendering.Animation;
@@ -25,6 +24,7 @@ public class Player extends Mob{
 	protected static boolean canJump;
 	protected double speed = 0.3;
 	protected double maxSpeed = 3.5;
+	public int level = 0;
 	protected static int gliding = 0;
 	protected boolean facingRight;
 	private Rectangle2D recAttackBox;
@@ -32,7 +32,7 @@ public class Player extends Mob{
 	private ArrayList<Sprite> rightAnimate,
 	leftAnimate, standRightAnimate, standLeftAnimate,
 	jumpRightAnimate, attackRightAnimate,attackLeftAnimate,
-	jumpLeftAnimate;
+	jumpLeftAnimate, flyRightAnimate, flyLeftAnimate;
 	private Animation current;
 	private Texture charTextures = new Texture("wukong sheet");
 	private SpriteSheet charSheet = new SpriteSheet(charTextures, 64);
@@ -114,6 +114,15 @@ public class Player extends Mob{
 		jumpRightAnimate.add(new Sprite(charSheet, 3, 3));
 		jumpRightAnimate.add(new Sprite(charSheet, 4, 3));
 		jumpRightAnimate.add(new Sprite(charSheet, 5, 3));
+		//gliding
+		flyLeftAnimate = new ArrayList<Sprite>();
+		flyRightAnimate = new ArrayList<Sprite>();
+		flyLeftAnimate.add(new Sprite(charSheet, 1, 13));
+		flyLeftAnimate.add(new Sprite(charSheet, 2, 13));
+		flyLeftAnimate.add(new Sprite(charSheet, 3, 13));
+		flyRightAnimate.add(new Sprite(charSheet, 1, 12));
+		flyRightAnimate.add(new Sprite(charSheet, 2, 12));
+		flyRightAnimate.add(new Sprite(charSheet, 3, 12));
 
 		current = new Animation(12, standRightAnimate);
 		facingRight = true;
@@ -162,11 +171,18 @@ public class Player extends Mob{
 				current.setAnimation(jumpLeftAnimate);
 		}
 		if(KeyInput.isKeyDown(KeyEvent.VK_S)|| KeyInput.isKeyDown(KeyEvent.VK_DOWN)){
-			if(gliding <= 200){
+			if(gliding <= 5 + level * 10){
 				dy = 0;
 				gliding += 1;
+				if(facingRight){
+					current.setAnimation(flyRightAnimate);
+					dx += 0.1 + level / 200;
+				}
+				else{
+					current.setAnimation(flyLeftAnimate);
+					dx -= 0.1 + level / 200;
+				}
 			}
-			
 		}
 		if(KeyInput.isKeyDown(KeyEvent.VK_SPACE)){
 			if(facingRight)
@@ -180,7 +196,7 @@ public class Player extends Mob{
 				e.printStackTrace();
 			}
 		}
-		
+
 		//////////Extra options//////////
 		if(KeyInput.isKeyDown(KeyEvent.VK_1)){
 			Game.INSTANCE.target = 40;

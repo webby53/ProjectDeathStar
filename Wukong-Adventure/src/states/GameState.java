@@ -39,7 +39,7 @@ public class GameState implements State{
 		bg.setCx(-0.6);
 		tileMap = new TileMap("level1");
 	}//init
-	
+
 	/**Method that runs each time the level is entered, refreshes the level after death
 	 * 
 	 */
@@ -82,13 +82,14 @@ public class GameState implements State{
 		//checks if a player atacks an enemy
 		int enemyNum = tileMap.player.isAttacking(tileMap.entityList());
 		if(enemyNum != -1){
+			if(tileMap.entity(enemyNum).getLife() <= 0){
+				((Enemy) tileMap.entity(enemyNum)).die();
+			}else	
+				tileMap.entity(enemyNum).takeLife(1);
 			if(tileMap.entity(enemyNum).isDead() == true){
 				tileMap.entityList().remove(enemyNum);
-			}else
-				if(tileMap.entity(enemyNum).getLife() <= 0)
-					tileMap.entity(enemyNum).setDead(true);
-				else	
-					tileMap.entity(enemyNum).takeLife(1);
+				tileMap.player.level += 2;
+			}
 		}
 		//mouse check
 		boolean isClicked = false;
@@ -111,7 +112,8 @@ public class GameState implements State{
 
 		cam.tick();
 		if(tileMap.endTile.isTouched(tileMap.player)){
-			tileMap.load("level2");	
+			if(tileMap.fileName == "level1")
+				tileMap.load("level2");	
 			enter();
 			return;
 		}
@@ -139,7 +141,7 @@ public class GameState implements State{
 		break;
 		}
 	}//select
-	
+
 	/**Renders the graphics of the game
 	 * 
 	 */

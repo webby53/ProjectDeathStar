@@ -8,7 +8,6 @@ package entities;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-
 import Rendering.Animation;
 import Rendering.Sprite;
 import states.GameState;
@@ -22,7 +21,7 @@ public abstract class Mob extends Entity{
 	protected double gravity = 0.45;
 	protected double terminalV = 13;
 	protected double friction = 0.15;
-	private int life = 4;
+	private int life = 3;
 	protected boolean falling = true;
 
 	/**Constructor with only sprites
@@ -68,7 +67,10 @@ public abstract class Mob extends Entity{
 	 * @return rectangle
 	 */
 	public Rectangle getBounds(){
-		return new Rectangle((int)x, (int)y, this.getHeight(), this.getWidth());
+		if(!dead)
+			return new Rectangle((int)x, (int)y, this.getHeight(), this.getWidth());
+		else
+			return null;
 	}//getBounds
 
 	/**checks all tiles if player is colliding with them

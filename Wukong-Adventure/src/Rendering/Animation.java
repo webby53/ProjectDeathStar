@@ -93,4 +93,10 @@ public class Animation implements Runnable {
 	public void addFrame(Sprite sprite){
 		frames.add(sprite);
 	}
+	/**Returns int value of current frame 
+	 * @return current
+	 */
+	public int getCurrent(){
+		return current;
+	}
 }//Animation
