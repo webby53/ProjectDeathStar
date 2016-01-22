@@ -158,6 +158,13 @@ public class Game extends Canvas implements Runnable{
 			//so some time after one second
 			//it ticks and increases tps
 			//and then resets unprocessed and canRender
+			if(fps > target)
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}			
 			if(unprocessed >= 1){
 				tick();
 				KeyInput.update();
@@ -174,7 +181,7 @@ public class Game extends Canvas implements Runnable{
 				fps++;
 			}
 			try{
-				Thread.sleep(4);
+				Thread.sleep(1);
 			}catch(InterruptedException e){}
 
 			//calculates how much ticks and frames have gone by

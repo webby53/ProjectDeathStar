@@ -25,7 +25,6 @@ public class GameState implements State{
 	private int currentSelection;
 	private Background bg = new Background("./resources/textures/Background.png", 10);
 	private Camera cam;
-	private String[] currentlevel;
 	private static TileMap tileMap;
 
 	/**Initializes the default variables in the game state
@@ -69,13 +68,13 @@ public class GameState implements State{
 		if(tileMap.player.isOffScreen()){
 			JOptionPane.showMessageDialog(null, "You have fallen to your death. You will now be sent back to the menu.");
 			Game.INSTANCE.setFocusable(true);
-			tileMap.load("level1");
+			tileMap.load(tileMap.fileName);
 			stateManager.setState("menu");
 			return;
 		}
 		if(tileMap.player.isCollided(tileMap.entityList())){
 			JOptionPane.showMessageDialog(null, "An enemy has killed you. You will now be sent back to the menu"); Game.INSTANCE.setFocusable(true);
-			tileMap.load("level1");
+			tileMap.load(tileMap.fileName);
 			stateManager.setState("menu");
 			return;
 		}
@@ -111,10 +110,12 @@ public class GameState implements State{
 			select(stateManager);
 
 		cam.tick();
-		if(tileMap.endTile1.isTouched(tileMap.player)){
-			tileMap.load("level2");	
-			enter();
-			return;
+		if(tileMap.fileName == "level1"){
+			if(tileMap.endTile1.isTouched(tileMap.player)){
+				tileMap.load("level2");	
+				enter();
+				return;
+			}
 		}
 		if(tileMap.fileName == "level2")
 			if(tileMap.endTile2.isTouched(tileMap.player)){
