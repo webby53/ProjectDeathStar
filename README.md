@@ -1,5 +1,6 @@
 # ProjectDeathStar
 The Death Star Above Brazil
+This is a simple 2D platformer with levels and animations develoled in java for  school project
 
 GAME DEMO COMPLETED!!!!
 
